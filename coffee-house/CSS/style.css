@@ -23,12 +23,18 @@ ol {
 }
 
 button {
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
   border: none;
   font: inherit;
   color: inherit;
   background-color: transparent;
   cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
 }
 
 h1 {
@@ -38,6 +44,11 @@ h1 {
   line-height: 105%;
 }
 
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 125%;
+}
 
 body {
   font-family: 'Inter', sans-serif;
@@ -60,6 +71,14 @@ body {
 .dedicated-text {
   font-style: italic;
   color: #B0907A;
+}
+
+.section-headline {
+  margin: 0 auto;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 125%;
+  text-align: center;
 }
 
 .button {
@@ -131,7 +150,7 @@ body {
   justify-content: center;
   align-items: center;
   column-gap: 8px;
-  padding: 18px 78px;
+  padding: 20px 78px;
   border-radius: 100px;
   background-color: #E1D4C9;
 }
@@ -147,6 +166,120 @@ body {
   opacity: 0;
   transition: 0.5s;
 }
+
+
+/* Favorite-coffee */
+
+.favorite-coffee-section {
+  width: 100%;
+  padding-top: 100px;
+}
+
+.slider-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.arrow-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-button-left {
+  margin-left: 1px;
+}
+
+.arrow-button-right {
+  margin-right: 1px;
+}
+
+.slider-window {
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.slider-line {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  left: 0;
+  transition: 2s;
+}
+
+.slide {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-image-container {
+  width: 480px;
+  height: 480px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.first-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-1.png");
+}
+
+.second-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-2.png");
+}
+
+.third-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-3.png");
+}
+
+.slider-description {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 16px;
+  text-align: center;
+}
+
+.slider-bar-container {
+  margin: 0 auto;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.progress-bar {
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+}
+
+.progress-bar.active {
+  background-color: #665F55;
+}
+
+
+
+
+
+
+
+
+
 
 @media (hover: hover) {
 

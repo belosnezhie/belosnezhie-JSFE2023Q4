@@ -54,16 +54,64 @@
                   <path d="M10.0003 7.50008C10.0003 6.66675 10.5956 5.83341 11.786 5.83341V5.83341C13.101 5.83341 14.167 4.76743 14.167 3.45246V2.91675" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M6.66634 7.5V7.08333C6.66634 5.70262 7.78563 4.58333 9.16634 4.58333V4.58333C10.0868 4.58333 10.833 3.83714 10.833 2.91667V2.5" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M13.333 9.16675H15.4163C16.5669 9.16675 17.4997 10.0995 17.4997 11.2501C17.4997 12.4007 16.5669 13.3334 15.4163 13.3334H14.1663" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </div>
-              </span>
+                </svg>
+              </div>
             </a>
           </div>
-        </div>
         </div>
       </div>
     </header>
     <main>
-      <section id="favorite-coffee"></section>
+      <section id="favorite-coffee" class="favorite-coffee-section">
+        <h2 class="section-headline">Choose your <span class="dedicated-text">favorite</span> coffee</h2>
+        <div class="slider-container">
+          <div class="arrow-button-container">
+            <button class="button arrow-button arrow-button-left">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="slider-window">
+            <div class="slider-line">
+              <div class="slide">
+                <div class="slider-image-container first-slider-image"></div>
+                <div class="slider-description">
+                  <h3>S&apos;mores Frappuccino</h3>
+                  <p>This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
+                  <h3>$5.50</h3>
+                </div>
+              </div>
+              <div class="slide hidden">
+                <div class="slider-image-container second-slider-image"></div>
+                <div class="slider-description">
+                  <h4>Caramel Macchiato</h4>
+                  <p>Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
+                  <h4>$5.00</h4>
+                </div>
+              </div>
+              <div class="slide hidden">
+                <div class="slider-image-container third-slider-image"></div>
+                <div class="slider-description">
+                  <h4>Ice coffee</h4>
+                  <p>A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
+                  <h4>$4.50</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="button arrow-button arrow-button-right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="slider-bar-container">
+          <div class="progress-bar active"></div>
+          <div class="progress-bar"></div>
+          <div class="progress-bar"></div>
+        </div>
+      </section>
       <section id="about"></section>
       <section id="mobile_app"></section>
       <section id="contacts"></section>
