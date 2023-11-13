@@ -75,10 +75,9 @@ body {
 
 .section-headline {
   margin: 0 auto;
-  font-size: 60px;
+  font-size: 59.9px;
   font-weight: 600;
   line-height: 125%;
-  text-align: center;
 }
 
 .button {
@@ -121,7 +120,9 @@ body {
   column-gap: 8px;
 }
 
-.hero {
+/* Welcome */
+
+.welcome {
   width: 100%;
   margin-top: 14px;
   border-radius: 40px;
@@ -173,6 +174,7 @@ body {
 .favorite-coffee-section {
   width: 100%;
   padding-top: 100px;
+  text-align: center;
 }
 
 .slider-container {
@@ -272,6 +274,53 @@ body {
   background-color: #665F55;
 }
 
+/* About */
+
+.about-section {
+  width: 100%;
+  padding-top: 100px;
+}
+
+.images-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.first-container,
+.second-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.large-image-window {
+  width: 660px;
+  height: 590px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.small-image-window {
+  width: 660px;
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.about-image {
+  transition: 0.5s;
+}
+
+
 
 
 
@@ -289,6 +338,10 @@ body {
 
   .menu-link-container-headline:hover .hidden-icone {
     opacity: 1;
+  }
+
+  .about-image:hover {
+    transform: scale(90%);
   }
 
 }
