@@ -50,6 +50,18 @@ h3 {
   line-height: 125%;
 }
 
+h5 {
+  margin: 0px;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%;
+}
+
+/* h5 {
+  margin: 0px;
+} */
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: #E1D4C9;
@@ -321,6 +333,51 @@ body {
 }
 
 
+/* Mobile-app-section */
+
+.mobile-app-section {
+  width: 100%;
+  padding-top: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 100px;
+}
+
+.offer-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.app-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  padding-bottom: 8px;
+}
+
+.button-app {
+  width: 200px;
+  display: flex;
+  column-gap: 8px;
+  padding: 12px 19px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+}
+
+.icone-button-container {
+  width: 36px;
+  height: 36px;
+}
+
+.button-text {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%;
+  text-align: left;
+}
 
 
 
