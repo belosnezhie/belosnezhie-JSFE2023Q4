@@ -402,10 +402,8 @@ body {
   transition: 0.5s;
 }
 
-
-.icone-button-container {
-  width: 36px;
-  height: 36px;
+.text-button-container {
+  display: grid;
 }
 
 .button-text {
