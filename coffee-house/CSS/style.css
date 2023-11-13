@@ -30,6 +30,7 @@ button {
   color: inherit;
   background-color: transparent;
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .hidden {
@@ -92,6 +93,22 @@ body {
   width: 200px;
 }
 
+.link {
+  position: relative;
+}
+
+.link::after {
+  display: block;
+  content: '';
+  height: 2px;
+  position: absolute;
+  content: '';
+  left: 0;
+  transform: scale(0);
+  transform-origin: center;
+  transition: 0.5s;
+}
+
 /* Header */
 
 .header-container {
@@ -126,6 +143,18 @@ body {
   justify-content: space-between;
   align-items: center;
   column-gap: 8px;
+}
+
+.nav-link::after {
+  bottom: -8px;
+  width: 100%;
+  background-color: rgba(64, 63, 61, 1);
+}
+
+.menu-link-container-nav::after {
+  bottom: 8px;
+  width: 100%;
+  background-color: rgba(64, 63, 61, 1);
 }
 
 /* Welcome */
@@ -201,6 +230,11 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.arrow-button svg {
+  stroke: #403F3D;
+  transition: 0.5s;
 }
 
 .arrow-button-left {
@@ -363,6 +397,12 @@ body {
   border: 1px solid #665F55;
 }
 
+.button-app svg {
+  fill: #403F3D;
+  transition: 0.5s;
+}
+
+
 .icone-button-container {
   width: 36px;
   height: 36px;
@@ -373,6 +413,7 @@ body {
   font-weight: 600;
   line-height: 140%;
   text-align: left;
+  /* transition: 0.5s; */
 }
 
 /* Footer */
@@ -412,6 +453,11 @@ body {
   border: 1px solid #C1B6AD;
 }
 
+.socials-button svg {
+  stroke: #E1D4C9;
+  transition: 0.5s;
+}
+
 .right-contacts-column {
   display: flex;
   flex-direction: column;
@@ -435,14 +481,17 @@ body {
 }
 
 
-
-
-
-
-
-
+.footer-link::after {
+  bottom: -4px;
+  width: 34%;
+  background-color: rgba(225, 212, 201, 1);
+}
 
 @media (hover: hover) {
+
+  .link:hover::after {
+    transform: scale(1);
+  }
 
   .menu-link-container-headline:hover .headline-link-text {
     transform: translate(0px);
@@ -452,8 +501,34 @@ body {
     opacity: 1;
   }
 
+  .arrow-button:hover {
+    background-color: rgba(102, 95, 85, 1);
+  }
+
+  .arrow-button:hover svg {
+    stroke: #E1D4C9;
+  }
+
   .about-image:hover {
     transform: scale(90%);
+  }
+
+  .button-app:hover {
+    color: rgba(225, 212, 201, 1);
+    background-color: #665F55;
+  }
+
+  .button-app:hover svg {
+    fill: rgba(225, 212, 201, 1);
+  }
+
+
+  .socials-button:hover {
+    background-color: #E1D4C9;
+  }
+
+  .socials-button:hover svg {
+    stroke: #403F3D;
   }
 
 }
