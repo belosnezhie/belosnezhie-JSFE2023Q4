@@ -58,10 +58,6 @@ h5 {
   line-height: 150%;
 }
 
-/* h5 {
-  margin: 0px;
-} */
-
 body {
   font-family: 'Inter', sans-serif;
   background-color: #E1D4C9;
@@ -377,6 +373,65 @@ body {
   font-weight: 600;
   line-height: 140%;
   text-align: left;
+}
+
+/* Footer */
+
+.contacts-section {
+  width: 100%;
+  margin-top: 92px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 103px;
+  padding: 100px;
+  border-radius: 40px;
+  background-color: rgba(102, 95, 85, 1);
+  color: #E1D4C9;
+}
+
+.left-contacts-column {
+  flex-grow: 1;
+}
+
+.contacts-buttons-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.socials-button {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #C1B6AD;
+}
+
+.right-contacts-column {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+  flex-grow: 8;
+}
+
+.contacts {
+  display: flex;
+  flex-direction: column;
+  row-gap: 18px;
+}
+
+.footer-link,
+.working-ours-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 8px;
+  font-weight: 600;
 }
 
 
