@@ -238,11 +238,11 @@ body {
 }
 
 .arrow-button-left {
-  margin-left: 1px;
+  margin-left: 4px;
 }
 
 .arrow-button-right {
-  margin-right: 1px;
+  margin-right: 4px;
 }
 
 .slider-window {
@@ -385,7 +385,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   column-gap: 20px;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 }
 
 .button-app {
