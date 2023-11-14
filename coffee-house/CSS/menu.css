@@ -1,0 +1,116 @@
+.menu {
+  width: 100%;
+  /* padding: 13px 40px; */
+  padding: 13px 0px;
+  text-align: center;
+}
+
+.menu-headline {
+  max-width: 800px;
+  margin-bottom: 40px;
+}
+
+/* Controls */
+
+.menu-controls-container {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 14px;
+}
+
+.menu-control-wrapper {
+  padding: 8px 16px 8px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #C1B6AD;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.emoji-circle {
+  margin-right: 8px;
+  padding: 3px 7px;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+  transition: 0.5s;
+}
+
+.menu-control-wrapper:has(input:checked) {
+  background-color: rgba(102, 95, 85, 1);
+  color: rgba(225, 212, 201, 1);
+  border: 1px solid rgba(102, 95, 85, 1);
+  pointer-events: none;
+  cursor: default;
+}
+
+.menu-control-wrapper:has(input:checked) .emoji-circle {
+  background-color: #E1D4C9;
+}
+
+.menu-control-wrapper:active {
+  background-color: transparent;
+  color: rgba(225, 212, 201, 1);
+  border: 1px solid rgba(225, 212, 201, 1);
+}
+
+.menu-control-wrapper:hover .emoji-circle {
+  background-color: #E1D4C9;
+}
+
+/* Slides */
+
+.menu-slide {
+  margin: 0 auto;
+  margin-top: 38px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 40px;
+  grid-row-gap: 40px;
+}
+
+.menu-slide-item {
+  height: 506px;
+  border-radius: 40px;
+  border: 1px solid #C1B6AD;
+  cursor: pointer;
+}
+
+.product-window {
+  width: 308px;
+  height: 310px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+}
+
+.product-image {
+  transition: 0.5s;
+}
+
+.product-properties-container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 12px;
+  text-align: left;
+  position: relative;
+}
+
+.product-price {
+  position: absolute;
+  top: 146px;
+}
+
+.contacts-section-menu {
+  margin-top: 87px;
+}
+

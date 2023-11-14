@@ -1,0 +1,256 @@
+/* Welcome */
+
+.welcome {
+  width: 100%;
+  margin-top: 14px;
+  border-radius: 40px;
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/img-hero.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 100px;
+  margin-bottom: 100px;
+}
+
+.headline-container {
+  max-width: 530px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 41px;
+
+}
+
+.headline-text {
+  color: rgba(225, 212, 201, 1);
+}
+
+.menu-link-container-headline {
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 8px;
+  padding: 20px 78px;
+  border-radius: 100px;
+  background-color: #E1D4C9;
+}
+
+.headline-link-text {
+  transform: translate(14px);
+  transition: 0.5s;
+}
+
+.hidden-icone {
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+
+/* Favorite-coffee */
+
+.favorite-coffee-section {
+  width: 100%;
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.slider-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.arrow-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-button svg {
+  stroke: #403F3D;
+  transition: 0.5s;
+}
+
+.arrow-button-left {
+  margin-left: 4px;
+}
+
+.arrow-button-right {
+  margin-right: 4px;
+}
+
+.slider-window {
+  max-width: 480px;
+  overflow: hidden;
+}
+
+.slider-line {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1400px;
+  left: 0;
+  transition: 2s;
+}
+
+.slide {
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-image-container {
+  width: 480px;
+  height: 480px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.first-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-1.png");
+}
+
+.second-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-2.png");
+}
+
+.third-slider-image {
+  background-image: url("/Users/mariatrejer/RS School/Stage 2/belosnezhie-JSFE2023Q4/coffee-house/assets/images/coffee-slider-3.png");
+}
+
+.slider-description {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 16px;
+  text-align: center;
+}
+
+.slider-bar-container {
+  margin: 0 auto;
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 12px;
+}
+
+.progress-bar {
+  width: 40px;
+  height: 4px;
+  border-radius: 100px;
+  background-color: #C1B6AD;
+}
+
+.progress-bar.active {
+  background-color: #665F55;
+}
+
+/* About */
+
+.about-section {
+  width: 100%;
+  margin-bottom: 100px;
+}
+
+.images-container {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.first-container,
+.second-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.large-image-window {
+  width: 660px;
+  height: 590px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.small-image-window {
+  width: 660px;
+  height: 430px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.about-image {
+  transition: 0.5s;
+}
+
+
+/* Mobile-app-section */
+
+.mobile-app-section {
+  width: 100%;
+  margin-bottom: 92px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 100px;
+}
+
+.offer-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.app-buttons-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  column-gap: 20px;
+  padding-bottom: 6px;
+}
+
+.button-app {
+  width: 200px;
+  display: flex;
+  column-gap: 8px;
+  padding: 12px 19px;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+}
+
+.button-app svg {
+  fill: #403F3D;
+  transition: 0.5s;
+}
+
+.text-button-container {
+  display: grid;
+}
+
+.button-text {
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 140%;
+  text-align: left;
+}
