@@ -93,6 +93,7 @@ body {
   margin: 0 auto;
   padding-left: 40px;
   padding-right: 40px;
+  padding-bottom: 40px;
 }
 
 .dedicated-text {
@@ -124,6 +125,7 @@ body {
   left: 0;
   transform: scale(0);
   transform-origin: center;
+  opacity: 0;
   transition: 0.5s;
 }
 
@@ -239,10 +241,13 @@ body {
   font-weight: 600;
 }
 
+.footer-link {
+  max-width: 262px
+}
 
 .footer-link::after {
   bottom: -4px;
-  width: 34%;
+  width: 69%;
   background-color: rgba(225, 212, 201, 1);
 }
 
@@ -250,6 +255,7 @@ body {
 
   .link:hover::after {
     transform: scale(1);
+    opacity: 1;
   }
 
   .menu-link-container-headline:hover .headline-link-text {
@@ -268,8 +274,8 @@ body {
     stroke: #E1D4C9;
   }
 
-  .product-image:hover,
-  .about-image:hover {
+  .about-image:hover,
+  .menu-slide-item:hover .product-image {
     transform: scale(90.9%);
   }
 

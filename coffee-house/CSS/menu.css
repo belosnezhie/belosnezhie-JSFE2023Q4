@@ -17,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 16px;
+  column-gap: 14px;
 }
 
 .menu-control-wrapper {
@@ -77,9 +77,6 @@
   height: 506px;
   border-radius: 40px;
   border: 1px solid #C1B6AD;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
 }
 
 .product-window {
@@ -98,7 +95,6 @@
 
 .product-properties-container {
   width: 100%;
-  height: 100%;
   padding: 20px;
   display: flex;
   flex-direction: column;

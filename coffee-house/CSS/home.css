@@ -9,6 +9,7 @@
   background-size: cover;
   background-position: center;
   padding: 100px;
+  margin-bottom: 100px;
 }
 
 .headline-container {
@@ -51,7 +52,7 @@
 
 .favorite-coffee-section {
   width: 100%;
-  padding-top: 100px;
+  margin-bottom: 100px;
   text-align: center;
 }
 
@@ -161,7 +162,7 @@
 
 .about-section {
   width: 100%;
-  padding-top: 100px;
+  margin-bottom: 100px;
 }
 
 .images-container {
@@ -208,7 +209,7 @@
 
 .mobile-app-section {
   width: 100%;
-  padding-top: 100px;
+  margin-bottom: 92px;
   display: flex;
   justify-content: center;
   align-items: center;
