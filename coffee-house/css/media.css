@@ -1,3 +1,21 @@
+/* .hidden-in-desktop {
+  display: block;
+} */
+
+@media (max-width: 768px) {
+  .hidden-in-tablet {
+    display: none;
+  }
+
+  .hidden-in-desktop {
+    display: block;
+  }
+
+  .header-buttons-container {
+
+  }
+}
+
 @media (hover: hover) {
 
   .link:hover::after {

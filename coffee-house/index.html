@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/media.css">
   <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
   <link rel="icon" href="assets/logos-and-icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/logos-and-icons/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -21,7 +22,7 @@
           </a>
         </div>
         <div>
-          <nav>
+          <nav class="hidden-in-tablet">
             <ul class="navigation">
               <li class="nav-item"><a class="link nav-link" href="#favorite-coffee">Favorite coffee</a></li>
               <li class="nav-item"><a class="link nav-link" href="#about">About</a></li>
@@ -31,7 +32,7 @@
           </nav>
         </div>
         <div>
-          <a class="link menu-link-container-nav" href="menu.html">
+          <a class="link menu-link-container-nav hidden-in-tablet" href="menu.html">
             <p>Menu</p>
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -42,6 +43,9 @@
               </svg>
             </div>
           </a>
+          <div class="burger-button-container hidden-in-desktop">
+            <button class="button burger-button active-button"></button>
+          </div>
         </div>
       </div>
     </header>

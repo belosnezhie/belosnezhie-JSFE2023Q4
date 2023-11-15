@@ -51,6 +51,10 @@ button {
   opacity: 0;
 }
 
+.hidden-in-desktop {
+  display: none;
+}
+
 .disabled {
   pointer-events: none;
   cursor: default;
@@ -176,6 +180,52 @@ body {
   width: 100%;
   background-color: rgba(64, 63, 61, 1);
 }
+
+.burger-button-container {
+  margin-bottom: 7px;
+}
+
+.burger-button {
+  width: 44px;
+  height: 44px;
+  display: inline-block;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  position: relative;
+}
+
+.burger-button::after,
+.burger-button::before {
+  display: block;
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #403F3D;
+  position: absolute;
+  left: 12px;
+  transition: 0.5s;
+}
+
+.burger-button::before {
+  top: 16px;
+}
+
+.burger-button::after {
+  bottom: 16px;
+}
+
+.burger-button.active-button::before {
+  transform: rotate(46deg);
+  top: 20px;
+}
+
+.burger-button.active-button::after {
+  transform: rotate(133deg);
+  bottom: 20px;
+}
+
+
 
 /* Footer */
 
