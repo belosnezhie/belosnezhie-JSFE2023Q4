@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/menu.css">
+  <link rel="stylesheet" type="text/css" href="css/media.css">
   <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
   <link rel="icon" href="assets/logos-and-icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/logos-and-icons/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -21,7 +22,7 @@
           </a>
         </div>
         <div>
-          <nav>
+          <nav class="hidden-in-tablet">
             <ul class="navigation">
               <li class="nav-item"><a class="link nav-link" href="index.html#favorite-coffee">Favorite coffee</a></li>
               <li class="nav-item"><a class="link nav-link" href="index.html#about">About</a></li>
@@ -31,7 +32,7 @@
           </nav>
         </div>
         <div>
-          <a class="link menu-link-container-nav disabled" href="">
+          <a class="link menu-link-container-nav disabled hidden-in-tablet" href="">
             <p>Menu</p>
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -42,6 +43,9 @@
               </svg>
             </div>
           </a>
+          <div class="burger-button-container hidden-in-desktop">
+            <button class="button burger-button"></button>
+          </div>
         </div>
       </div>
     </header>
@@ -112,7 +116,7 @@
               <h3 class="product-price">$5.00</h3>
             </div>
           </div>
-          <div class="menu-slide-item">
+          <div class="menu-slide-item hidden-in-tablet">
             <div class="product-window">
               <img class="product-image" src="assets/images/coffee-5.png" alt="coffee-5">
             </div>
@@ -122,7 +126,7 @@
               <h3 class="product-price">$4.50</h3>
             </div>
           </div>
-          <div class="menu-slide-item">
+          <div class="menu-slide-item hidden-in-tablet">
             <div class="product-window">
               <img class="product-image" src="assets/images/coffee-6.png" alt="coffee-6">
             </div>
@@ -132,7 +136,7 @@
               <h3 class="product-price">$5.50</h3>
             </div>
           </div>
-          <div class="menu-slide-item">
+          <div class="menu-slide-item hidden-in-tablet">
             <div class="product-window">
               <img class="product-image" src="assets/images/coffee-7.png" alt="coffee-7">
             </div>
@@ -142,7 +146,7 @@
               <h3 class="product-price">$5.50</h3>
             </div>
           </div>
-          <div class="menu-slide-item">
+          <div class="menu-slide-item hidden-in-tablet">
             <div class="product-window">
               <img class="product-image" src="assets/images/coffee-8.png" alt="coffee-8">
             </div>
@@ -152,6 +156,14 @@
               <h3 class="product-price">$6.50</h3>
             </div>
           </div>
+        </div>
+        <div class="refresh-button-container hidden-in-desktop">
+          <button class="button refresh-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
         </div>
       </section>
     </main>

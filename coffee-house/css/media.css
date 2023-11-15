@@ -11,9 +11,78 @@
     display: block;
   }
 
-  .header-buttons-container {
+  /* enjoy */
 
+  .enjoy {
+    padding: 100px 60px;
+    margin-bottom: 99px;
   }
+
+  .headline-link-text {
+    transform: translate(0px);
+  }
+
+  .hidden-icone {
+    opacity: 1;
+  }
+
+  /* favorite-coffee */
+
+  .arrow-button-left,
+  .arrow-button-right {
+    margin: 0px;
+  }
+
+  /* about-section */
+
+  .images-container {
+    flex-direction: column;
+    row-gap: 39px;
+  }
+
+  .large-image-window {
+    width: 688px;
+    height: 592px;
+  }
+
+  .mobile-app-section {
+    flex-wrap: wrap;
+    row-gap: 93px;
+  }
+
+  /* menu */
+
+  .menu-slide {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0px 14px;
+  }
+
+  .refresh-button {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+  }
+
+  .refresh-button svg {
+    stroke: #403F3D;
+  }
+
+
+  /* footer */
+
+  .contacts-section {
+    padding: 100px 60px;
+    flex-wrap: wrap;
+    row-gap: 100px;
+  }
+
+
 }
 
 @media (hover: hover) {
@@ -70,6 +139,14 @@
 
   .menu-control-wrapper:hover .emoji-circle {
     background-color: #E1D4C9;
+  }
+
+  .refresh-button:hover {
+    background-color: rgba(102, 95, 85, 1);
+  }
+
+  .refresh-button:hover svg {
+    stroke: #E1D4C9;
   }
 
 }
