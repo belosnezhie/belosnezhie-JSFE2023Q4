@@ -1,0 +1,57 @@
+@media (hover: hover) {
+
+  .link:hover::after {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .menu-link-container-headline:hover .headline-link-text {
+    transform: translate(0px);
+  }
+
+  .menu-link-container-headline:hover .hidden-icone {
+    opacity: 1;
+  }
+
+  .arrow-button:hover {
+    background-color: rgba(102, 95, 85, 1);
+  }
+
+  .arrow-button:hover svg {
+    stroke: #E1D4C9;
+  }
+
+  .about-image:hover,
+  .menu-slide-item:hover .product-image {
+    transform: scale(90.9%);
+  }
+
+  .button-app:hover {
+    color: rgba(225, 212, 201, 1);
+    background-color: #665F55;
+  }
+
+  .button-app:hover svg {
+    fill: rgba(225, 212, 201, 1);
+  }
+
+
+  .socials-button:hover {
+    background-color: #E1D4C9;
+  }
+
+  .socials-button:hover svg {
+    stroke: #403F3D;
+  }
+
+  .menu-control-wrapper:hover {
+    background-color: rgba(102, 95, 85, 1);
+    color: rgba(225, 212, 201, 1);
+    border: 1px solid rgba(102, 95, 85, 1);
+  }
+
+  .menu-control-wrapper:hover .emoji-circle {
+    background-color: #E1D4C9;
+  }
+
+}
