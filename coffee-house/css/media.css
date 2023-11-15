@@ -2,6 +2,59 @@
   display: block;
 } */
 
+@media (max-width: 1440px) {
+
+  /* menu */
+  .menu-slide {
+    column-gap: 30px;
+  }
+}
+
+@media (max-width: 1390px) {
+
+  /* menu */
+  .menu-slide {
+    column-gap: 20px;
+  }
+}
+
+@media (max-width: 1350px) {
+
+  /* menu */
+  .menu-slide {
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 20px;
+  }
+
+  .menu-slide-item {
+    width: 310px;
+  }
+}
+
+@media (max-width: 1020px) {
+  .menu-slide {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0px 14px;
+    column-gap: 40px;
+  }
+
+  .refresh-button {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    border: 1px solid #665F55;
+  }
+
+  .refresh-button svg {
+    stroke: #403F3D;
+  }
+}
+
 @media (max-width: 768px) {
   .hidden-in-tablet {
     display: none;
@@ -50,30 +103,6 @@
     row-gap: 93px;
   }
 
-  /* menu */
-
-  .menu-slide {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 0px 14px;
-  }
-
-  .refresh-button {
-    width: 60px;
-    height: 60px;
-    margin: 0 auto;
-    margin-top: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    border: 1px solid #665F55;
-  }
-
-  .refresh-button svg {
-    stroke: #403F3D;
-  }
-
-
   /* footer */
 
   .contacts-section {
@@ -81,9 +110,46 @@
     flex-wrap: wrap;
     row-gap: 100px;
   }
+}
 
+@media (max-width: 740px) {
+
+  /* menu */
+  .menu-slide {
+    grid-template-columns: repeat(1, 1fr);
+    justify-items: center;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .body-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section-headline {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+  }
+
+  /* menu */
+
+  .menu-controls-container {
+    column-gap: 6px;
+  }
+
+  /* footer */
+
+  .contacts-section {
+    padding: 60px 16px;
+    row-gap: 41px;
+  }
 
 }
+
+
 
 @media (hover: hover) {
 
