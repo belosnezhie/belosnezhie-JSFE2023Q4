@@ -4,6 +4,12 @@
 
 @media (max-width: 1400px) {
 
+  /* about */
+
+  .images-container {
+    column-gap: 15px;
+  }
+
   /* menu */
   .menu-slide {
     column-gap: 30px;
@@ -20,7 +26,31 @@
 
 @media (max-width: 1350px) {
 
+  /* about-section */
+
+  .small-image-window {
+    display: none;
+  }
+
+  .images-container {
+    flex-direction: column;
+    row-gap: 39px;
+  }
+
+  .large-image-window {
+    max-width: 688px;
+    height: 592px;
+  }
+
+  /* mobile-app */
+
+  .mobile-app-section {
+    flex-wrap: wrap;
+    row-gap: 93px;
+  }
+
   /* menu */
+
   .menu-slide {
     grid-template-columns: repeat(3, 1fr);
     column-gap: 20px;
@@ -87,23 +117,6 @@
     margin: 0px;
   }
 
-  /* about-section */
-
-  .images-container {
-    flex-direction: column;
-    row-gap: 39px;
-  }
-
-  .large-image-window {
-    width: 688px;
-    height: 592px;
-  }
-
-  .mobile-app-section {
-    flex-wrap: wrap;
-    row-gap: 93px;
-  }
-
   /* footer */
 
   .contacts-section {
@@ -115,10 +128,92 @@
 
 @media (max-width: 740px) {
 
+  /* about-section */
+
+  .slider-window {
+    max-width: 348px;
+  }
+
+  .slider-image-container {
+    width: 348px;
+    height: 348px;
+  }
+
+  /* favorite-section */
+
+  .large-image-window {
+    max-width: 600px;
+  }
+
   /* menu */
+
   .menu-slide {
     grid-template-columns: repeat(1, 1fr);
     justify-items: center;
+  }
+}
+
+
+@media (max-width: 646px) {
+
+  .body-wrapper {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section-headline {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+  }
+
+  /* enjoy */
+
+  .enjoy {
+    margin-top: 13px;
+    padding: 60px 16px;
+  }
+
+  .headline-container {
+    row-gap: 40px;
+  }
+
+  /* about-section */
+
+  .large-image-window {
+    max-width: 348px;
+  }
+
+  /* mobile-app */
+
+  .mobile-app-section {
+    row-gap: 32px;
+  }
+
+  .mobile-image {
+    max-width: 348px;
+  }
+}
+
+@media (max-width: 500px) {
+
+  h1 {
+    font-size: 42px;
+    line-height: 115%;
+  }
+
+  .hidden-in-mobile {
+    display: none;
+  }
+
+  .slider-container {
+    justify-content: center;
+  }
+
+  .app-buttons-container {
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: 20px;
   }
 }
 
@@ -151,7 +246,6 @@
   .footer-dedicated-text {
     display: inline;
   }
-
 }
 
 
