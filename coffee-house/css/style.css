@@ -246,6 +246,10 @@ body {
   flex-grow: 1;
 }
 
+.footer-dedicated-text {
+  display: block;
+}
+
 .contacts-buttons-container {
   margin-top: 40px;
   display: flex;
@@ -272,7 +276,7 @@ body {
 .right-contacts-column {
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 39px;
   flex-grow: 8;
 }
 

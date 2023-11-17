@@ -2,7 +2,7 @@
   display: block;
 } */
 
-@media (max-width: 1440px) {
+@media (max-width: 1400px) {
 
   /* menu */
   .menu-slide {
@@ -28,6 +28,7 @@
 
   .menu-slide-item {
     width: 310px;
+    margin: 0 auto;
   }
 }
 
@@ -145,6 +146,10 @@
   .contacts-section {
     padding: 60px 16px;
     row-gap: 41px;
+  }
+
+  .footer-dedicated-text {
+    display: inline;
   }
 
 }
