@@ -63,6 +63,13 @@
 }
 
 @media (max-width: 1020px) {
+
+  /* .section-headline {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 125%;
+  } */
+
   .menu-slide {
     grid-template-columns: repeat(2, 1fr);
     padding: 0px 14px;
