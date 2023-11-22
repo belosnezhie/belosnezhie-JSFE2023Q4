@@ -10,6 +10,11 @@
   margin-bottom: 40px;
 }
 
+.menu-link-container-nav::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
 /* Controls */
 
 .menu-controls-container {
@@ -96,11 +101,11 @@
 
 .product-properties-container {
   width: 100%;
-  padding: 20px;
+  padding: 19px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  row-gap: 12px;
+  row-gap: 13px;
   text-align: left;
   position: relative;
 }

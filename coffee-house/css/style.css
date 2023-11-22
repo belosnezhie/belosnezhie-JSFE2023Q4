@@ -49,6 +49,7 @@ button {
 .hidden {
   visibility: hidden;
   opacity: 0;
+  display: none;
 }
 
 .disabled {
@@ -119,6 +120,7 @@ body {
 .link::after {
   display: block;
   content: '';
+  width: 100%;
   height: 2px;
   position: absolute;
   content: '';
@@ -167,13 +169,11 @@ body {
 
 .nav-link::after {
   bottom: -8px;
-  width: 100%;
   background-color: rgba(64, 63, 61, 1);
 }
 
 .menu-link-container-nav::after {
   bottom: 8px;
-  width: 100%;
   background-color: rgba(64, 63, 61, 1);
 }
 
@@ -242,12 +242,11 @@ body {
 }
 
 .footer-link {
-  max-width: 262px
+  max-width: max-content;
 }
 
 .footer-link::after {
   bottom: -4px;
-  width: 69%;
   background-color: rgba(225, 212, 201, 1);
 }
 
