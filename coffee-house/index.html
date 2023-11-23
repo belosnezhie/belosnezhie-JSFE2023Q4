@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="css/normalize.css">
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/home.css">
+  <link rel="stylesheet" type="text/css" href="css/media.css">
   <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
   <link rel="icon" href="assets/logos-and-icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/logos-and-icons/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -21,7 +22,7 @@
           </a>
         </div>
         <div>
-          <nav>
+          <nav class="hidden-in-tablet">
             <ul class="navigation">
               <li class="nav-item"><a class="link nav-link" href="#favorite-coffee">Favorite coffee</a></li>
               <li class="nav-item"><a class="link nav-link" href="#about">About</a></li>
@@ -31,7 +32,7 @@
           </nav>
         </div>
         <div>
-          <a class="link menu-link-container-nav" href="menu.html">
+          <a class="link menu-link-container-nav hidden-in-tablet" href="menu.html">
             <p>Menu</p>
             <div>
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -42,6 +43,9 @@
               </svg>
             </div>
           </a>
+          <div class="burger-button-container hidden-in-desktop">
+            <button class="button burger-button"></button>
+          </div>
         </div>
       </div>
     </header>
@@ -69,7 +73,7 @@
         <h2 class="section-headline">Choose your <span class="dedicated-text">favorite</span> coffee</h2>
         <div class="slider-container">
           <div class="arrow-button-container">
-            <button class="button arrow-button arrow-button-left">
+            <button class="button arrow-button arrow-button-left hidden-in-mobile">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -88,22 +92,22 @@
               <div class="slide hidden">
                 <div class="slider-image-container second-slider-image"></div>
                 <div class="slider-description">
-                  <h4>Caramel Macchiato</h4>
+                  <h3>Caramel Macchiato</h3>
                   <p>Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
-                  <h4>$5.00</h4>
+                  <h3>$5.00</h3>
                 </div>
               </div>
               <div class="slide hidden">
                 <div class="slider-image-container third-slider-image"></div>
                 <div class="slider-description">
-                  <h4>Ice coffee</h4>
+                  <h3>Ice coffee</h3>
                   <p>A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
-                  <h4>$4.50</h4>
+                  <h3>$4.50</h3>
                 </div>
               </div>
             </div>
           </div>
-          <button class="button arrow-button arrow-button-right">
+          <button class="button arrow-button arrow-button-right hidden-in-mobile">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -174,8 +178,7 @@
       <div class="left-contacts-column">
         <h2 class="section-headline">
           Sip, Savor, Smile.
-          <br>
-          <span class="dedicated-text">It’s coffee time!</span>
+          <span class="dedicated-text footer-dedicated-text">It’s coffee time!</span>
         </h2>
         <div class="contacts-buttons-container">
           <button class="button socials-button">
