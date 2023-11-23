@@ -60,6 +60,10 @@ button {
   cursor: default;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 h1 {
   margin: 0px;
   font-size: 72px;
@@ -97,7 +101,7 @@ body {
 
 .body-wrapper {
   max-width: 1440px;
-  min-height: 100vw;
+  min-height: 100vh;
   margin: 0 auto;
   padding-left: 40px;
   padding-right: 40px;
@@ -168,6 +172,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: 0.5s;
 }
 
 
