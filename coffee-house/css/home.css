@@ -38,6 +38,7 @@
 .headline-link-text {
   transform: translate(14px);
   transition: 0.5s;
+  font-weight: 600;
 }
 
 .hidden-icone {
