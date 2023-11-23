@@ -153,10 +153,23 @@ body {
   font-weight: 600;
 }
 
+.logo-container {
+  flex-grow: 1;
+}
+
 .logo {
   width: 100px;
   height: 60px;
 }
+
+.navigation-column {
+  width: max-content;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .navigation {
   padding-bottom: 10px;
@@ -172,6 +185,11 @@ body {
   justify-content: space-between;
   align-items: center;
   column-gap: 8px;
+}
+
+.menu-link-container-nav svg {
+  width: 20px;
+  height: 20px;
 }
 
 .nav-link::after {
