@@ -24,7 +24,7 @@ const showNextSlide = () => {
 
   indicateProgressItem(activeProgressIndex);
 
-  autoSwitch();
+  autoScroll();
 };
 
 const showPrevSlide = () => {
@@ -49,7 +49,7 @@ const indicateProgressItem = (index) => {
 
   progressBarItems[index].classList.add("active");
 
-  autoSwitch();
+  autoScroll();
 }
 
 
@@ -59,9 +59,25 @@ prevButton.addEventListener("click", showPrevSlide);
 
 let timer;
 
-const autoSwitch = () => {
+const autoScroll = () => {
   clearInterval(timer);
-  timer = setTimeout(showNextSlide, 5000);
+  timer = setTimeout(() =>{
+    showNextSlide();
+    // indicateProgressItem(activeProgressIndex);
+  }, 5000);
 }
 
-autoSwitch();
+autoScroll();
+
+
+// мне нужно заполнять прогресс бар не в момент открытия нового слайда и до его закрытия, а
+// отражать время до следующего автоматического переключения
+// убрать indicateProgressItem из функции переключения
+// добавить indicateProgressItem в фукцию autoScroll
+// вернуть транзишн на афтер у каждого прогрессбара (чтобы время исполнения работало и на уменьшение заполнения)
+// повесить анимэйшнэнд на функцию indicateProgressItem чтобы заполнение нового начиналось только после заполнения старого
+
+// в итоге просто поменяла транзишн у псевдоэллемента програсс единицы, все работает, но
+// - не отражается уменьшение прогресс бара предыдущей картинки
+// - хочется, чтобы заполнение прогресс бара начиналось только после того, как закончится анимация смены картинки
+
