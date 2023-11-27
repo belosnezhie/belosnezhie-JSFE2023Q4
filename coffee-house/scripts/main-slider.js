@@ -1,9 +1,12 @@
-const sliderLine =  document.querySelector(".slider-line"),
+let sliderLine =  document.querySelector(".slider-line"),
       prevButton = document.querySelector(".arrow-button-left"),
       nextButton = document.querySelector(".arrow-button-right"),
       progressBarItems = document.querySelectorAll(".progress-bar");
 
+
 let position = 0,
+    cureentSlideIndex = 0,
+    capacity = 3,
     step = 480,
     activeProgressIndex = 0;
 
@@ -20,14 +23,14 @@ const showNextSlide = () => {
   }
 
   sliderLine.style.left = position + "px";
-}
+};
 
 const showPrevSlide = () => {
 
-  if (position <= 0) {
+  if (position < 0) {
     position += step;
   } else {
-    position = 0;
+    position = -(progressBarItems.length - 1) * step;
   }
 
   sliderLine.style.left = position + "px";
