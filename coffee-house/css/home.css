@@ -165,13 +165,13 @@
   position: absolute;
   transform: scale(0);
   transform-origin: left;
-  transition: 2s;
   border-radius: 100px;
   background-color: #665F55;
 }
 
 .progress-bar.active::after {
   transform: scale(1);
+  transition: 2s;
 }
 
 /* About */
