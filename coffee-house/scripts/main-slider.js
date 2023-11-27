@@ -10,10 +10,6 @@ let position = 0,
     step = 480,
     activeProgressIndex = 0;
 
-const findActiveProgressItem = (index) => {
-
-}
-
 const showNextSlide = () => {
 
   if (position > -(progressBarItems.length - 1) * step) {
@@ -27,6 +23,8 @@ const showNextSlide = () => {
   sliderLine.style.left = position + "px";
 
   indicateProgressItem(activeProgressIndex);
+
+  autoSwitch();
 };
 
 const showPrevSlide = () => {
@@ -50,9 +48,20 @@ const indicateProgressItem = (index) => {
   })
 
   progressBarItems[index].classList.add("active");
+
+  autoSwitch();
 }
 
 
 nextButton.addEventListener("click", showNextSlide);
 prevButton.addEventListener("click", showPrevSlide);
 
+
+let timer;
+
+const autoSwitch = () => {
+  clearInterval(timer);
+  timer = setTimeout(showNextSlide, 5000);
+}
+
+autoSwitch();
