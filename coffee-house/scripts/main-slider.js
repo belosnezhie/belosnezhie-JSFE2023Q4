@@ -1,7 +1,8 @@
 let sliderLine =  document.querySelector(".slider-line"),
     prevButton = document.querySelector(".arrow-button-left"),
     nextButton = document.querySelector(".arrow-button-right"),
-    progressBarItems = document.querySelectorAll(".progress-bar");
+    progressBarItems = document.querySelectorAll(".progress-bar"),
+    slides = document.querySelectorAll(".slide");
 
 
 let position = 0,
@@ -69,6 +70,25 @@ const autoScroll = () => {
 
 autoScroll();
 
+const pauseAutoScroll = () => {
+  clearInterval(timer);
+  pauseTime = new Date();
+  console.log("Interval paused at: ", pauseTime);
+}
+
+const resumeAutoScroll = () => {
+  clearInterval(timer);
+  timer = setTimeout(() =>{
+    showNextSlide();
+    // indicateProgressItem(activeProgressIndex);
+    console.log("Interval resumed at: ");
+  }, pauseTime);
+}
+
+slides.forEach((item) => {
+  item.addEventListener("mouseover", pauseAutoScroll);
+  item.addEventListener("mouseout", pauseAutoScroll);
+})
 
 // мне нужно заполнять прогресс бар не в момент открытия нового слайда и до его закрытия, а
 // отражать время до следующего автоматического переключения
