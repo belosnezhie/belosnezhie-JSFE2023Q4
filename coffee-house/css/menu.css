@@ -37,10 +37,15 @@
 
 .emoji-circle {
   margin-right: 8px;
-  padding: 3px 7px;
+  padding: 0px 7px;
   border-radius: 100px;
   background-color: #C1B6AD;
   transition: 0.5s;
+}
+
+.emoji-circle img {
+  width: 16px;
+  margin-top: 7px;
 }
 
 .menu-control-wrapper:has(input:checked) {
