@@ -121,6 +121,7 @@ body {
 
 .link {
   position: relative;
+  cursor: pointer;
 }
 
 .link::after {

@@ -254,3 +254,8 @@
   line-height: 140%;
   text-align: left;
 }
+
+.button-text,
+.button-title {
+  transition: 0.5s;
+}

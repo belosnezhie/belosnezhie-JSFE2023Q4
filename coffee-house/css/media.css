@@ -24,16 +24,13 @@
 
   /* about-section */
 
-  .small-image-window {
-    display: none;
-  }
-
   .images-container {
     flex-direction: column;
     row-gap: 39px;
   }
 
-  .large-image-window {
+  .large-image-window,
+  .small-image-window {
     max-width: 688px;
     height: 592px;
   }
@@ -184,7 +181,7 @@
   /* mobile-app */
 
   .mobile-app-section {
-    row-gap: 32px;
+    row-gap: 33px;
   }
 
   .mobile-image {
@@ -210,7 +207,7 @@
   .app-buttons-container {
     flex-direction: column;
     align-items: flex-start;
-    row-gap: 20px;
+    row-gap: 19px;
   }
 }
 
