@@ -111,6 +111,11 @@
     margin: 0px;
   }
 
+  /* menu */
+  .menu-slide {
+    margin-top: 39px;
+  }
+
   /* footer */
 
   .contacts-section {
@@ -228,6 +233,10 @@
 
   .menu-controls-container {
     column-gap: 6px;
+  }
+
+  .menu-slide {
+    margin-top: 38px;
   }
 
   /* footer */
