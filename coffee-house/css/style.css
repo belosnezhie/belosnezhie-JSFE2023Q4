@@ -1,7 +1,6 @@
 /* Common */
 html {
   scroll-behavior: smooth;
-  /* transition: 0.5s ease-in-out; */
 }
 
 * {
@@ -52,6 +51,10 @@ button {
   display: none;
 }
 
+.hidden-in-desktop {
+  display: none;
+}
+
 .disabled {
   pointer-events: none;
   cursor: default;
@@ -86,6 +89,10 @@ body {
   font-style: normal;
   line-height: 150%;
   color: #403F3D;
+}
+
+.empty-heading {
+  display: none;
 }
 
 .body-wrapper {
@@ -178,6 +185,52 @@ body {
   background-color: rgba(64, 63, 61, 1);
 }
 
+.burger-button-container {
+  margin-bottom: 7px;
+}
+
+.burger-button {
+  width: 44px;
+  height: 44px;
+  display: inline-block;
+  border-radius: 100px;
+  border: 1px solid #665F55;
+  position: relative;
+}
+
+.burger-button::after,
+.burger-button::before {
+  display: block;
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #403F3D;
+  position: absolute;
+  left: 12px;
+  transition: 0.5s;
+}
+
+.burger-button::before {
+  top: 16px;
+}
+
+.burger-button::after {
+  bottom: 16px;
+}
+
+.burger-button.active-button::before {
+  transform: rotate(46deg);
+  top: 20px;
+}
+
+.burger-button.active-button::after {
+  transform: rotate(133deg);
+  bottom: 20px;
+}
+
+
+
 /* Footer */
 
 .contacts-section {
@@ -195,6 +248,10 @@ body {
 
 .left-contacts-column {
   flex-grow: 1;
+}
+
+.footer-dedicated-text {
+  display: block;
 }
 
 .contacts-buttons-container {
@@ -223,7 +280,7 @@ body {
 .right-contacts-column {
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 39px;
   flex-grow: 8;
 }
 
@@ -249,63 +306,5 @@ body {
 .footer-link::after {
   bottom: -4px;
   background-color: rgba(225, 212, 201, 1);
-}
-
-@media (hover: hover) {
-
-  .link:hover::after {
-    transform: scale(1);
-    opacity: 1;
-  }
-
-  .menu-link-container-headline:hover .headline-link-text {
-    transform: translate(0px);
-  }
-
-  .menu-link-container-headline:hover .hidden-icone {
-    opacity: 1;
-  }
-
-  .arrow-button:hover {
-    background-color: rgba(102, 95, 85, 1);
-  }
-
-  .arrow-button:hover svg {
-    stroke: #E1D4C9;
-  }
-
-  .about-image:hover,
-  .menu-slide-item:hover .product-image {
-    transform: scale(90.9%);
-  }
-
-  .button-app:hover {
-    color: rgba(225, 212, 201, 1);
-    background-color: #665F55;
-  }
-
-  .button-app:hover svg {
-    fill: rgba(225, 212, 201, 1);
-  }
-
-
-  .socials-button:hover {
-    background-color: #E1D4C9;
-  }
-
-  .socials-button:hover svg {
-    stroke: #403F3D;
-  }
-
-  .menu-control-wrapper:hover {
-    background-color: rgba(102, 95, 85, 1);
-    color: rgba(225, 212, 201, 1);
-    border: 1px solid rgba(102, 95, 85, 1);
-  }
-
-  .menu-control-wrapper:hover .emoji-circle {
-    background-color: #E1D4C9;
-  }
-
 }
 
