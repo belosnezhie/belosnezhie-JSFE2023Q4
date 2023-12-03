@@ -170,8 +170,22 @@
 }
 
 .progress-bar.active::after {
-  transform: scale(1);
-  transition: 5s;
+  /* transform: scale(100%); */
+  /* transition: 5s; */
+  animation: progress 5s ease-in;
+}
+
+.progress-bar.active.paused-progress::after {
+  animation-play-state: paused;
+}
+
+@keyframes progress {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(100%);
+  }
 }
 
 /* About */

@@ -59,35 +59,48 @@ prevButton.addEventListener("click", showPrevSlide);
 
 
 let timer;
+let pauseTime;
+let elapsedTime = 0;
 
 const autoScroll = () => {
-  clearInterval(timer);
+  clearTimeout(timer);
   timer = setTimeout(() =>{
     showNextSlide();
     // indicateProgressItem(activeProgressIndex);
+    console.log("Интервал выполнен!");
   }, 5000);
 }
 
 autoScroll();
 
 const pauseAutoScroll = () => {
-  clearInterval(timer);
+  progressBarItems.forEach((item) => {
+    item.classList.add("paused-progress");
+  })
+  clearTimeout(timer);
   pauseTime = new Date();
-  console.log("Interval paused at: ", pauseTime);
+  console.log("Время остановки:", pauseTime);
 }
 
 const resumeAutoScroll = () => {
-  clearInterval(timer);
+  const currentTime = new Date();
+  elapsedTime += currentTime - pauseTime;
+
+  console.log("Текущее время:", currentTime);
+
   timer = setTimeout(() =>{
     showNextSlide();
-    // indicateProgressItem(activeProgressIndex);
-    console.log("Interval resumed at: ");
-  }, pauseTime);
+    console.log("Интервал выполнен!");
+  }, 5000 - elapsedTime % 5000);
+
+  progressBarItems.forEach((item) => {
+    item.classList.remove("paused-progress");
+  })
 }
 
 slides.forEach((item) => {
   item.addEventListener("mouseover", pauseAutoScroll);
-  item.addEventListener("mouseout", pauseAutoScroll);
+  item.addEventListener("mouseout", resumeAutoScroll);
 })
 
 // мне нужно заполнять прогресс бар не в момент открытия нового слайда и до его закрытия, а
