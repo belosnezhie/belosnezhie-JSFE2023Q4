@@ -9,6 +9,12 @@ let position = 0,
     step = 480,
     activeProgressIndex = 0;
 
+const refreshTimer = () => {
+  intervalInMs = 5000;
+  elapsedTime = 5000;
+  startTime = new Date();
+}
+
 const showNextSlide = () => {
 
   if (position > -(progressBarItems.length - 1) * step) {
@@ -23,9 +29,7 @@ const showNextSlide = () => {
 
   indicateProgressItem(activeProgressIndex);
 
-  intervalInMs = 5000;
-  elapsedTime = 5000;
-  startTime = new Date();
+  refreshTimer();
   autoScroll();
 };
 
@@ -43,9 +47,7 @@ const showPrevSlide = () => {
 
   indicateProgressItem(activeProgressIndex);
 
-  intervalInMs = 5000;
-  elapsedTime = 5000;
-  startTime = new Date();
+  refreshTimer();
   autoScroll();
 }
 
@@ -64,9 +66,10 @@ prevButton.addEventListener("click", showPrevSlide);
 
 let timer;
 let pauseTime;
-let elapsedTime = 5000;
-let startTime = new Date();
-let intervalInMs = 5000;
+let elapsedTime;
+let startTime;
+let intervalInMs;
+refreshTimer();
 
 const autoScroll = () => {
   clearTimeout(timer);
