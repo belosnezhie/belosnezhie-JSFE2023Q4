@@ -6,8 +6,6 @@ let sliderLine =  document.querySelector(".slider-line"),
 
 
 let position = 0,
-    // cureentSlideIndex = 0,
-    // capacity = 3,
     step = 480,
     activeProgressIndex = 0;
 
@@ -25,6 +23,9 @@ const showNextSlide = () => {
 
   indicateProgressItem(activeProgressIndex);
 
+  intervalInMs = 5000;
+  elapsedTime = 5000;
+  startTime = new Date();
   autoScroll();
 };
 
@@ -41,6 +42,11 @@ const showPrevSlide = () => {
   sliderLine.style.left = position + "px";
 
   indicateProgressItem(activeProgressIndex);
+
+  intervalInMs = 5000;
+  elapsedTime = 5000;
+  startTime = new Date();
+  autoScroll();
 }
 
 const indicateProgressItem = (index) => {
@@ -49,8 +55,6 @@ const indicateProgressItem = (index) => {
   })
 
   progressBarItems[index].classList.add("active");
-
-  autoScroll();
 }
 
 
@@ -60,15 +64,16 @@ prevButton.addEventListener("click", showPrevSlide);
 
 let timer;
 let pauseTime;
-let elapsedTime = 0;
+let elapsedTime = 5000;
+let startTime = new Date();
+let intervalInMs = 5000;
 
 const autoScroll = () => {
   clearTimeout(timer);
-  timer = setTimeout(() =>{
+  timer = setTimeout(() => {
+    startTime = new Date();
     showNextSlide();
-    // indicateProgressItem(activeProgressIndex);
-    console.log("Интервал выполнен!");
-  }, 5000);
+  }, intervalInMs);
 }
 
 autoScroll();
@@ -77,21 +82,22 @@ const pauseAutoScroll = () => {
   progressBarItems.forEach((item) => {
     item.classList.add("paused-progress");
   })
+
   clearTimeout(timer);
+  if (startTime === undefined) {
+    startTime = new Date();
+  }
   pauseTime = new Date();
-  console.log("Время остановки:", pauseTime);
+  intervalInMs = elapsedTime;
+  elapsedTime = intervalInMs - (pauseTime.getTime() - startTime.getTime());
 }
 
 const resumeAutoScroll = () => {
-  const currentTime = new Date();
-  elapsedTime += currentTime - pauseTime;
-
-  console.log("Текущее время:", currentTime);
-
-  timer = setTimeout(() =>{
+  startTime = new Date();
+  timer = setTimeout(() => {
     showNextSlide();
-    console.log("Интервал выполнен!");
-  }, 5000 - elapsedTime % 5000);
+    startTime = new Date();
+  }, elapsedTime);
 
   progressBarItems.forEach((item) => {
     item.classList.remove("paused-progress");
@@ -99,18 +105,6 @@ const resumeAutoScroll = () => {
 }
 
 slides.forEach((item) => {
-  item.addEventListener("mouseover", pauseAutoScroll);
-  item.addEventListener("mouseout", resumeAutoScroll);
+  item.addEventListener("mouseenter", pauseAutoScroll);
+  item.addEventListener("mouseleave", resumeAutoScroll);
 })
-
-// мне нужно заполнять прогресс бар не в момент открытия нового слайда и до его закрытия, а
-// отражать время до следующего автоматического переключения
-// убрать indicateProgressItem из функции переключения
-// добавить indicateProgressItem в фукцию autoScroll
-// вернуть транзишн на афтер у каждого прогрессбара (чтобы время исполнения работало и на уменьшение заполнения)
-// повесить анимэйшнэнд на функцию indicateProgressItem чтобы заполнение нового начиналось только после заполнения старого
-
-// в итоге просто поменяла транзишн у псевдоэллемента програсс единицы, все работает, но
-// - не отражается уменьшение прогресс бара предыдущей картинки
-// - хочется, чтобы заполнение прогресс бара начиналось только после того, как закончится анимация смены картинки
-
