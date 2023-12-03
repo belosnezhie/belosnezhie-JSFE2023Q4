@@ -6,13 +6,19 @@ let sliderLine =  document.querySelector(".slider-line"),
 
 
 let position = 0,
-    step = 480,
+    step,
     activeProgressIndex = 0;
 
 const refreshTimer = () => {
   intervalInMs = 5000;
   elapsedTime = 5000;
   startTime = new Date();
+}
+
+if (window.innerWidth > 740) {
+  step = 480;
+} else {
+  step = 348;
 }
 
 const showNextSlide = () => {
@@ -63,6 +69,33 @@ const indicateProgressItem = (index) => {
 nextButton.addEventListener("click", showNextSlide);
 prevButton.addEventListener("click", showPrevSlide);
 
+
+let startX,
+    startY,
+    endX,
+    endY;
+
+const checkStart = (event) => {
+  startX = event.touches[0].clientX;
+  startY = event.touches[0].clientY;
+}
+
+const checkMovement = (event) => {
+  endX = event.changedTouches[0].clientX;
+  endY = event.changedTouches[0].clientY;
+  let direction = startX - endX;
+  if (direction < 0) {
+    showPrevSlide();
+  } else {
+    showNextSlide();
+  }
+ }
+
+
+slides.forEach((item) => {
+  item.addEventListener("touchstart", checkStart);
+  item.addEventListener("touchend", checkMovement);
+})
 
 let timer;
 let pauseTime;
