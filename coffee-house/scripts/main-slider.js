@@ -9,23 +9,18 @@ let position = 0,
     step,
     activeProgressIndex = 0;
 
-const refreshTimer = () => {
-  intervalInMs = 5000;
-  elapsedTime = 5000;
-  startTime = new Date();
+
+const refreshStep = () => {
+  if (window.innerWidth > 740) {
+    step = 480;
+  } else {
+    step = 348;
+  }
 }
 
-const resumeProgressAnimation = () => {
-  progressBarItems.forEach((item) => {
-    item.classList.remove("paused-progress");
-  })
-}
+refreshStep();
 
-if (window.innerWidth > 740) {
-  step = 480;
-} else {
-  step = 348;
-}
+window.addEventListener("resize", refreshStep);
 
 const showNextSlide = () => {
 
@@ -96,11 +91,6 @@ const checkSwipeEnding = (event) => {
   endY = event.changedTouches[0].clientY;
   direction = startX - endX;
 
-  console.log(elapsedTime);
-  console.log(direction);
-  console.log(startX);
-  console.log(endX);
-
   if (direction < 0) {
     resumeProgressAnimation();
     showPrevSlide();
@@ -169,3 +159,16 @@ slides.forEach((item) => {
   item.addEventListener("mouseenter", pauseAutoScroll);
   item.addEventListener("mouseleave", resumeAutoScroll);
 })
+
+
+function refreshTimer() {
+  intervalInMs = 5000;
+  elapsedTime = 5000;
+  startTime = new Date();
+}
+
+function resumeProgressAnimation() {
+  progressBarItems.forEach((item) => {
+    item.classList.remove("paused-progress");
+  })
+}
