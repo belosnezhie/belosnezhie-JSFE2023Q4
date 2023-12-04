@@ -1,6 +1,7 @@
 /* Common */
 html {
   scroll-behavior: smooth;
+  transition: 0.5s;
 }
 
 * {
