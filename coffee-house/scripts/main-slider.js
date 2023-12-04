@@ -15,6 +15,12 @@ const refreshTimer = () => {
   startTime = new Date();
 }
 
+const resumeProgressAnimation = () => {
+  progressBarItems.forEach((item) => {
+    item.classList.remove("paused-progress");
+  })
+}
+
 if (window.innerWidth > 740) {
   step = 480;
 } else {
@@ -73,28 +79,48 @@ prevButton.addEventListener("click", showPrevSlide);
 let startX,
     startY,
     endX,
-    endY;
+    endY,
+    direction;
 
 const checkStart = (event) => {
+  event.preventDefault();
+
   startX = event.touches[0].clientX;
   startY = event.touches[0].clientY;
+
+  pauseAutoScroll();
 }
 
-const checkMovement = (event) => {
+const checkSwipeEnding = (event) => {
   endX = event.changedTouches[0].clientX;
   endY = event.changedTouches[0].clientY;
-  let direction = startX - endX;
+  direction = startX - endX;
+
+  console.log(elapsedTime);
+  console.log(direction);
+  console.log(startX);
+  console.log(endX);
+
   if (direction < 0) {
+    resumeProgressAnimation();
     showPrevSlide();
-  } else {
+    return;
+  }
+  if (direction > 0) {
+    resumeProgressAnimation();
     showNextSlide();
+    return;
+  }
+  if (direction === 0) {
+    resumeAutoScroll();
+    return;
   }
  }
 
 
 slides.forEach((item) => {
   item.addEventListener("touchstart", checkStart);
-  item.addEventListener("touchend", checkMovement);
+  item.addEventListener("touchend", checkSwipeEnding);
 })
 
 let timer;
@@ -129,15 +155,14 @@ const pauseAutoScroll = () => {
 }
 
 const resumeAutoScroll = () => {
+
   startTime = new Date();
   timer = setTimeout(() => {
     showNextSlide();
     startTime = new Date();
   }, elapsedTime);
 
-  progressBarItems.forEach((item) => {
-    item.classList.remove("paused-progress");
-  })
+  resumeProgressAnimation();
 }
 
 slides.forEach((item) => {
