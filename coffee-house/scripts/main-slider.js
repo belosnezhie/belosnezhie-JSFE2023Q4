@@ -11,14 +11,14 @@ let position = 0,
 
 
 const refreshStep = () => {
-  if (window.innerWidth > 740) {
+  if (window.innerWidth >= 740) {
     step = 480;
   } else {
     step = 348;
   }
 }
 
-refreshStep();
+document.addEventListener("DOMContentLoaded", refreshStep);
 
 window.addEventListener("resize", refreshStep);
 
