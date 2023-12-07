@@ -157,6 +157,16 @@
     margin: 0px;
   }
 
+  /* menu  */
+
+  /* .menu-slide:nth-child(n-4) {
+    display: none;
+  } */
+
+  /* .menu-slide:last-child(n+4) {
+    display: none;
+  } */
+
   /* footer */
 
   .contacts-section {
