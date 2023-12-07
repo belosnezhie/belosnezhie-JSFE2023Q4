@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/menu.css">
   <link rel="stylesheet" type="text/css" href="css/media.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
   <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
   <link rel="icon" href="assets/logos-and-icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/logos-and-icons/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -54,22 +55,22 @@
         <h1 class="hidden">Coffee house menu</h1>
         <h2 class="section-headline menu-headline">Behind each of our cups hides an <span class="dedicated-text">amazing surprise</span></h2>
         <div class="menu-controls-container">
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio">
+            <span class="control-circle">
               ☕
             </span>
             Coffee
             <input type="radio" name="menu-controller" id="coffee" checked>
           </label>
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio">
+            <span class="control-circle">
               🫖
             </span>
             Tea
             <input type="radio" name="menu-controller" id="tea">
           </label>
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio">
+            <span class="control-circle">
               🍰
             </span>
             Dessert
@@ -152,6 +153,84 @@
         </div>
       </div>
     </footer>
+  </div>
+  <div class="modal-wrapper">
+    <div class="modal-window">
+      <div class="right-modal-column">
+        <div class="modal-image-container">
+          <img class="product-image" src="assets/images/coffee-1.png" alt="coffee">
+        </div>
+      </div>
+      <div class="modal-description-container">
+        <div class="modal-title">
+          <h3 class="product-title">Irish coffee</h3>
+          <p class="product-description">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+        </div>
+        <form class="modal-form">
+          <div class="modal-controllers">
+            <p>Size</p>
+            <div class="size-controllers">
+             <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  S
+                </span>
+                200 ml
+                <input type="radio" name="size-controller" id="S" checked>
+              </label>
+              <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  M
+                </span>
+                300 ml
+                <input type="radio" name="size-controller" id="M">
+              </label>
+              <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  L
+                </span>
+                400 ml
+                <input type="radio" name="size-controller" id="L">
+              </label>
+            </div>
+          </div>
+          <div class="modal-controllers">
+            <p>Additives</p>
+            <div class="additives-controllers">
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  1
+                </span>
+                Sugar
+                <input type="checkbox" id="sugar">
+              </label>
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  2
+                </span>
+                Cinnamon
+                <input type="checkbox" id="cinnamon">
+              </label>
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  3
+                </span>
+                Syrup
+                <input type="checkbox" id="syrup">
+              </label>
+            </div>
+          </div>
+        </form>
+        <div class="total-container">
+          <h3>Total</h3>
+          <h3>$7.00</h3>
+        </div>
+        <div class="info-container">
+          <img class="info-icone" src="./assets/logos-and-icons/info.png">
+          <p class="info-text">The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.</p>
+        </div>
+        <button class="close-button button" type="button">Close</button>
+      </div>
+    </div>
   </div>
   <script src="./scripts/script.js"></script>
   <script src="./scripts/product-cards-rendering.js" type="module"></script>
