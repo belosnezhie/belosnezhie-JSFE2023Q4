@@ -61,7 +61,7 @@ button {
 }
 
 .no-scroll {
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 h1 {
