@@ -240,6 +240,9 @@
 }
 
 .about-image {
+  width: auto;
+  max-width: 100%;
+  transform: scale(110%);
   transition: 0.5s;
 }
 
@@ -292,4 +295,9 @@
   font-weight: 600;
   line-height: 140%;
   text-align: left;
+}
+
+.button-text,
+.button-title {
+  transition: 0.5s;
 }

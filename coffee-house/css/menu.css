@@ -39,11 +39,15 @@
   width: 30px;
   height: 30px;
   margin-right: 8px;
-  padding: 3px 7px;
-  text-align: center;
+  padding: 0px 7px;
   border-radius: 100px;
   background-color: #C1B6AD;
   transition: 0.5s;
+}
+
+.control-circle img {
+  width: 16px;
+  margin-top: 7px;
 }
 
 .menu-control-wrapper:has(input:checked) {
@@ -132,6 +136,6 @@
 }
 
 .contacts-section-menu {
-  margin-top: 87px;
+  margin-top: 88px;
 }
 
