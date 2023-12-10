@@ -1,11 +1,11 @@
 // Burger-menu
 const burgerButton = document.querySelector(".burger-button"),
-      burgerMenu = document.querySelector(".navigation-column")
-      body = document.querySelector("body");
+      burgerMenu = document.querySelector(".navigation-column");
 
 const openCloseBurgerMenu = () => {
   burgerButton.classList.toggle("active-button");
   burgerMenu.classList.toggle("hidden-menu");
+  const body = document.querySelector("body");
   body.classList.toggle("no-scroll");
 }
 
