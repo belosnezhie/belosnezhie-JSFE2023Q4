@@ -7,6 +7,7 @@
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" type="text/css" href="css/menu.css">
   <link rel="stylesheet" type="text/css" href="css/media.css">
+  <link rel="stylesheet" type="text/css" href="css/modal.css">
   <link href="https://fonts.cdnfonts.com/css/inter" rel="stylesheet">
   <link rel="icon" href="assets/logos-and-icons/favicon-32x32.png" type="image/png" sizes="32x32">
   <link rel="icon" href="assets/logos-and-icons/favicon-16x16.png" type="image/png" sizes="16x16">
@@ -21,8 +22,8 @@
             <img src="assets/logos-and-icons/logo.png" class="logo" alt="logo">
           </a>
         </div>
-        <div>
-          <nav class="hidden-in-tablet">
+        <div class="navigation-column hidden-menu">
+          <nav>
             <ul class="navigation">
               <li class="nav-item"><a class="link nav-link" href="index.html#favorite-coffee">Favorite coffee</a></li>
               <li class="nav-item"><a class="link nav-link" href="index.html#about">About</a></li>
@@ -30,22 +31,22 @@
               <li class="nav-item"><a class="link nav-link" href="#contacts">Contact us</a></li>
             </ul>
           </nav>
-        </div>
-        <div>
-          <a class="link menu-link-container-nav disabled hidden-in-tablet" href="">
-            <p>Menu</p>
-            <div>
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M10.0003 7.50008C10.0003 6.66675 10.5956 5.83341 11.786 5.83341V5.83341C13.101 5.83341 14.167 4.76743 14.167 3.45246V2.91675" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.66634 7.5V7.08333C6.66634 5.70262 7.78563 4.58333 9.16634 4.58333V4.58333C10.0868 4.58333 10.833 3.83714 10.833 2.91667V2.5" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M13.333 9.16675H15.4163C16.5669 9.16675 17.4997 10.0995 17.4997 11.2501C17.4997 12.4007 16.5669 13.3334 15.4163 13.3334H14.1663" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
-          <div class="burger-button-container hidden-in-desktop">
-            <button class="button burger-button" type="button"></button>
+          <div>
+            <a class="link menu-link-container-nav disabled" href="#">
+              <p>Menu</p>
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+                  <path d="M14.167 9.76667V11.6667C14.167 14.8883 11.5553 17.5 8.33366 17.5C5.112 17.5 2.50033 14.8883 2.50033 11.6667V9.76667C2.50033 9.4353 2.76896 9.16667 3.10033 9.16667H13.567C13.8984 9.16667 14.167 9.4353 14.167 9.76667Z" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M10.0003 7.50008C10.0003 6.66675 10.5956 5.83341 11.786 5.83341V5.83341C13.101 5.83341 14.167 4.76743 14.167 3.45246V2.91675" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M6.66634 7.5V7.08333C6.66634 5.70262 7.78563 4.58333 9.16634 4.58333V4.58333C10.0868 4.58333 10.833 3.83714 10.833 2.91667V2.5" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M13.333 9.16675H15.4163C16.5669 9.16675 17.4997 10.0995 17.4997 11.2501C17.4997 12.4007 16.5669 13.3334 15.4163 13.3334H14.1663" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </a>
           </div>
+        </div>
+        <div class="burger-button-container hidden-in-desktop">
+          <button class="button burger-button"></button>
         </div>
       </div>
     </header>
@@ -54,112 +55,31 @@
         <h1 class="hidden">Coffee house menu</h1>
         <h2 class="section-headline menu-headline">Behind each of our cups hides an <span class="dedicated-text">amazing surprise</span></h2>
         <div class="menu-controls-container">
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio product-type-controller">
+            <span class="control-circle">
               <img src="./assets/logos-and-icons/cup.png" alt="cup">
             </span>
             Coffee
             <input type="radio" name="menu-controller" id="coffee" checked>
           </label>
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio product-type-controller">
+            <span class="control-circle">
               <img src="./assets/logos-and-icons/teapod.png" alt="teapod">
             </span>
             Tea
             <input type="radio" name="menu-controller" id="tea">
           </label>
-          <label class="menu-control-wrapper">
-            <span class="emoji-circle">
+          <label class="menu-control-wrapper radio product-type-controller">
+            <span class="control-circle">
               <img src="./assets/logos-and-icons/cake.png" alt="cake">
             </span>
             Dessert
-            <input type="radio" name="menu-controller" id="desserts">
+            <input type="radio" name="menu-controller" id="dessert">
           </label>
         </div>
-        <div class="menu-slide coffe-tab active-tab">
-          <div class="menu-slide-item">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-1.png" alt="coffee-1">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Irish coffee</h3>
-              <p class="product-description">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
-              <h3 class="product-price">$7.00</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-2.png" alt="coffee-2">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Kahlua coffee</h3>
-              <p class="product-description">Classic coffee with milk and Kahlua liqueur under a cap of frothed milk</p>
-              <h3 class="product-price">$7.00</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-3.png" alt="coffee-3">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Honey raf</h3>
-              <p class="product-description">Espresso with frothed milk, cream and aromatic honey</p>
-              <h3 class="product-price">$5.50</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-4.png" alt="coffee-4">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Ice cappuccino</h3>
-              <p class="product-description">Cappuccino with soft thick foam in summer version with ice</p>
-              <h3 class="product-price">$5.00</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item hidden-in-tablet">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-5.png" alt="coffee-5">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Espresso</h3>
-              <p class="product-description">Classic black coffee</p>
-              <h3 class="product-price">$4.50</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item hidden-in-tablet">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-6.png" alt="coffee-6">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Latte</h3>
-              <p class="product-description">Espresso coffee with the addition of steamed milk and dense milk foam</p>
-              <h3 class="product-price">$5.50</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item hidden-in-tablet">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-7.png" alt="coffee-7">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Latte macchiato</h3>
-              <p class="product-description">Espresso with frothed milk and chocolate</p>
-              <h3 class="product-price">$5.50</h3>
-            </div>
-          </div>
-          <div class="menu-slide-item hidden-in-tablet">
-            <div class="product-window">
-              <img class="product-image" src="assets/images/coffee-8.png" alt="coffee-8">
-            </div>
-            <div class="product-properties-container">
-              <h3 class="product-title">Coffee with cognac</h3>
-              <p class="product-description">Fragrant black coffee with cognac and whipped cream</p>
-              <h3 class="product-price">$6.50</h3>
-            </div>
-          </div>
-        </div>
-        <div class="refresh-button-container hidden-in-desktop">
-          <button class="button refresh-button" type="button">
+        <div class="menu-slide coffe-tab active-tab"></div>
+        <div class="refresh-button-container hidden">
+          <button class="button refresh-button">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke-linecap="round" stroke-linejoin="round"/>
               <path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke-linecap="round" stroke-linejoin="round"/>
@@ -234,5 +154,85 @@
       </div>
     </footer>
   </div>
+  <div class="modal-wrapper hidden-modal-wrapper">
+    <div class="modal-window">
+      <div class="right-modal-column">
+        <div class="modal-image-container">
+          <img class="product-image" src="assets/images/coffee-1.png" alt="coffee">
+        </div>
+      </div>
+      <div class="modal-description-container">
+        <div class="modal-title">
+          <h3 class="product-title">Irish coffee</h3>
+          <p class="product-description">Fragrant black coffee with Jameson Irish whiskey and whipped milk</p>
+        </div>
+        <form class="modal-form">
+          <div class="modal-controllers">
+            <p>Size</p>
+            <div class="size-controllers">
+             <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  S
+                </span>
+                <span class="size">200 ml</span>
+                <input type="radio" name="size-controller" id="s" checked>
+              </label>
+              <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  M
+                </span>
+                <span class="size">300 ml</span>
+                <input type="radio" name="size-controller" id="m">
+              </label>
+              <label class="menu-control-wrapper radio">
+                <span class="control-circle">
+                  L
+                </span>
+                <span class="size">400 ml</span>
+                <input type="radio" name="size-controller" id="l">
+              </label>
+            </div>
+          </div>
+          <div class="modal-controllers">
+            <p>Additives</p>
+            <div class="additives-controllers">
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  1
+                </span>
+                <span class="additive">Sugar</span>
+                <input type="checkbox" id="sugar" name="additive-controller" data-add-price="0.50">
+              </label>
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  2
+                </span>
+                <span class="additive">Cinnamon</span>
+                <input type="checkbox" id="cinnamon" name="additive-controller" data-add-price="0.50">
+              </label>
+              <label class="menu-control-wrapper">
+                <span class="control-circle">
+                  3
+                </span>
+                <span class="additive">Syrup</span>
+                <input type="checkbox" id="syrup" name="additive-controller" data-add-price="0.50">
+              </label>
+            </div>
+          </div>
+        </form>
+        <div class="total-container">
+          <h3>Total</h3>
+          <h3 class="price">$7.00</h3>
+        </div>
+        <div class="info-container">
+          <img class="info-icone" src="./assets/logos-and-icons/info.png">
+          <p class="info-text">The cost is not final. Download our mobile app to see the final price and place your order. Earn loyalty points and enjoy your favorite coffee with up to 20% discount.</p>
+        </div>
+        <button class="close-button button" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+  <script src="./scripts/script.js"></script>
+  <script src="./scripts/product-cards-rendering.js" type="module"></script>
 </body>
 </html>

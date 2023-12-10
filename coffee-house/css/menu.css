@@ -35,7 +35,9 @@
   transition: 0.5s;
 }
 
-.emoji-circle {
+.control-circle {
+  width: 30px;
+  height: 30px;
   margin-right: 8px;
   padding: 0px 7px;
   border-radius: 100px;
@@ -43,7 +45,7 @@
   transition: 0.5s;
 }
 
-.emoji-circle img {
+.control-circle img {
   width: 16px;
   margin-top: 7px;
 }
@@ -52,21 +54,25 @@
   background-color: rgba(102, 95, 85, 1);
   color: rgba(225, 212, 201, 1);
   border: 1px solid rgba(102, 95, 85, 1);
+}
+
+.menu-control-wrapper.radio:has(input:checked) {
   pointer-events: none;
   cursor: default;
 }
 
-.menu-control-wrapper:has(input:checked) .emoji-circle {
+
+.menu-control-wrapper:has(input:checked) .control-circle {
   background-color: #E1D4C9;
+  color: #403F3D;
 }
 
 .menu-control-wrapper:active {
   background-color: transparent;
-  color: rgba(225, 212, 201, 1);
   border: 1px solid rgba(225, 212, 201, 1);
 }
 
-.menu-control-wrapper:hover .emoji-circle {
+.menu-control-wrapper:hover .control-circle {
   background-color: #E1D4C9;
 }
 
@@ -87,6 +93,16 @@
   border-radius: 40px;
   border: 1px solid #C1B6AD;
   cursor: pointer;
+  animation: fade-in-out 0.5s ease-in;
+}
+
+@keyframes fade-in-out {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
 }
 
 .product-window {
