@@ -39,15 +39,15 @@
   width: 30px;
   height: 30px;
   margin-right: 8px;
-  padding: 0px 7px;
+  padding: 4px 7px;
   border-radius: 100px;
+  text-align: center;
   background-color: #C1B6AD;
   transition: 0.5s;
 }
 
 .control-circle img {
   width: 16px;
-  margin-top: 7px;
 }
 
 .menu-control-wrapper:has(input:checked) {
