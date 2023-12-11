@@ -115,12 +115,14 @@ function renderModalWindow(product) {
   const modalWindow = document.querySelector(".modal-window");
   const productImage = modalWindow.querySelector(".product-image"),
         productTitle = modalWindow.querySelector(".product-title"),
+        productDescription = modalWindow.querySelector(".product-description"),
         productSizes = modalWindow.querySelectorAll(".size"),
         productAdditives = modalWindow.querySelectorAll(".additive"),
         productPrice = modalWindow.querySelector(".price");
 
   productImage.setAttribute("src", product.image);
   productTitle.innerHTML = product.name;
+  productDescription.innerHTML = product.description;
 
   productSizes[0].innerHTML = product.sizes.s.size;
   productSizes[1].innerHTML = product.sizes.m.size;
