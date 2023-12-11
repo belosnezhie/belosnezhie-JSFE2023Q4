@@ -170,7 +170,7 @@
   .menu-slide {
     margin-top: 39px;
   }
-  
+
   /* footer */
 
   .contacts-section {
@@ -339,9 +339,12 @@
     stroke: #E1D4C9;
   }
 
-  .about-image:hover,
-  .menu-slide-item:hover .product-image {
+  .about-image:hover {
     transform: scale(100%);
+  }
+
+  .menu-slide-item:hover .product-image {
+    transform: scale(90.9%);
   }
 
   .button-app:hover {

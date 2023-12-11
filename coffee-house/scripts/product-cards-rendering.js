@@ -81,24 +81,24 @@ resumeButton.addEventListener("click", showHiddenItems);
 
 function showModalWindow(event) {
   modalWrapper.classList.remove("hidden-modal-wrapper");
-  body.classList.add("no-scroll");
+  document.querySelector("body").classList.add("no-scroll");
   event._isClickWithInMenu = true;
 }
 
 function closeModalWindow(event) {
   modalWrapper.classList.add("hidden-modal-wrapper");
-  body.classList.remove("no-scroll");
+  document.querySelector("body").classList.remove("no-scroll");
   event._isClickWithInMenu = true;
 }
 
 closeButton.addEventListener("click", (event) => closeModalWindow(event));
 
-document.body.addEventListener("click", event => {
+document.querySelector("body").addEventListener("click", event => {
     if (event._isClickWithInMenu === true) {
       return;
     }
     modalWrapper.classList.add("hidden-modal-wrapper");
-    body.classList.remove("no-scroll");
+    document.querySelector("body").classList.remove("no-scroll");
   }
 );
 
