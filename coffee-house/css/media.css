@@ -171,6 +171,10 @@
     margin-top: 39px;
   }
 
+  .size-controllers {
+  gap: 5px !important;
+  }
+
   /* footer */
 
   .contacts-section {
