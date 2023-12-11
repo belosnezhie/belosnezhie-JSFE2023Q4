@@ -93,14 +93,14 @@ function closeModalWindow(event) {
 
 closeButton.addEventListener("click", (event) => closeModalWindow(event));
 
-document.querySelector("body").addEventListener("click", event => {
-    if (event._isClickWithInMenu === true) {
-      return;
-    }
-    modalWrapper.classList.add("hidden-modal-wrapper");
-    document.querySelector("body").classList.remove("no-scroll");
-  }
-);
+// document.querySelector("body").addEventListener("click", event => {
+//     if (event._isClickWithInMenu === true) {
+//       return;
+//     }
+//     modalWrapper.classList.add("hidden-modal-wrapper");
+//     document.querySelector("body").classList.remove("no-scroll");
+//   }
+// );
 
 
 function renderModalWindow(product) {

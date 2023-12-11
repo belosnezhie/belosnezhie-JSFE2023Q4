@@ -221,6 +221,18 @@
     line-height: 125%;
   }
 
+  .modal-wrapper {
+    padding: 0px 20px !important;
+  }
+
+  .right-modal-column {
+    display: none;
+  }
+
+  .modal-description-container {
+    padding-left: 0px !important;
+  }
+
   /* enjoy */
 
   .enjoy {
@@ -371,8 +383,9 @@
     border: 1px solid rgba(102, 95, 85, 1);
   }
 
-  .menu-control-wrapper:hover .emoji-circle {
+  .menu-control-wrapper:hover .control-circle {
     background-color: #E1D4C9;
+    color: #665F55;
   }
 
   .refresh-button:hover {
