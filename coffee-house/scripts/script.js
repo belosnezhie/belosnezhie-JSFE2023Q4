@@ -3,9 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const burgerButton = document.querySelector(".burger-button"),
   burgerMenu = document.querySelector(".navigation-column");
 
-  const openCloseBurgerMenu = () => {
+  const openCloseBurgerMenu = (event) => {
     burgerButton.classList.toggle("active-button");
     burgerMenu.classList.toggle("hidden-menu");
+    event._isClickWithInMenu = true;
     const body = document.querySelector("body");
     body.classList.toggle("no-scroll");
   }

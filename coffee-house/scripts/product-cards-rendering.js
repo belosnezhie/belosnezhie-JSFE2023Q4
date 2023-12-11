@@ -5,6 +5,7 @@ const menuSlides = document.querySelector(".menu-slide"),
       resumeButton = document.querySelector(".refresh-button"),
       resumeButtonContainer = document.querySelector(".refresh-button-container"),
       modalWrapper = document.querySelector(".modal-wrapper"),
+      modalWindow = document.querySelector(".modal-window"),
       closeButton = document.querySelector(".close-button");
 
 const renderProducts = () => {
@@ -94,16 +95,20 @@ function closeModalWindow(event) {
   event._isClickWithInMenu = true;
 }
 
+modalWindow.addEventListener("click", event => {
+  event._isClickWithInMenu = true;
+});
+
 closeButton.addEventListener("click", (event) => closeModalWindow(event));
 
-// document.querySelector("body").addEventListener("click", event => {
-//     if (event._isClickWithInMenu === true) {
-//       return;
-//     }
-//     modalWrapper.classList.add("hidden-modal-wrapper");
-//     document.querySelector("body").classList.remove("no-scroll");
-//   }
-// );
+document.querySelector("body").addEventListener("click", event => {
+    if (event._isClickWithInMenu === true) {
+      return;
+    }
+    modalWrapper.classList.add("hidden-modal-wrapper");
+    document.querySelector("body").classList.remove("no-scroll");
+  }
+);
 
 
 function renderModalWindow(product) {
