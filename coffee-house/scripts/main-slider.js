@@ -11,7 +11,7 @@ let position = 0,
 
 
 const refreshStep = () => {
-  if (window.innerWidth >= 740) {
+  if (document.documentElement.getBoundingClientRect().width >= 740) {
     step = 480;
   } else {
     step = 348;
@@ -23,6 +23,8 @@ document.addEventListener("DOMContentLoaded", refreshStep);
 window.addEventListener("resize", refreshStep);
 
 const showNextSlide = () => {
+
+  refreshStep();
 
   if (position > -(progressBarItems.length - 1) * step) {
     position -= step;
@@ -41,6 +43,8 @@ const showNextSlide = () => {
 };
 
 const showPrevSlide = () => {
+
+  refreshStep();
 
   if (position < 0) {
     position += step;
