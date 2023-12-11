@@ -49,9 +49,12 @@ const hydeItems = () => {
         for (let i = 4; i < productItems.length; i++) {
           productItems[i].classList.add("hidden-in-tablet");
         }
-      } else {
+      }
+      else {
         resumeButtonContainer.classList.add("hidden");
       }
+    } else {
+      resumeButtonContainer.classList.add("hidden");
     }
 }
 
@@ -68,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
   hydeItems();
 });
 
-window.addEventListener("resize", hydeItems)
+window.addEventListener("resize", hydeItems);
 
 tabs.forEach((tab) => {
   tab.addEventListener("click", () => {
