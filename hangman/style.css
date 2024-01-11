@@ -1,0 +1,316 @@
+/* Common */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+input {
+    appearance: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+.h1 {
+    margin: 0px;
+}
+
+button {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 20px;
+}
+
+.app {
+    width: 100vw;
+    height: 100vh;
+    background-color: #ebd1df;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e279b3;
+}
+
+.body-wrapper {
+    max-width: 90%;
+    background-color: #c1f0f5;
+    border-radius: 20px;
+    padding: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.description {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.title {
+    text-align: center;
+    text-transform: uppercase;
+    color: #ffe07d;
+}
+
+.gallows {
+    position: relative;
+}
+
+.gallows-img {
+    max-width: 340px;
+}
+
+/* Body positioning */
+
+.head,
+.body,
+.left-arm,
+.right-arm,
+.left-leg,
+.right-leg {
+    position: absolute;
+}
+
+.head {
+    width: 58px;
+    top: 209px;
+    left: 126px;
+    z-index: 1;
+}
+
+.body {
+    height: 80px;
+    top: 265px;
+    left: 153px;
+}
+
+.left-arm {
+    height: 45px;
+    top: 240px;
+    right: 185px;
+}
+
+.right-arm {
+    height: 45px;
+    top: 240px;
+    right: 148px;
+}
+
+.left-leg {
+    height: 50px;
+    top: 343px;
+    right: 184px;
+}
+
+.right-leg {
+    height: 50px;
+    top: 343px;
+    right: 145px;
+}
+
+/* Game field */
+
+.game-field {
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 40px;
+}
+
+.word-container {
+    max-width: 360px;
+    display: flex;
+    gap: 20px;
+    justify-content: space-evenly;
+    font-size: 30px;
+}
+
+.letter {
+    width: 30px;
+    border-bottom: 5px solid #4e5a61;
+    border-radius: 4px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.keyboard-container {
+    max-width: 350px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.button {
+    width: 25px;
+    height: 25px;
+    background-color: #4e5a61;
+    border-radius: 4px;
+    color: white;
+    transition: 0.5s;
+}
+
+.button:active{
+    color: #e279b3;
+}
+
+@media (hover: hover) {
+    .button:hover {
+        color: #ffe07d;
+    }
+}
+
+@media (max-width: 740px) {
+
+    .gallows {
+        width: 300px;
+    }
+
+    .gallows-img {
+        max-width: 300px;
+    }
+
+    .head {
+        width: 50px;
+        top: 185px;
+        left: 112px;
+    }
+
+    .body {
+        height: 80px;
+        top: 235px;
+        left: 135px;
+    }
+
+    .left-arm {
+        height: 45px;
+        top: 205px;
+        right: 163px;
+    }
+
+    .right-arm {
+        height: 45px;
+        top: 205px;
+        right: 126px;
+    }
+
+    .left-leg {
+        height: 50px;
+        top: 313px;
+        right: 162px;
+    }
+
+    .right-leg {
+        height: 50px;
+        top: 313px;
+        right: 123px;
+    }
+}
+
+@media (max-width: 685px) {
+
+    body {
+        font-size: 16px;
+    }
+
+    .gallows {
+        width: 200px;
+    }
+
+    .gallows-img {
+        max-width: 200px;
+    }
+
+    .word-container {
+        font-size: 20px;
+    }
+
+    .head {
+        width: 40px;
+        top: 118px;
+        left: 70px;
+    }
+
+    .body {
+        height: 60px;
+        top: 158px;
+        left: 89px;
+    }
+
+    .left-arm {
+        height: 35px;
+        top: 135px;
+        right: 109px;
+    }
+
+    .right-arm {
+        height: 35px;
+        top: 135px;
+        right: 82px;
+    }
+
+    .left-leg {
+        height: 38px;
+        top: 215px;
+        right: 109px;
+    }
+
+    .right-leg {
+        height: 38px;
+        top: 215px;
+        right: 79px;
+    }
+}
+
+@media (max-width: 570px) {
+    .body-wrapper {
+        flex-wrap: wrap;
+        padding: 20px;
+    }
+
+    .gallows {
+        position: relative;
+        text-align: center;
+    }
+}
+
+
+

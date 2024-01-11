@@ -5,10 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="normalize.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
   <title>Hangman</title>
 </head>
-<body>
-
+<body class="app">
+  <div class="body-wrapper">
+    <div class="description">
+      <h1 class="title">Hangman game</h1>
+      <div class="gallows">
+        <img class="gallows-img" src="./assets/images/bnw-gallows.png" alt="Gallows">
+        <img class="body-part head" src="./assets/images/skull.png" alt="Head">
+        <img class="body-part body" src="./assets/images/body.png" alt="Body">
+        <img class="body-part left-arm" src="./assets/images/hand-left.png" alt="Arm">
+        <img class="body-part right-arm" src="./assets/images/hand-right.png" alt="Arm">
+        <img class="body-part left-leg" src="./assets/images/leg-one.png" alt="Leg">
+        <img class="body-part right-leg" src="./assets/images/leg-two.png" alt="Leg">
+      </div>
+    </div>
+    <div class="game-field">
+      <div class="word-container">
+        <span class="letter">a</span>
+        <span class="letter">b</span>
+        <span class="letter">c</span>
+        <span class="letter">d</span>
+        <span class="letter">e</span>
+        <span class="letter">f</span>
+      </div>
+      <div class="question-container">
+        <p class="hint"></p>
+      </div>
+      <div class="counter-container">
+        <p>Mistakes:</p>
+        <span class="counter"></span>
+      </div>
+      <div class="keyboard-container">
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+        <button class="button">A</button>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
