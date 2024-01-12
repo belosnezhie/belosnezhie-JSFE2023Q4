@@ -1,71 +1,40 @@
 import data from "./data.json" assert { type: "json" };
 
 function renderGame() {
-  const appWrapper = document.createElement("div");
-  appWrapper.classList.add("app-wrapper");
-
-  document.body.append(appWrapper);
-
-  const appDescription = document.createElement("div");
-  appDescription.classList.add("description");
-
-  appWrapper.append(appDescription);
-
-  const title = document.createElement("h1");
-  title.classList.add("title");
+  const appWrapper = renderElement("div", "app-wrapper", document.body);
+  const appDescription = renderElement("div", "description", appWrapper);
+  const title = renderElement("h1", "title", appDescription);
   title.innerText = "Hangman game";
-
-  appDescription.append(title);
-
-  const gallows = document.createElement("gallows");
-  gallows.classList.add("gallows");
-
-  appDescription.append(gallows);
-
+  const gallows = renderElement("div", "gallows", appDescription);
   renderImages(gallows);
-
-  const gameField = document.createElement("div");
-  gameField.classList.add("game-field");
-
-  appWrapper.append(gameField);
-
-  const wordContainer = document.createElement("div");
-  wordContainer.classList.add("word-container");
-
-  gameField.append(wordContainer);
-
-  renderWord(wordContainer);
-
-  const questionContainer = document.createElement("div");
-  questionContainer.classList.add("question-container");
-
-  gameField.append(questionContainer);
-
-  renderQuestion(questionContainer);
-
-  const counterContainer = document.createElement("div");
-  counterContainer.classList.add("counter-container");
-
-  gameField.append(counterContainer);
-
+  const gameField = renderElement("div", "game-field", appWrapper);
+  const wordContainer = renderElement("div", "word-container", gameField);
+  const questionContainer = renderElement(
+    "div",
+    "question-container",
+    gameField,
+  );
+  let questionObj = guessWord();
+  renderWord(wordContainer, questionObj);
+  renderQuestion(questionContainer, questionObj);
+  const counterContainer = renderElement("div", "counter-container", gameField);
   renderCounter(counterContainer, 0);
-
-  const keyboardContainer = document.createElement("div");
-  keyboardContainer.classList.add("keyboard-container");
-
-  gameField.append(keyboardContainer);
-
+  const keyboardContainer = renderElement(
+    "div",
+    "keyboard-container",
+    gameField,
+  );
   renderKeybord(keyboardContainer);
 }
 
 renderGame();
 
-// Функция для рендеринга отдельных элементов чтобы убрать простыню из renderGame()
-// function renderElement(elTag, elClass, elParent) {
-//   const el = document.createElement(elTag);
-//   el.classList.add(elClass);
-//   elParent.append(el);
-// }
+function renderElement(elTag, elClass, elParent) {
+  const el = document.createElement(elTag);
+  el.classList.add(elClass);
+  elParent.append(el);
+  return el;
+}
 
 function renderImages(parent) {
   data.imagesArr.forEach((item) => {
@@ -77,9 +46,8 @@ function renderImages(parent) {
   });
 }
 
-function renderWord(parent) {
-  let questionNumber = randomQuestion(1, 15);
-  let word = data.questionsArr[questionNumber].answer;
+function renderWord(parent, questionObj) {
+  let word = questionObj.answer;
   let wordArr = word.split("");
   wordArr.forEach((item) => {
     const letter = document.createElement("span");
@@ -90,9 +58,8 @@ function renderWord(parent) {
   });
 }
 
-function renderQuestion(parent) {
-  let questionNumber = randomQuestion(1, 15);
-  let question = data.questionsArr[questionNumber].question;
+function renderQuestion(parent, questionObj) {
+  let question = questionObj.question;
   const questionEl = document.createElement("p");
   questionEl.classList.add("hint");
   questionEl.innerText = `Hint: ${question}`;
@@ -118,4 +85,9 @@ function renderKeybord(parent) {
 function randomQuestion(min, max) {
   let randonInteger = min + Math.random() * (max + 1 - min);
   return Math.floor(randonInteger);
+}
+
+function guessWord() {
+  let questionNumber = randomQuestion(1, 15);
+  return data.questionsArr[questionNumber];
 }
