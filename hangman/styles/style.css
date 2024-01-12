@@ -51,6 +51,10 @@ button {
     display: none;
 }
 
+.hidden-text {
+  font-size: 0;
+}
+
 body {
     font-family: 'Ubuntu', sans-serif;
     font-size: 20px;

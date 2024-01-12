@@ -2,39 +2,124 @@
   "imagesArr":
   [
     {
-      "class": "gallows-img",
+      "classes": ["gallows-img"],
       "src": "./assets/images/bnw-gallows.png",
       "alt": "Gallows"
     },
     {
-      "class": "head",
+      "classes": ["head", "body-part", "hidden"],
       "src": "./assets/images/skull.png",
       "alt": "Head"
     },
     {
-      "class": "body",
+      "classes": ["body", "body-part", "hidden"],
       "src": "./assets/images/body.png",
       "alt": "Body"
     },
     {
-      "class": "left-arm",
+      "classes": ["left-arm", "body-part", "hidden"],
       "src": "./assets/images/hand-left.png",
       "alt": "Arm"
     },
     {
-      "class": "right-arm",
+      "classes": ["right-arm", "body-part", "hidden"],
       "src": "./assets/images/hand-right.png",
       "alt": "Arm"
     },
     {
-      "class": "left-leg",
+      "classes": ["left-leg", "body-part", "hidden"],
       "src": "./assets/images/leg-one.png",
       "alt": "Leg"
     },
     {
-      "class": "right-leg",
+      "classes": ["right-leg", "body-part", "hidden"],
       "src": "./assets/images/leg-two.png",
       "alt": "Leg"
     }
-  ]
+  ],
+  "questionsArr":
+  [
+    {
+      "number": "1",
+      "question": "A chunk of rock from space that makes a light streak in the sky",
+      "answer": "meteor"
+    },
+    {
+      "number": "2",
+      "question": "Group of females",
+      "answer": "women"
+    },
+    {
+      "number": "3",
+      "question": "Cat sound",
+      "answer": "meow"
+    },
+    {
+      "number": "4",
+      "question": "Lasting through all time",
+      "answer": "eternal"
+    },
+    {
+      "number": "5",
+      "question": "A teacher and role model",
+      "answer": "mentor"
+    },
+    {
+      "number": "6",
+      "question": "A large plant with bark",
+      "answer": "tree"
+    },
+    {
+      "number": "7",
+      "question": "The highest mountain of Africa is in this country",
+      "answer": "KENYA"
+    },
+    {
+      "number": "8",
+      "question": "An active volcano in Europe is in this country.",
+      "answer": "ITALY"
+    },
+    {
+      "number": "9",
+      "question": "A country full of fjords.",
+      "answer": "NORWAY"
+    },
+    {
+      "number": "9",
+      "question": "A country full of fjords.",
+      "answer": "NORWAY"
+    },
+    {
+      "number": "10",
+      "question": "Horizontal lines across Earth's surface used for location.",
+      "answer": "parallels"
+    },
+    {
+      "number": "11",
+      "question": "Is everything that exists, including all energy, matter and space.",
+      "answer": "UNIVERSE"
+    },
+    {
+      "number": "12",
+      "question": "Is a celestial object that revolves around a planet in a closed path or orbit.",
+      "answer": "satellite"
+    },
+    {
+      "number": "13",
+      "question": "They are a massive collection of gases held together by their own gravity and emitting huge amounts of energy.",
+      "answer": "stars"
+    },
+    {
+      "number": "14",
+      "question": "The planet closest to the Sun.",
+      "answer": "Mercury"
+    },
+    {
+      "number": "15",
+      "question": "The planet closest to Earth.",
+      "answer": "Venus"
+    }
+  ],
+  "alfabet":
+  ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 }
