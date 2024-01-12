@@ -111,7 +111,7 @@
 }
 
 @media (max-width: 570px) {
-    .body-wrapper {
+    .app-wrapper {
         flex-wrap: wrap;
         padding: 20px;
     }
