@@ -1,13 +1,16 @@
 import data from "./data.json" assert { type: "json" };
 
-const questionObj = guessWord(),
+let questionObj = guessWord(),
   wordLettersElements = [],
   bodyElements = [];
 
 let globalCounterContainer = undefined,
   mistakes = 0;
 
+console.log("Please, use english keyboard");
+
 const renderGame = () => {
+  document.body.classList.add("app");
   const appWrapper = renderElement("div", "app-wrapper", document.body);
   const appDescription = renderElement("div", "description", appWrapper);
   const title = renderElement("h1", "title", appDescription);
@@ -21,8 +24,8 @@ const renderGame = () => {
     "question-container",
     gameField,
   );
-  // let questionObj = guessWord();
   renderWord(wordContainer, questionObj);
+  console.log(`Secret word: ${questionObj.answer}`);
   renderQuestion(questionContainer, questionObj);
   const counterContainer = renderElement("div", "counter-container", gameField);
   renderCounter(counterContainer, mistakes);
@@ -64,6 +67,7 @@ function renderWord(parent, questionObj) {
     const letter = document.createElement("span");
     letter.classList.add("letter");
     letter.classList.add("hidden-text");
+    letter.classList.add("underscored");
     letter.innerText = item.toUpperCase();
     parent.append(letter);
     wordLettersElements.push(letter);
@@ -112,6 +116,7 @@ function renderModal(result) {
     modalWindow,
   );
   tryAgainButton.innerText = "Try again!";
+  tryAgainButton.addEventListener("click", tryAgain);
 }
 
 function renderResults(parent, result) {
@@ -146,12 +151,14 @@ function guessWord() {
 // Game logic
 
 function checkLetter(event) {
+  event.target.classList.add("disabled");
   const chosenLetter = event.target.innerText;
   const word = questionObj.answer.toUpperCase();
   if (word.includes(chosenLetter) === true) {
     wordLettersElements.forEach((item) => {
       if (item.innerText === chosenLetter) {
         item.classList.remove("hidden-text");
+        item.classList.remove("underscored");
       }
     });
     if (
@@ -173,4 +180,15 @@ function checkLetter(event) {
 
 function showBodyPart() {
   bodyElements[mistakes].classList.remove("hidden");
+}
+
+function tryAgain() {
+  questionObj = guessWord();
+  wordLettersElements = [];
+  bodyElements = [];
+  globalCounterContainer = undefined;
+  mistakes = 0;
+  document.body.innerHTML = "";
+  document.body.classList.remove("app");
+  renderGame();
 }

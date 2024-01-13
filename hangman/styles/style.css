@@ -171,10 +171,13 @@ body {
 
 .letter {
     width: 30px;
-    border-bottom: 5px solid #4e5a61;
     border-radius: 4px;
     text-transform: uppercase;
     text-align: center;
+}
+
+.letter.underscored {
+  border-bottom: 5px solid #4e5a61;
 }
 
 .keyboard-container {
@@ -193,6 +196,12 @@ body {
     border-radius: 4px;
     color: white;
     transition: 0.5s;
+}
+
+.button.disabled {
+  pointer-events: none;
+  cursor: default;
+  background-color: #7c8f9a;
 }
 
 .button:active{
