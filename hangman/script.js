@@ -1,7 +1,8 @@
 import data from "./data.json" assert { type: "json" };
 
 const questionObj = guessWord(),
-  wordLettersElements = [];
+  wordLettersElements = [],
+  bodyElements = [];
 
 let globalCounterContainer = undefined,
   mistakes = 0;
@@ -50,6 +51,9 @@ function renderImages(parent) {
     image.setAttribute("src", item.src);
     image.setAttribute("alt", item.alt);
     parent.append(image);
+    if (image.classList.contains("body-part") === true) {
+      bodyElements.push(image);
+    }
   });
 }
 
@@ -135,7 +139,7 @@ function randomQuestion(min, max) {
 }
 
 function guessWord() {
-  let questionNumber = randomQuestion(1, 15);
+  let questionNumber = randomQuestion(0, 14);
   return data.questionsArr[questionNumber];
 }
 
@@ -158,10 +162,15 @@ function checkLetter(event) {
       renderModal("win");
     }
   } else {
-    if (mistakes >= 6) {
+    showBodyPart();
+    mistakes++;
+    if (mistakes > 5) {
       renderModal("lose");
     }
-    mistakes++;
     renderCounter(globalCounterContainer, mistakes);
   }
+}
+
+function showBodyPart() {
+  bodyElements[mistakes].classList.remove("hidden");
 }
