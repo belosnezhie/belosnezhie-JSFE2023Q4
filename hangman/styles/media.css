@@ -73,6 +73,10 @@
         font-size: 20px;
     }
 
+    .letter {
+      width: 25px;
+    }
+
     .head {
         width: 40px;
         top: 118px;
