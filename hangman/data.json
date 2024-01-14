@@ -7,32 +7,32 @@
       "alt": "Gallows"
     },
     {
-      "classes": ["head", "body-part", "hidden"],
+      "classes": ["head", "body-part"],
       "src": "./assets/images/skull.png",
       "alt": "Head"
     },
     {
-      "classes": ["body", "body-part", "hidden"],
+      "classes": ["body", "body-part"],
       "src": "./assets/images/body.png",
       "alt": "Body"
     },
     {
-      "classes": ["left-arm", "body-part", "hidden"],
+      "classes": ["left-arm", "body-part"],
       "src": "./assets/images/hand-left.png",
       "alt": "Arm"
     },
     {
-      "classes": ["right-arm", "body-part", "hidden"],
+      "classes": ["right-arm", "body-part"],
       "src": "./assets/images/hand-right.png",
       "alt": "Arm"
     },
     {
-      "classes": ["left-leg", "body-part", "hidden"],
+      "classes": ["left-leg", "body-part"],
       "src": "./assets/images/leg-one.png",
       "alt": "Leg"
     },
     {
-      "classes": ["right-leg", "body-part", "hidden"],
+      "classes": ["right-leg", "body-part"],
       "src": "./assets/images/leg-two.png",
       "alt": "Leg"
     }
