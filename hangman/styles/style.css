@@ -42,7 +42,6 @@ button {
     color: inherit;
     background-color: transparent;
     cursor: pointer;
-    transition: 0.5s;
 }
 
 .hidden {
@@ -184,6 +183,7 @@ body {
 
 .letter.underscored {
   border-bottom: 5px solid #4e5a61;
+  transition: 0.5s;
 }
 
 .keyboard-container {
@@ -229,7 +229,7 @@ body {
   align-items: center;
   visibility: visible;
   opacity: 1;
-  transition: 0.5s;
+  animation: appear ease-in 0.5s;
 }
 
 .hidden-shadow-wrapper {
