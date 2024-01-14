@@ -2,6 +2,7 @@ import data from "./data.json" assert { type: "json" };
 
 let questionObj = guessWord(),
   wordLettersElements = [],
+  buttonsElements = [],
   bodyElements = [];
 
 let globalCounterContainer = undefined,
@@ -98,8 +99,10 @@ function renderKeybord(parent) {
     const characterButton = document.createElement("button");
     characterButton.classList.add("button");
     characterButton.innerText = item;
+    characterButton.setAttribute("id", item);
     characterButton.addEventListener("click", checkLetter);
     parent.append(characterButton);
+    buttonsElements.push(characterButton);
   });
 }
 
@@ -151,8 +154,23 @@ function guessWord() {
 // Game logic
 
 function checkLetter(event) {
-  event.target.classList.add("disabled");
-  const chosenLetter = event.target.innerText;
+  let chosenLetter;
+  if (event.type === "click") {
+    event.target.classList.add("disabled");
+    chosenLetter = event.target.innerText;
+  } else {
+    chosenLetter = event.key.toUpperCase();
+    if (data.alfabet.includes(chosenLetter) === false) {
+      return;
+    }
+    const virtButtonIndex = buttonsElements.findIndex((item) => {
+      return item.id === chosenLetter;
+    });
+    if (buttonsElements[virtButtonIndex].classList.contains("disabled")) {
+      return;
+    }
+    buttonsElements[virtButtonIndex].classList.add("disabled");
+  }
   const word = questionObj.answer.toUpperCase();
   if (word.includes(chosenLetter) === true) {
     wordLettersElements.forEach((item) => {
@@ -186,9 +204,12 @@ function tryAgain() {
   questionObj = guessWord();
   wordLettersElements = [];
   bodyElements = [];
+  buttonsElements = [];
   globalCounterContainer = undefined;
   mistakes = 0;
   document.body.innerHTML = "";
   document.body.classList.remove("app");
   renderGame();
 }
+
+document.addEventListener("keydown", checkLetter);
