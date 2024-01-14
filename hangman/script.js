@@ -2,9 +2,10 @@ import data from "./data.json" assert { type: "json" };
 
 let questionObj = guessWord(),
   wordLettersElements = [],
-  bodyElements = [];
+  buttonsElements = [];
 
 let globalCounterContainer = undefined,
+  globalGallowsContainer = undefined,
   mistakes = 0;
 
 console.log("Please, use english keyboard");
@@ -16,6 +17,7 @@ const renderGame = () => {
   const title = renderElement("h1", "title", appDescription);
   title.innerText = "Hangman game";
   const gallows = renderElement("div", "gallows", appDescription);
+  globalGallowsContainer = gallows;
   renderImages(gallows);
   const gameField = renderElement("div", "game-field", appWrapper);
   const wordContainer = renderElement("div", "word-container", gameField);
@@ -48,16 +50,13 @@ function renderElement(elTag, elClass, elParent) {
 }
 
 function renderImages(parent) {
-  data.imagesArr.forEach((item) => {
-    const image = document.createElement("img");
-    item.classes.forEach((myClass) => image.classList.add(myClass));
-    image.setAttribute("src", item.src);
-    image.setAttribute("alt", item.alt);
-    parent.append(image);
-    if (image.classList.contains("body-part") === true) {
-      bodyElements.push(image);
-    }
-  });
+  const imageIndex = mistakes;
+  const imageObj = data.imagesArr[imageIndex];
+  const image = document.createElement("img");
+  imageObj.classes.forEach((myClass) => image.classList.add(myClass));
+  image.setAttribute("src", imageObj.src);
+  image.setAttribute("alt", imageObj.alt);
+  parent.append(image);
 }
 
 function renderWord(parent, questionObj) {
@@ -98,8 +97,10 @@ function renderKeybord(parent) {
     const characterButton = document.createElement("button");
     characterButton.classList.add("button");
     characterButton.innerText = item;
+    characterButton.setAttribute("id", item);
     characterButton.addEventListener("click", checkLetter);
     parent.append(characterButton);
+    buttonsElements.push(characterButton);
   });
 }
 
@@ -130,11 +131,6 @@ function renderResults(parent, result) {
 
 function renderResultWord(parent) {
   const secretWord = renderElement("p", "secret-word", parent);
-  // const letterArr = document.querySelectorAll(".letter");
-  // let word = "";
-  // for (let i = 0; i < letterArr.length; i++) {
-  //   word += letterArr[i].innerText;
-  // }
   secretWord.innerText = `Secret word: ${questionObj.answer.toUpperCase()}`;
 }
 
@@ -151,8 +147,23 @@ function guessWord() {
 // Game logic
 
 function checkLetter(event) {
-  event.target.classList.add("disabled");
-  const chosenLetter = event.target.innerText;
+  let chosenLetter;
+  if (event.type === "click") {
+    event.target.classList.add("disabled");
+    chosenLetter = event.target.innerText;
+  } else {
+    chosenLetter = event.key.toUpperCase();
+    if (data.alfabet.includes(chosenLetter) === false) {
+      return;
+    }
+    const virtButtonIndex = buttonsElements.findIndex((item) => {
+      return item.id === chosenLetter;
+    });
+    if (buttonsElements[virtButtonIndex].classList.contains("disabled")) {
+      return;
+    }
+    buttonsElements[virtButtonIndex].classList.add("disabled");
+  }
   const word = questionObj.answer.toUpperCase();
   if (word.includes(chosenLetter) === true) {
     wordLettersElements.forEach((item) => {
@@ -169,8 +180,8 @@ function checkLetter(event) {
       renderModal("win");
     }
   } else {
-    showBodyPart();
     mistakes++;
+    renderImages(globalGallowsContainer);
     if (mistakes > 5) {
       renderModal("lose");
     }
@@ -178,17 +189,15 @@ function checkLetter(event) {
   }
 }
 
-function showBodyPart() {
-  bodyElements[mistakes].classList.remove("hidden");
-}
-
 function tryAgain() {
   questionObj = guessWord();
   wordLettersElements = [];
-  bodyElements = [];
+  buttonsElements = [];
   globalCounterContainer = undefined;
   mistakes = 0;
   document.body.innerHTML = "";
   document.body.classList.remove("app");
   renderGame();
 }
+
+document.addEventListener("keydown", checkLetter);
