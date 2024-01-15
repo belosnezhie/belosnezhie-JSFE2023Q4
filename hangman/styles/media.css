@@ -134,6 +134,11 @@
     gap: 15px;
   }
 
+  .title {
+    font-size: 25px;
+    margin-bottom: 0;
+  }
+
   .gallows {
     position: relative;
     text-align: center;
