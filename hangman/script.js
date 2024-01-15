@@ -8,9 +8,8 @@ let globalCounterContainer = undefined,
   globalGallowsContainer = undefined,
   mistakes = 0;
 
-console.log("Please, use english keyboard");
-
 const renderGame = () => {
+  console.log("Please, use english keyboard");
   document.body.classList.add("app");
   const appWrapper = renderElement("div", "app-wrapper", document.body);
   const appDescription = renderElement("div", "description", appWrapper);
@@ -62,12 +61,10 @@ function renderImages(parent) {
 function renderWord(parent, questionObj) {
   let word = questionObj.answer;
   let wordArr = word.split("");
-  wordArr.forEach((item) => {
+  wordArr.forEach(() => {
     const letter = document.createElement("span");
     letter.classList.add("letter");
-    letter.classList.add("hidden-text");
     letter.classList.add("underscored");
-    letter.innerText = item.toUpperCase();
     parent.append(letter);
     wordLettersElements.push(letter);
   });
@@ -166,15 +163,16 @@ function checkLetter(event) {
   }
   const word = questionObj.answer.toUpperCase();
   if (word.includes(chosenLetter) === true) {
-    wordLettersElements.forEach((item) => {
-      if (item.innerText === chosenLetter) {
-        item.classList.remove("hidden-text");
-        item.classList.remove("underscored");
+    let wordArr = word.split("");
+    wordArr.map((letter, index) => {
+      if (letter === chosenLetter) {
+        wordLettersElements[index].innerText = chosenLetter;
+        wordLettersElements[index].classList.remove("underscored");
       }
     });
     if (
       wordLettersElements.every(
-        (item) => item.classList.contains("hidden-text") === false,
+        (item) => item.classList.contains("underscored") === false,
       )
     ) {
       renderModal("win");
@@ -190,7 +188,12 @@ function checkLetter(event) {
 }
 
 function tryAgain() {
+  const prevWord = questionObj.answer;
   questionObj = guessWord();
+  if (questionObj.answer === prevWord) {
+    questionObj = guessWord();
+  }
+  console.clear();
   wordLettersElements = [];
   buttonsElements = [];
   globalCounterContainer = undefined;

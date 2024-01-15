@@ -1,6 +1,6 @@
 @media (hover: hover) {
     .button:hover {
-        background-color: #7c8f9a;
+      background-color: #7c8f9a;
     }
 
     .try-again-button:hover {
@@ -10,118 +10,136 @@
 
 @media (max-width: 740px) {
 
-    .gallows {
-        width: 300px;
-    }
+  .app-wrapper {
+    gap: 10px;
+  }
 
-    .gallows-img {
-        max-width: 300px;
-    }
+  .gallows {
+    width: 300px;
+  }
 
-    .head {
-        width: 50px;
-        top: 185px;
-        left: 112px;
-    }
+  .gallows-img {
+    max-width: 300px;
+  }
 
-    .body {
-        height: 80px;
-        top: 235px;
-        left: 135px;
-    }
+  .head {
+    width: 50px;
+    top: 185px;
+    left: 112px;
+  }
 
-    .left-arm {
-        height: 45px;
-        top: 205px;
-        right: 163px;
-    }
+  .body {
+    height: 80px;
+    top: 235px;
+    left: 135px;
+  }
 
-    .right-arm {
-        height: 45px;
-        top: 205px;
-        right: 126px;
-    }
+  .left-arm {
+    height: 45px;
+    top: 205px;
+    right: 163px;
+  }
 
-    .left-leg {
-        height: 50px;
-        top: 313px;
-        right: 162px;
-    }
+  .right-arm {
+    height: 45px;
+    top: 205px;
+    right: 126px;
+  }
 
-    .right-leg {
-        height: 50px;
-        top: 313px;
-        right: 123px;
-    }
+  .left-leg {
+    height: 50px;
+    top: 313px;
+    right: 162px;
+  }
+
+  .right-leg {
+    height: 50px;
+    top: 313px;
+    right: 123px;
+  }
 }
 
-@media (max-width: 685px) {
+@media (max-width: 695px) {
 
-    body {
-        font-size: 16px;
-    }
+  body {
+    font-size: 16px;
+  }
 
-    .gallows {
-        width: 200px;
-    }
+  .gallows {
+    width: 200px;
+  }
 
-    .gallows-img {
-        max-width: 200px;
-    }
+  .gallows-img {
+    max-width: 200px;
+  }
 
-    .word-container {
-        font-size: 20px;
-    }
+  .game-field {
+    gap: 20px;
+  }
 
-    .letter {
-      width: 25px;
-    }
+  .word-container {
+    font-size: 20px;
+  }
 
-    .head {
-        width: 40px;
-        top: 118px;
-        left: 70px;
-    }
+  .letter {
+    width: 25px;
+  }
 
-    .body {
-        height: 60px;
-        top: 158px;
-        left: 89px;
-    }
+  .button {
+    width: 35px;
+    height: 30px;
+  }
 
-    .left-arm {
-        height: 35px;
-        top: 135px;
-        right: 109px;
-    }
+  .head {
+    width: 40px;
+    top: 118px;
+    left: 70px;
+  }
 
-    .right-arm {
-        height: 35px;
-        top: 135px;
-        right: 82px;
-    }
+  .body {
+    height: 60px;
+    top: 158px;
+    left: 89px;
+  }
 
-    .left-leg {
-        height: 38px;
-        top: 215px;
-        right: 109px;
-    }
+  .left-arm {
+    height: 35px;
+    top: 135px;
+    right: 109px;
+  }
 
-    .right-leg {
-        height: 38px;
-        top: 215px;
-        right: 79px;
-    }
+  .right-arm {
+    height: 35px;
+    top: 135px;
+    right: 82px;
+  }
+
+  .left-leg {
+    height: 38px;
+    top: 215px;
+    right: 109px;
+  }
+
+  .right-leg {
+    height: 38px;
+    top: 215px;
+    right: 79px;
+  }
 }
 
-@media (max-width: 570px) {
-    .app-wrapper {
-        flex-wrap: wrap;
-        padding: 20px;
-    }
+@media (max-width: 580px) {
+  .app-wrapper {
+    flex-wrap: wrap;
+    padding: 20px;
+    gap: 15px;
+  }
 
-    .gallows {
-        position: relative;
-        text-align: center;
-    }
+  .gallows {
+    position: relative;
+    text-align: center;
+  }
+
+  .modal-window {
+    width: 320px;
+  }
 }
