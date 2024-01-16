@@ -6,6 +6,8 @@ let questionObj = guessWord(),
 
 let globalCounterContainer = undefined,
   globalGallowsContainer = undefined,
+  globalWordContainer = undefined,
+  globalQuestionContainer = undefined,
   mistakes = 0;
 
 const renderGame = () => {
@@ -20,11 +22,13 @@ const renderGame = () => {
   renderImages(gallows);
   const gameField = renderElement("div", "game-field", appWrapper);
   const wordContainer = renderElement("div", "word-container", gameField);
+  globalWordContainer = wordContainer;
   const questionContainer = renderElement(
     "div",
     "question-container",
     gameField,
   );
+  globalQuestionContainer = questionContainer;
   renderWord(wordContainer, questionObj);
   console.log(`Secret word: ${questionObj.answer}`);
   renderQuestion(questionContainer, questionObj);
@@ -103,6 +107,7 @@ function renderKeybord(parent) {
 
 function renderModal(result) {
   const shadowWrapper = renderElement("div", "shadow-wrapper", document.body);
+  shadowWrapper.setAttribute("id", "shadow-wrapper");
   const modalWindow = renderElement("div", "modal-window", shadowWrapper);
   const modalImg = renderElement("img", "lose-img", modalWindow);
   modalImg.setAttribute("src", "assets/images/skull.png");
@@ -115,6 +120,12 @@ function renderModal(result) {
   );
   tryAgainButton.innerText = "Try again!";
   tryAgainButton.addEventListener("click", tryAgain);
+  tryAgainButton.focus();
+  tryAgainButton.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      tryAgain();
+    }
+  });
 }
 
 function renderResults(parent, result) {
@@ -144,6 +155,9 @@ function guessWord() {
 // Game logic
 
 function checkLetter(event) {
+  if (document.body.children.namedItem("shadow-wrapper") !== null) {
+    return;
+  }
   let chosenLetter;
   if (event.type === "click") {
     event.target.classList.add("disabled");
@@ -190,17 +204,32 @@ function checkLetter(event) {
 function tryAgain() {
   const prevWord = questionObj.answer;
   questionObj = guessWord();
-  if (questionObj.answer === prevWord) {
+  while (questionObj.answer === prevWord) {
     questionObj = guessWord();
   }
   console.clear();
   wordLettersElements = [];
-  buttonsElements = [];
-  globalCounterContainer = undefined;
   mistakes = 0;
-  document.body.innerHTML = "";
-  document.body.classList.remove("app");
-  renderGame();
+
+  globalGallowsContainer.replaceChildren();
+  renderImages(globalGallowsContainer);
+
+  globalWordContainer.replaceChildren();
+  renderWord(globalWordContainer, questionObj);
+
+  globalQuestionContainer.replaceChildren();
+  renderQuestion(globalQuestionContainer, questionObj);
+
+  renderCounter(globalCounterContainer, mistakes);
+
+  buttonsElements.forEach((item) => {
+    item.classList.remove("disabled");
+  });
+
+  document.body.removeChild(document.body.lastChild);
+
+  console.log("Please, use english keyboard");
+  console.log(`Secret word: ${questionObj.answer}`);
 }
 
 document.addEventListener("keydown", checkLetter);
