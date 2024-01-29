@@ -4,9 +4,146 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles/normalize.css">
+  <link rel="stylesheet" href="./styles/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Moirai+One&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pangolin&display=swap" rel="stylesheet">
   <title>Nonograms</title>
 </head>
-<body>
-
+<body class="app">
+  <div class="app-wprapper">
+    <h1 class="title">Nonograms</h1>
+    <div class="game-wprapper">
+      <div class="buttons-container">
+        <button class="button reset">Reset game</button>
+        <button class="button save">Save game</button>
+        <button class="button continue">Continue last game</button>
+        <button class="button random">Random game</button>
+      </div>
+      <div class="game-field-container">
+        <div class="level-controls-conteiner">
+          <h2>Choose complexity and image</h2>
+          <h3>Easy</h3>
+          <select class="level">
+            <option disabled>Easy</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+          </select>
+          <h3>Medium</h3>
+          <select class="level">
+            <option disabled>Medium</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+          </select>
+          <h3>Hard</h3>
+          <select class="level">
+            <option disabled>Hard</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+            <option>image</option>
+          </select>
+        </div>
+        <div class="game-field">
+          <div class="counter-container">
+            <span class="time">00:00</span>
+          </div>
+          <div class="field">
+            <div class="vertical-clues-container">
+              <div class="clue-row">
+                <span class="clue">0</span>
+                <span class="clue">0</span>
+              </div>
+              <div class="clue-row">
+                <span class="clue">1</span>
+                <span class="clue">1</span>
+              </div>
+              <div class="clue-row">
+                <span class="clue">2</span>
+                <span class="clue">2</span>
+              </div>
+              <div class="clue-row">
+                <span class="clue">3</span>
+                <span class="clue">3</span>
+              </div>
+              <div class="clue-row">
+                <span class="clue">4</span>
+                <span class="clue">4</span>
+              </div>
+            </div>
+            <div class="horisontal-clues-container">
+              <div class="clue-column">
+                <span class="clue">0</span>
+                <span class="clue">0</span>
+              </div>
+              <div class="clue-column">
+                <span class="clue">1</span>
+                <span class="clue">1</span>
+              </div>
+              <div class="clue-column">
+                <span class="clue">2</span>
+                <span class="clue">2</span>
+              </div>
+              <div class="clue-column">
+                <span class="clue">3</span>
+                <span class="clue">3</span>
+              </div>
+              <div class="clue-column">
+                <span class="clue">4</span>
+                <span class="clue">4</span>
+              </div>
+            </div>
+            <div class="game">
+              <div class="row">
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+              </div>
+              <div class="row">
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+              </div>
+              <div class="row">
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+              </div>
+              <div class="row">
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+              </div>
+              <div class="row">
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+                <div class="ceil"></div>
+              </div>
+            </div>
+          </div>
+          <button class="button solution">Solution</button>
+          </div>
+        </div>
+  </div>
 </body>
 </html>
