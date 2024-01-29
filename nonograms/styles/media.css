@@ -1,0 +1,16 @@
+@media (max-width: 480px) {
+
+
+.game-field-container {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.level-controls-conteiner {
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+}
