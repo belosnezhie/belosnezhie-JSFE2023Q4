@@ -74,19 +74,51 @@ export function render() {
     field,
   );
   viewHorisontalClues = horisontalClues;
-  const game = renderElement('div', 'game', gameField);
+  const game = renderElement('div', 'game', field);
   viewGame = game;
+
+  createHorisontalHints(horisontalClues);
+  createVerticalHints(verticalClues);
+  createGame(game);
 }
 
 // Рендер игрового поля
 
 import { randomMatrixObj } from './model.js';
+import { horisontalHints } from './model.js';
+import { verticalHints } from './model.js';
 
-function createGame() {
-  // для каждой строки массива создать див с классом row
-  // внутри этого дива создать дивы с классом ceil
+function createGame(parent) {
+  const matrix = randomMatrixObj.matrix;
+  for (let i = 0; i < matrix.length; i += 1) {
+    const row = renderElement('div', 'row', parent);
+    for (let j = 0; j < matrix[i].length; j += 1) {
+      const ceil = renderElement('div', 'ceil', row);
+      ceil.innerText = matrix[i][j];
+      ceil.addEventListener('click', checkAndRerenderMatrix);
+    }
+  }
 }
-// количество черных клеточек - подсказка
+
+function createHorisontalHints(parent) {
+  horisontalHints.forEach((arr) => {
+    const clueColumn = renderElement('div', 'clue-column', parent);
+    arr.forEach((digit) => {
+      const clue = renderElement('span', 'clue', clueColumn);
+      clue.innerText = digit;
+    });
+  });
+}
+
+function createVerticalHints(parent) {
+  verticalHints.forEach((arr) => {
+    const clueRow = renderElement('div', 'clue-row', parent);
+    arr.forEach((digit) => {
+      const clue = renderElement('span', 'clue', clueRow);
+      clue.innerText = digit;
+    });
+  });
+}
 
 // Рендер кнопок
 function renderButton(parent, type) {
@@ -117,3 +149,6 @@ function renderElement(elTag, elClass, elParent, addElClass) {
   }
   return el;
 }
+
+//// логика кликов по ячейкам
+function checkAndRerenderMatrix() {}

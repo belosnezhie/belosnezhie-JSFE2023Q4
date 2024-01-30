@@ -7,7 +7,81 @@ function randomNumber(min, max) {
 
 function getRandomMatrix() {
   let number = randomNumber(0, 14);
-  return data.matrixes[number];
+  return data.matrices[number];
 }
 
-export const randomMatrixObj = getRandomMatrix();
+function formVerticalHints() {
+  const matrix = randomMatrixObj.matrix;
+
+  const verticalHints = [];
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    const currentHits = [];
+    let wasFilled = false;
+    let counter = 0;
+    for (let j = 0; j < matrix.length; j += 1) {
+      if (matrix[i][j] === 1) {
+        counter += 1;
+        wasFilled = true;
+      } else {
+        if (wasFilled) {
+          currentHits.push(counter);
+          counter = 0;
+          wasFilled = false;
+        }
+      }
+      if (j === matrix.length - 1) {
+        if (counter !== 0) {
+          currentHits.push(counter);
+        }
+        if (currentHits.length === 0) {
+          currentHits.push(counter);
+        }
+        counter = 0;
+        wasFilled = false;
+      }
+    }
+    verticalHints.push(currentHits);
+  }
+  return verticalHints;
+}
+
+function formHorisontalHints() {
+  const matrix = randomMatrixObj.matrix;
+
+  const horisontalHints = [];
+
+  for (let i = 0; i < matrix.length; i += 1) {
+    const currentHits = [];
+    let wasFilled = false;
+    let counter = 0;
+    for (let j = 0; j < matrix.length; j += 1) {
+      if (matrix[j][i] === 1) {
+        counter += 1;
+        wasFilled = true;
+      } else {
+        if (wasFilled) {
+          currentHits.push(counter);
+          counter = 0;
+          wasFilled = false;
+        }
+      }
+      if (j === matrix.length - 1) {
+        if (counter !== 0) {
+          currentHits.push(counter);
+        }
+        if (currentHits.length === 0) {
+          currentHits.push(counter);
+        }
+        counter = 0;
+        wasFilled = false;
+      }
+    }
+    horisontalHints.push(currentHits);
+  }
+  return horisontalHints;
+}
+
+export const randomMatrixObj = data.matrices[0];
+export const horisontalHints = formHorisontalHints();
+export const verticalHints = formVerticalHints();
