@@ -62,9 +62,9 @@ export function render() {
   const counterContainer = renderElement('div', 'counter-container', gameField);
   const time = renderElement('span', 'time', counterContainer);
   viewTime = time;
-  setInterval(countTime, 1000);
+  countTime, 1000;
 
-  //Field
+  //Game field
   const field = renderElement('div', 'field', gameField);
   const verticalClues = renderElement('div', 'vertical-clues-container', field);
   viewVerticalClues = verticalClues;
@@ -76,6 +76,7 @@ export function render() {
   viewHorisontalClues = horisontalClues;
   const game = renderElement('div', 'game', field);
   viewGame = game;
+  game.addEventListener('click', checkAndRerenderMatrix);
 
   createHorisontalHints(horisontalClues);
   createVerticalHints(verticalClues);
@@ -95,7 +96,8 @@ function createGame(parent) {
     for (let j = 0; j < matrix[i].length; j += 1) {
       const ceil = renderElement('div', 'ceil', row);
       ceil.innerText = matrix[i][j];
-      ceil.addEventListener('click', checkAndRerenderMatrix);
+      ceil.setAttribute('data-value', matrix[i][j]);
+      // ceil.addEventListener('click', checkAndRerenderMatrix);
     }
   }
 }
@@ -128,9 +130,9 @@ function renderButton(parent, type) {
 // Функция таймера
 function countTime() {
   const minutes = Math.floor(seconds / 60);
-  const remainderSeconds = seconds % 60;
+  const remainSeconds = seconds % 60;
 
-  const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainderSeconds).padStart(2, '0')}`;
+  const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainSeconds).padStart(2, '0')}`;
 
   viewTime.textContent = formattedTime;
 
@@ -150,5 +152,49 @@ function renderElement(elTag, elClass, elParent, addElClass) {
   return el;
 }
 
-//// логика кликов по ячейкам
-function checkAndRerenderMatrix() {}
+//// ЛОГИКА КЛИКОВ ПО ЯЧЕЙКАМ
+// function setCheckAndRerenderMatrix(innerFunction) {
+//   checkAndRerenderMatrix = innerFunction;
+// }
+
+import { trueСellsArray } from './model.js';
+
+const chosenTrueCells = [];
+const chosenFalseCells = [];
+
+function checkAndRerenderMatrix(event) {
+  makeCeilDark(event);
+  const ceil = event.target;
+  if (event.target.classList.contains('dark')) {
+    if (ceil.dataset.value === '1') {
+      chosenTrueCells.push(ceil.dataset.value);
+    } else {
+      chosenFalseCells.push(ceil.dataset.value);
+    }
+  } else {
+    if (ceil.dataset.value === '1') {
+      chosenTrueCells.pop(ceil.dataset.value);
+    } else {
+      chosenFalseCells.pop(ceil.dataset.value);
+    }
+  }
+  console.log(`chosenTrueCeils: ${chosenTrueCells}`);
+  console.log(`chosenFalseCeils: ${chosenFalseCells}`);
+  checkMatrix();
+}
+
+function makeCeilDark(event) {
+  if (!event.target.classList.contains('dark')) {
+    event.target.classList.add('dark');
+  } else {
+    event.target.classList.remove('dark');
+  }
+}
+
+function checkMatrix() {
+  if (trueСellsArray.length === chosenTrueCells.length) {
+    if (chosenFalseCells.length === 0) {
+      console.log('You win!');
+    }
+  }
+}

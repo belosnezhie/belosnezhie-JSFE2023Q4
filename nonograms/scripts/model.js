@@ -82,6 +82,22 @@ function formHorisontalHints() {
   return horisontalHints;
 }
 
+function formTrueCellsArray() {
+  const matrix = randomMatrixObj.matrix;
+
+  let trueСellsArray = [];
+
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      if (matrix[i][j] === 1) {
+        trueСellsArray.push(matrix[i][j]);
+      }
+    }
+  }
+  return trueСellsArray;
+}
+
 export const randomMatrixObj = data.matrices[0];
 export const horisontalHints = formHorisontalHints();
 export const verticalHints = formVerticalHints();
+export const trueСellsArray = formTrueCellsArray();
