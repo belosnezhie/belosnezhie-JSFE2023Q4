@@ -78,6 +78,7 @@ export function render() {
   const game = renderElement('div', 'game', field);
   viewGame = game;
   game.addEventListener('click', checkAndRerenderMatrix);
+  game.addEventListener('contextmenu', makeCeilCrossed);
 
   createHorisontalHints(horisontalClues);
   createVerticalHints(verticalClues);
@@ -227,6 +228,9 @@ function checkAndRerenderMatrix(event) {
 }
 
 function makeCeilDark(event) {
+  if (viewGame.classList.contains('disabled')) {
+    return;
+  }
   if (!event.target.classList.contains('dark')) {
     event.target.classList.add('dark');
   } else {
@@ -234,10 +238,23 @@ function makeCeilDark(event) {
   }
 }
 
-function checkMatrix(event) {
+function makeCeilCrossed(event) {
+  event.preventDefault();
+  if (viewGame.classList.contains('disabled')) {
+    return;
+  }
+  if (!event.target.classList.contains('crossed')) {
+    event.target.classList.add('crossed');
+  } else {
+    event.target.classList.remove('crossed');
+  }
+}
+
+function checkMatrix() {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
+      viewGame.classList.add('disabled');
       renderModal();
     }
   }
