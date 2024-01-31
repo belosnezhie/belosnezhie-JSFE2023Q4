@@ -1,6 +1,7 @@
 let viewTime = undefined;
-let seconds = 0;
+let seconds = 1;
 let isPaused = true;
+let currentTime = 0;
 
 let viewVerticalClues = undefined;
 let viewHorisontalClues = undefined;
@@ -155,7 +156,8 @@ function renderModal() {
   const modalGreetings = renderElement('h2', 'result-message', modalWindow);
   modalGreetings.innerText = 'Great!';
   const modalText = renderElement('h2', 'result-message', modalWindow);
-  modalText.textContent = 'You have solved the nonogram!';
+  const winTime = localStorage.getItem('time');
+  modalText.textContent = `You have solved the nonogram in ${winTime} seconds!`;
 }
 
 function closeModal(event) {
@@ -191,6 +193,7 @@ function countTime() {
   const remainSeconds = seconds % 60;
 
   const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainSeconds).padStart(2, '0')}`;
+  currentTime = formattedTime;
 
   viewTime.textContent = formattedTime;
 
@@ -272,6 +275,7 @@ function checkMatrix() {
       console.log('You win!');
       disableGame();
       renderModal();
+      localStorage.setItem('time', currentTime);
     }
   }
 }
