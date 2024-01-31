@@ -255,6 +255,76 @@ body {
   border-left: none;
  }
 
+ /* Modal window */
+
+ .shadow-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: rgba(78, 90, 97, 40%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: visible;
+  opacity: 1;
+  animation: appear ease-in 0.5s;
+}
+
+.hidden-shadow-wrapper {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.modal-window {
+  width: 340px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  background-color: var(--game-bg-color);
+  border: 4px solid var(--border-color);
+  color: var(--main-text-color);
+  padding: 15px;
+  border-radius: 14px;
+  position: relative;
+}
+
+.close-modal {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  border-radius: 50%;
+}
+
+.close-modal::before,
+.close-modal::after {
+  display: block;
+  content: '';
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background-color: var(--field-border-color);
+  position: absolute;
+  left: 4px;
+}
+
+.close-modal::before {
+  transform: rotate(46deg);
+  top: 12px;
+}
+
+.close-modal::after {
+  transform: rotate(133deg);
+  bottom: 12px;
+}
+
 
 
 

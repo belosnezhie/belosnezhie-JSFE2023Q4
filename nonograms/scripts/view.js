@@ -81,6 +81,9 @@ export function render() {
   createHorisontalHints(horisontalClues);
   createVerticalHints(verticalClues);
   createGame(game);
+
+  const solutionButton = renderButton(gameField, 'solution');
+  solutionButton.innerText = 'Solution';
 }
 
 // Рендер игрового поля
@@ -125,6 +128,18 @@ function createVerticalHints(parent) {
 // Рендер кнопок
 function renderButton(parent, type) {
   return renderElement('button', 'button', parent, type);
+}
+
+//Рендер модалки
+function renderModal() {
+  const shadowWrapper = renderElement('div', 'shadow-wrapper', document.body);
+  shadowWrapper.setAttribute('id', 'shadow-wrapper');
+  const modalWindow = renderElement('div', 'modal-window', shadowWrapper);
+  renderButton(modalWindow, 'close-modal');
+  const modalGreetings = renderElement('h2', 'result-message', modalWindow);
+  modalGreetings.innerText = 'Great!';
+  const modalText = renderElement('h2', 'result-message', modalWindow);
+  modalText.textContent = 'You have solved the nonogram!';
 }
 
 // Функция таймера
@@ -195,6 +210,7 @@ function checkMatrix() {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
+      renderModal();
     }
   }
 }
