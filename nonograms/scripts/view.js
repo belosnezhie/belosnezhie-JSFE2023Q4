@@ -1,5 +1,6 @@
 let viewTime = undefined;
 let seconds = 0;
+let isPaused = true;
 
 let viewVerticalClues = undefined;
 let viewHorisontalClues = undefined;
@@ -21,6 +22,13 @@ export function render() {
 
   const resetButton = renderButton(buttonsContainer, 'reset');
   resetButton.innerText = 'Reset game';
+  resetButton.addEventListener('click', () => {
+    isPaused = false;
+    enableGame();
+    clearGameFromCrosses();
+    clearGameFromDarkCells();
+  });
+
   const saveButton = renderButton(buttonsContainer, 'save');
   saveButton.innerText = 'Save game';
   const continueButton = renderButton(buttonsContainer, 'continue');
@@ -62,8 +70,9 @@ export function render() {
   const gameField = renderElement('div', 'game-field', gameFieldContainer);
   const counterContainer = renderElement('div', 'counter-container', gameField);
   const time = renderElement('span', 'time', counterContainer);
+  time.textContent = '00:00';
   viewTime = time;
-  countTime, 1000;
+  setInterval(countTime, 1000);
 
   //Game field
   const field = renderElement('div', 'field', gameField);
@@ -102,7 +111,6 @@ function createGame(parent) {
       const ceil = renderElement('div', 'ceil', row);
       ceil.innerText = matrix[i][j];
       ceil.setAttribute('data-value', matrix[i][j]);
-      // ceil.addEventListener('click', checkAndRerenderMatrix);
     }
   }
 }
@@ -134,6 +142,7 @@ function renderButton(parent, type) {
 
 //Рендер модалки
 function renderModal() {
+  isPaused = true;
   const shadowWrapper = renderElement('div', 'shadow-wrapper', document.body);
   shadowWrapper.setAttribute('id', 'shadow-wrapper');
   viewShadowWrapper = shadowWrapper;
@@ -150,6 +159,7 @@ function renderModal() {
 }
 
 function closeModal(event) {
+  clearGameFromCrosses();
   document.body.removeChild(viewShadowWrapper);
   viewShadowWrapper = undefined;
   event._isClickWithInMenu = true;
@@ -165,6 +175,7 @@ document.body.addEventListener('click', (event) => {
   if (event._isClickWithInMenu === true) {
     return;
   } else {
+    clearGameFromCrosses();
     document.body.removeChild(viewShadowWrapper);
     viewShadowWrapper = undefined;
   }
@@ -172,6 +183,10 @@ document.body.addEventListener('click', (event) => {
 
 // Функция таймера
 function countTime() {
+  if (isPaused) {
+    return;
+  }
+
   const minutes = Math.floor(seconds / 60);
   const remainSeconds = seconds % 60;
 
@@ -206,6 +221,7 @@ const chosenTrueCells = [];
 const chosenFalseCells = [];
 
 function checkAndRerenderMatrix(event) {
+  isPaused = false;
   event._isClickWithInGame = true;
   makeCeilDark(event);
   const ceil = event.target;
@@ -254,8 +270,36 @@ function checkMatrix() {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
-      viewGame.classList.add('disabled');
+      disableGame();
       renderModal();
     }
   }
+}
+
+function disableGame() {
+  if (!viewGame.classList.contains('disabled')) {
+    viewGame.classList.add('disabled');
+  }
+}
+
+function enableGame() {
+  if (viewGame.classList.contains('disabled')) {
+    viewGame.classList.remove('disabled');
+  }
+}
+
+function clearGameFromCrosses() {
+  viewGame.childNodes.forEach((firstChild) => {
+    firstChild.childNodes.forEach((item) => {
+      item.classList.remove('crossed');
+    });
+  });
+}
+
+function clearGameFromDarkCells() {
+  viewGame.childNodes.forEach((firstChild) => {
+    firstChild.childNodes.forEach((item) => {
+      item.classList.remove('dark');
+    });
+  });
 }
