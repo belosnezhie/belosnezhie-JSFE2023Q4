@@ -4,6 +4,7 @@ let seconds = 0;
 let viewVerticalClues = undefined;
 let viewHorisontalClues = undefined;
 let viewGame = undefined;
+let viewShadowWrapper = undefined;
 
 export function render() {
   document.body.classList.add('app');
@@ -134,13 +135,39 @@ function renderButton(parent, type) {
 function renderModal() {
   const shadowWrapper = renderElement('div', 'shadow-wrapper', document.body);
   shadowWrapper.setAttribute('id', 'shadow-wrapper');
+  viewShadowWrapper = shadowWrapper;
   const modalWindow = renderElement('div', 'modal-window', shadowWrapper);
-  renderButton(modalWindow, 'close-modal');
+  modalWindow.addEventListener('click', (event) => {
+    event._isClickWithInMenu = true;
+  });
+  const closeModalButton = renderButton(modalWindow, 'close-modal');
+  closeModalButton.addEventListener('click', closeModal);
   const modalGreetings = renderElement('h2', 'result-message', modalWindow);
   modalGreetings.innerText = 'Great!';
   const modalText = renderElement('h2', 'result-message', modalWindow);
   modalText.textContent = 'You have solved the nonogram!';
 }
+
+function closeModal(event) {
+  document.body.removeChild(viewShadowWrapper);
+  viewShadowWrapper = undefined;
+  event._isClickWithInMenu = true;
+}
+
+document.body.addEventListener('click', (event) => {
+  if (viewShadowWrapper === undefined) {
+    return;
+  }
+  if (event._isClickWithInGame === true) {
+    return;
+  }
+  if (event._isClickWithInMenu === true) {
+    return;
+  } else {
+    document.body.removeChild(viewShadowWrapper);
+    viewShadowWrapper = undefined;
+  }
+});
 
 // Функция таймера
 function countTime() {
@@ -178,6 +205,7 @@ const chosenTrueCells = [];
 const chosenFalseCells = [];
 
 function checkAndRerenderMatrix(event) {
+  event._isClickWithInGame = true;
   makeCeilDark(event);
   const ceil = event.target;
   if (event.target.classList.contains('dark')) {
@@ -206,7 +234,7 @@ function makeCeilDark(event) {
   }
 }
 
-function checkMatrix() {
+function checkMatrix(event) {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
