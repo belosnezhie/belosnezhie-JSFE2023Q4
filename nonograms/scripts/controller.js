@@ -1,5 +1,5 @@
 export function start(view, model) {
-  model.setLevel('easy');
+  model.setLevel('Easy');
   // view.setCheckAndRerenderMatrix(checkAndRerenderMatrix);
   view.renderApp();
   view.renderGameField();

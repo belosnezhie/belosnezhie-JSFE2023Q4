@@ -3,6 +3,7 @@ import { randomMatrixObj } from './model.js';
 import { horisontalHints } from './model.js';
 import { verticalHints } from './model.js';
 import { trueСellsArray } from './model.js';
+import { findLevels, findImageNames } from './model.js';
 
 let viewTime = undefined;
 let seconds = 1;
@@ -81,20 +82,17 @@ export function renderApp() {
   const levelControlsTitle = renderElement('h2', '', levelControlsConteiner);
   levelControlsTitle.innerText = 'Choose complexity and image';
 
-  // Блок с выбором сложности
-  ['Easy', 'Medium', 'Hard'].forEach((item) => {
-    const wrapper = renderElement('div', '', levelControlsConteiner);
-    const title = renderElement('h3', '', wrapper);
-    title.innerText = item;
-    const select = renderElement('select', 'level', levelControlsConteiner);
-    const option = renderElement('option', '', select);
-    option.innerText = item;
-    option.setAttribute('disabled', '');
-    ['image', 'image', 'image', 'image', 'image'].forEach((i) => {
-      const optionImage = renderElement('option', '', select);
-      optionImage.innerText = i;
-    });
+  const levelsArr = findLevels();
+
+  const selectLevel = renderElement('select', 'level', levelControlsConteiner);
+  levelsArr.forEach((level) => {
+    const option = renderElement('option', '', selectLevel);
+    option.textContent = level;
   });
+  selectLevel.addEventListener('change', (event) =>
+    checkLevel(levelControlsConteiner, event),
+  );
+  checkLevel(levelControlsConteiner);
 
   // Timer
   const gameField = renderElement('div', 'game-field', gameFieldContainer);
@@ -136,6 +134,7 @@ export function renderGameField() {
   createGame(game);
 }
 
+// ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
 function createGame(parent) {
   const matrix = randomMatrixObj.matrix;
   for (let i = 0; i < matrix.length; i += 1) {
@@ -166,6 +165,23 @@ function createVerticalHints(parent) {
       clue.innerText = digit;
     });
   });
+}
+
+// Рендер второго селектора
+function checkLevel(parent, event) {
+  let level = 'Easy';
+  if (event) {
+    level = event.target.value;
+    parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
+  }
+  const imagesArr = findImageNames(level);
+
+  const selectImage = renderElement('select', 'level', parent);
+  imagesArr.forEach((level) => {
+    const option = renderElement('option', '', selectImage);
+    option.textContent = level;
+  });
+  selectImage.addEventListener('change', renderGameField);
 }
 
 // Рендер кнопок

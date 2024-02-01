@@ -15,6 +15,10 @@ export function generateDefault() {
 
 export let level = undefined;
 
+export function setLevel(myLevel) {
+  level = myLevel;
+}
+
 function randomNumber(min, max) {
   let randonInteger = min + Math.random() * (max + 1 - min);
   return Math.floor(randonInteger);
@@ -117,8 +121,17 @@ function formTrueCellsArray() {
 // export const verticalHints = formVerticalHints();
 // export const trueСellsArray = formTrueCellsArray();
 
-export function setLevel(myLevel) {
-  level = myLevel;
+// Available levels
+export function findLevels() {
+  let levelsArr = [];
+  for (const [key] of Object.entries(data)) {
+    levelsArr.push(key);
+  }
+  return levelsArr;
+}
+
+export function findImageNames(level) {
+  return data[level].map((item) => item.name);
 }
 
 // Sounds
@@ -147,11 +160,3 @@ winSound.preload = 'auto';
 winSound.src = './assets/sounds/Win.wav';
 darkSound.setAttribute('muted', 'false');
 soundsArr.push(winSound);
-
-// Объект для генерации селекторов
-function createLevelsArr() {
-  const levelsArr = [];
-  const level = {};
-
-  data.matrices.forEach((item) => {});
-}

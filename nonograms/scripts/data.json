@@ -1,5 +1,5 @@
 {
-  "easy":
+  "Easy":
   [
     {
       "name": "Umbrella",
@@ -67,7 +67,7 @@
       ]
     }
   ],
-  "medium":
+  "Medium":
   [
     {
       "name": "Rooster",
@@ -160,7 +160,7 @@
       ]
     }
   ],
-  "hard":
+  "Hard":
   [
     {
       "name": "Skunk",
