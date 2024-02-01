@@ -3,6 +3,10 @@ export function start(view, model) {
   view.render();
 }
 
+// const saveTime = () => {
+//   localStorage.setItem('time', currentTime);
+// }
+
 // function checkAndRerenderMatrix() {
 //   compareExpectedAndActual();
 // }

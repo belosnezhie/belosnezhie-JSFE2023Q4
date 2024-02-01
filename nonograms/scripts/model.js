@@ -101,3 +101,20 @@ export const randomMatrixObj = data.matrices[0];
 export const horisontalHints = formHorisontalHints();
 export const verticalHints = formVerticalHints();
 export const trueСellsArray = formTrueCellsArray();
+
+// Audio
+export const darkSound = new Audio();
+darkSound.preload = 'auto';
+darkSound.src = './assets/sounds/Darking.wav';
+
+export const crossSound = new Audio();
+crossSound.preload = 'auto';
+crossSound.src = './assets/sounds/Cross.wav';
+
+export const clearSound = new Audio();
+clearSound.preload = 'auto';
+clearSound.src = './assets/sounds/Clear.wav';
+
+export const winSound = new Audio();
+winSound.preload = 'auto';
+winSound.src = './assets/sounds/Win.wav';

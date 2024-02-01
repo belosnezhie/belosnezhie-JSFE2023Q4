@@ -28,6 +28,8 @@ export function render() {
     enableGame();
     clearGameFromCrosses();
     clearGameFromDarkCells();
+    chosenTrueCells = [];
+    chosenFalseCells = [];
   });
 
   const saveButton = renderButton(buttonsContainer, 'save');
@@ -220,8 +222,8 @@ function renderElement(elTag, elClass, elParent, addElClass) {
 
 import { trueСellsArray } from './model.js';
 
-const chosenTrueCells = [];
-const chosenFalseCells = [];
+let chosenTrueCells = [];
+let chosenFalseCells = [];
 
 function checkAndRerenderMatrix(event) {
   isPaused = false;
@@ -246,13 +248,21 @@ function checkAndRerenderMatrix(event) {
   checkMatrix();
 }
 
+// Импорт звуков
+import { darkSound } from './model.js';
+import { crossSound } from './model.js';
+import { clearSound } from './model.js';
+import { winSound } from './model.js';
+
 function makeCeilDark(event) {
   if (viewGame.classList.contains('disabled')) {
     return;
   }
   if (!event.target.classList.contains('dark')) {
+    darkSound.play();
     event.target.classList.add('dark');
   } else {
+    clearSound.play();
     event.target.classList.remove('dark');
   }
 }
@@ -263,8 +273,10 @@ function makeCeilCrossed(event) {
     return;
   }
   if (!event.target.classList.contains('crossed')) {
+    crossSound.play();
     event.target.classList.add('crossed');
   } else {
+    clearSound.play();
     event.target.classList.remove('crossed');
   }
 }
@@ -274,6 +286,7 @@ function checkMatrix() {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
       disableGame();
+      winSound.play();
       renderModal();
       localStorage.setItem('time', currentTime);
     }
