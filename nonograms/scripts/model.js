@@ -7,16 +7,21 @@ export let trueСellsArray = undefined;
 
 // При загрузке
 export function generateDefault() {
-  randomMatrixObj = data[level][0];
+  randomMatrixObj = data[level][imageIndex];
   horisontalHints = formHorisontalHints();
   verticalHints = formVerticalHints();
   trueСellsArray = formTrueCellsArray();
 }
 
 export let level = undefined;
+export let imageIndex = undefined;
 
 export function setLevel(myLevel) {
   level = myLevel;
+}
+
+export function setImage(index) {
+  imageIndex = index;
 }
 
 function randomNumber(min, max) {

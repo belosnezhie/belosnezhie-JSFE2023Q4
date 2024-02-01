@@ -89,9 +89,9 @@ export function renderApp() {
     const option = renderElement('option', '', selectLevel);
     option.textContent = level;
   });
-  selectLevel.addEventListener('change', (event) =>
-    checkLevel(levelControlsConteiner, event),
-  );
+  selectLevel.addEventListener('change', (event) => {
+    checkLevel(levelControlsConteiner, event);
+  });
   checkLevel(levelControlsConteiner);
 
   // Timer
@@ -110,8 +110,13 @@ export function renderApp() {
   solutionButton.innerText = 'Solution';
 }
 
-// Рендер игрового поля
+// ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
 export function renderGameField() {
+  if (viewField.childNodes.length > 0) {
+    while (viewField.firstChild) {
+      viewField.removeChild(viewField.lastChild);
+    }
+  }
   const verticalClues = renderElement(
     'div',
     'vertical-clues-container',
@@ -134,7 +139,6 @@ export function renderGameField() {
   createGame(game);
 }
 
-// ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
 function createGame(parent) {
   const matrix = randomMatrixObj.matrix;
   for (let i = 0; i < matrix.length; i += 1) {
@@ -173,6 +177,14 @@ function checkLevel(parent, event) {
   if (event) {
     level = event.target.value;
     parent.removeChild(parent.childNodes[parent.childNodes.length - 1]);
+    model.setLevel(level);
+    model.setImage(0);
+    model.generateDefault();
+    renderGameField();
+    chosenTrueCells = [];
+    chosenFalseCells = [];
+    viewTime.textContent = '00:00';
+    seconds = 1;
   }
   const imagesArr = findImageNames(level);
 
@@ -181,7 +193,17 @@ function checkLevel(parent, event) {
     const option = renderElement('option', '', selectImage);
     option.textContent = level;
   });
-  selectImage.addEventListener('change', renderGameField);
+
+  selectImage.addEventListener('change', (secondEvent) => {
+    model.setLevel(level);
+    model.setImage(secondEvent.target.selectedIndex);
+    model.generateDefault();
+    renderGameField();
+    chosenTrueCells = [];
+    chosenFalseCells = [];
+    viewTime.textContent = '00:00';
+    seconds = 1;
+  });
 }
 
 // Рендер кнопок
