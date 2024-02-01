@@ -1,3 +1,9 @@
+import * as model from './model.js';
+import { randomMatrixObj } from './model.js';
+import { horisontalHints } from './model.js';
+import { verticalHints } from './model.js';
+import { trueСellsArray } from './model.js';
+
 let viewTime = undefined;
 let seconds = 1;
 let isPaused = true;
@@ -8,7 +14,12 @@ let viewHorisontalClues = undefined;
 let viewGame = undefined;
 let viewShadowWrapper = undefined;
 
-export function render() {
+// Переменные игрового поля
+let viewField = undefined;
+
+export function renderApp() {
+  model.generateDefault();
+
   document.body.classList.add('app');
   const appWrapper = renderElement('div', 'app-wrapper', document.body);
   const title = renderElement('h1', 'title', appWrapper);
@@ -95,15 +106,27 @@ export function render() {
 
   //Game field
   const field = renderElement('div', 'field', gameField);
-  const verticalClues = renderElement('div', 'vertical-clues-container', field);
+  viewField = field;
+
+  const solutionButton = renderButton(gameField, 'solution');
+  solutionButton.innerText = 'Solution';
+}
+
+// Рендер игрового поля
+export function renderGameField() {
+  const verticalClues = renderElement(
+    'div',
+    'vertical-clues-container',
+    viewField,
+  );
   viewVerticalClues = verticalClues;
   const horisontalClues = renderElement(
     'div',
     'horisontal-clues-container',
-    field,
+    viewField,
   );
   viewHorisontalClues = horisontalClues;
-  const game = renderElement('div', 'game', field);
+  const game = renderElement('div', 'game', viewField);
   viewGame = game;
   game.addEventListener('click', checkAndRerenderMatrix);
   game.addEventListener('contextmenu', makeCeilCrossed);
@@ -111,16 +134,7 @@ export function render() {
   createHorisontalHints(horisontalClues);
   createVerticalHints(verticalClues);
   createGame(game);
-
-  const solutionButton = renderButton(gameField, 'solution');
-  solutionButton.innerText = 'Solution';
 }
-
-// Рендер игрового поля
-
-import { randomMatrixObj } from './model.js';
-import { horisontalHints } from './model.js';
-import { verticalHints } from './model.js';
 
 function createGame(parent) {
   const matrix = randomMatrixObj.matrix;
@@ -236,7 +250,7 @@ function renderElement(elTag, elClass, elParent, addElClass) {
 //   checkAndRerenderMatrix = innerFunction;
 // }
 
-import { trueСellsArray } from './model.js';
+// import { trueСellsArray } from './model.js';
 
 let chosenTrueCells = [];
 let chosenFalseCells = [];

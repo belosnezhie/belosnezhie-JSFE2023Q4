@@ -1,13 +1,28 @@
 import data from './data.json' assert { type: 'json' };
 
+export let randomMatrixObj = undefined;
+export let horisontalHints = undefined;
+export let verticalHints = undefined;
+export let trueСellsArray = undefined;
+
+// При загрузке
+export function generateDefault() {
+  randomMatrixObj = data[level][0];
+  horisontalHints = formHorisontalHints();
+  verticalHints = formVerticalHints();
+  trueСellsArray = formTrueCellsArray();
+}
+
+export let level = undefined;
+
 function randomNumber(min, max) {
   let randonInteger = min + Math.random() * (max + 1 - min);
   return Math.floor(randonInteger);
 }
 
 function getRandomMatrix() {
-  let number = randomNumber(0, 14);
-  return data.matrices[number];
+  let number = randomNumber(0, 5);
+  return data[level][number];
 }
 
 function formVerticalHints() {
@@ -97,12 +112,16 @@ function formTrueCellsArray() {
   return trueСellsArray;
 }
 
-export const randomMatrixObj = data.matrices[0];
-export const horisontalHints = formHorisontalHints();
-export const verticalHints = formVerticalHints();
-export const trueСellsArray = formTrueCellsArray();
+// export const randomMatrixObj = data[level][0];
+// export const horisontalHints = formHorisontalHints();
+// export const verticalHints = formVerticalHints();
+// export const trueСellsArray = formTrueCellsArray();
 
-// Audio
+export function setLevel(myLevel) {
+  level = myLevel;
+}
+
+// Sounds
 export const soundsArr = [];
 
 export const darkSound = new Audio();
@@ -128,3 +147,11 @@ winSound.preload = 'auto';
 winSound.src = './assets/sounds/Win.wav';
 darkSound.setAttribute('muted', 'false');
 soundsArr.push(winSound);
+
+// Объект для генерации селекторов
+function createLevelsArr() {
+  const levelsArr = [];
+  const level = {};
+
+  data.matrices.forEach((item) => {});
+}

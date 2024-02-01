@@ -1,6 +1,8 @@
 export function start(view, model) {
+  model.setLevel('easy');
   // view.setCheckAndRerenderMatrix(checkAndRerenderMatrix);
-  view.render();
+  view.renderApp();
+  view.renderGameField();
 }
 
 // const saveTime = () => {
