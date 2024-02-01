@@ -14,6 +14,22 @@ export function render() {
   const title = renderElement('h1', 'title', appWrapper);
   title.innerText = 'Nonograms';
 
+  const soundsContainer = renderElement('div', 'sounds-container', appWrapper);
+
+  const soundlabel = renderElement('label', '', soundsContainer);
+  soundlabel.setAttribute('for', 'soundsInput');
+  soundlabel.textContent = 'Turn sounds off';
+  const soundsInput = renderElement(
+    'input',
+    'button',
+    soundsContainer,
+    'sound',
+  );
+  soundsInput.setAttribute('type', 'checkbox');
+  soundsInput.setAttribute('id', 'soundsInput');
+  soundsInput.setAttribute('checked', '');
+  soundsInput.addEventListener('change', checkSounds);
+
   const gameWrapper = renderElement('div', 'game-wprapper', appWrapper);
   const buttonsContainer = renderElement(
     'div',
@@ -253,12 +269,14 @@ import { darkSound } from './model.js';
 import { crossSound } from './model.js';
 import { clearSound } from './model.js';
 import { winSound } from './model.js';
+// import { soundsArr } from './model.js';
 
 function makeCeilDark(event) {
   if (viewGame.classList.contains('disabled')) {
     return;
   }
   if (!event.target.classList.contains('dark')) {
+    console.log(darkSound);
     darkSound.play();
     event.target.classList.add('dark');
   } else {
@@ -319,4 +337,19 @@ function clearGameFromDarkCells() {
       item.classList.remove('dark');
     });
   });
+}
+
+function checkSounds(event) {
+  if (event.target.checked) {
+    darkSound.muted = true;
+    crossSound.muted = true;
+    clearSound.muted = true;
+    winSound.muted = true;
+  } else {
+    darkSound.muted = false;
+    crossSound.muted = false;
+    clearSound.muted = false;
+    winSound.muted = false;
+  }
+  console.log(darkSound);
 }

@@ -130,6 +130,38 @@ body {
   color: var(--text-color);
 }
 
+.sounds-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.sound {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid var(--field-border-color);
+  background-image: url('../assets/icones/volume.png');
+  background-size: contain;
+  position: relative;
+}
+
+.sound:checked::before{
+  display: block;
+  content: '';
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background-color: var(--field-border-color);
+  position: absolute;
+  left: -2px;
+  transform: rotate(45deg);
+  top: 12px;
+  transition: 0.2s;
+}
+
+
 /* Game field */
 
 .game-field-container {

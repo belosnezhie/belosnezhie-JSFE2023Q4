@@ -103,18 +103,28 @@ export const verticalHints = formVerticalHints();
 export const trueСellsArray = formTrueCellsArray();
 
 // Audio
+export const soundsArr = [];
+
 export const darkSound = new Audio();
 darkSound.preload = 'auto';
 darkSound.src = './assets/sounds/Darking.wav';
+darkSound.setAttribute('muted', 'false');
+soundsArr.push(darkSound);
 
 export const crossSound = new Audio();
 crossSound.preload = 'auto';
 crossSound.src = './assets/sounds/Cross.wav';
+darkSound.setAttribute('muted', 'false');
+soundsArr.push(crossSound);
 
 export const clearSound = new Audio();
 clearSound.preload = 'auto';
 clearSound.src = './assets/sounds/Clear.wav';
+darkSound.setAttribute('muted', 'false');
+soundsArr.push(clearSound);
 
 export const winSound = new Audio();
 winSound.preload = 'auto';
 winSound.src = './assets/sounds/Win.wav';
+darkSound.setAttribute('muted', 'false');
+soundsArr.push(winSound);
