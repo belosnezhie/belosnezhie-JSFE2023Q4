@@ -18,9 +18,13 @@ let viewShadowWrapper = undefined;
 // Переменные игрового поля
 let viewField = undefined;
 
-export function renderApp() {
-  model.generateDefault();
+// Переменные селекторов
+let viewLevel = undefined;
+let viewImageIndex = undefined;
+let viewLevelSelector = undefined;
+let viewImageSelector = undefined;
 
+export function renderApp() {
   document.body.classList.add('app');
   const appWrapper = renderElement('div', 'app-wrapper', document.body);
   const title = renderElement('h1', 'title', appWrapper);
@@ -39,7 +43,6 @@ export function renderApp() {
   );
   soundsInput.setAttribute('type', 'checkbox');
   soundsInput.setAttribute('id', 'soundsInput');
-  soundsInput.setAttribute('checked', '');
   soundsInput.addEventListener('change', checkSounds);
 
   const gameWrapper = renderElement('div', 'game-wprapper', appWrapper);
@@ -62,8 +65,14 @@ export function renderApp() {
 
   const saveButton = renderButton(buttonsContainer, 'save');
   saveButton.innerText = 'Save game';
+  saveButton.addEventListener('click', saveGame);
+
   const continueButton = renderButton(buttonsContainer, 'continue');
   continueButton.innerText = 'Continue last game';
+  continueButton.addEventListener('click', () => {
+    continueGame();
+  });
+
   const randomButton = renderButton(buttonsContainer, 'random');
   randomButton.innerText = 'Random game';
 
@@ -84,13 +93,20 @@ export function renderApp() {
 
   const levelsArr = findLevels();
 
+  // Level selector
   const selectLevel = renderElement('select', 'level', levelControlsConteiner);
   levelsArr.forEach((level) => {
     const option = renderElement('option', '', selectLevel);
     option.textContent = level;
   });
+  viewLevelSelector = selectLevel;
+  viewLevel = selectLevel.value;
+  localStorage.setItem('level', viewLevel);
   selectLevel.addEventListener('change', (event) => {
+    viewLevel = selectLevel.value;
+    localStorage.setItem('level', viewLevel);
     checkLevel(levelControlsConteiner, event);
+    viewLevelSelector = selectLevel;
   });
   checkLevel(levelControlsConteiner);
 
@@ -108,6 +124,7 @@ export function renderApp() {
 
   const solutionButton = renderButton(gameField, 'solution');
   solutionButton.innerText = 'Solution';
+  solutionButton.addEventListener('click', showSolution);
 }
 
 // ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
@@ -147,6 +164,7 @@ function createGame(parent) {
       const ceil = renderElement('div', 'ceil', row);
       ceil.innerText = matrix[i][j];
       ceil.setAttribute('data-value', matrix[i][j]);
+      ceil.setAttribute('data-index', `${i},${j}`);
     }
   }
 }
@@ -193,16 +211,27 @@ function checkLevel(parent, event) {
     const option = renderElement('option', '', selectImage);
     option.textContent = level;
   });
+  viewImageSelector = selectImage;
+  viewImageIndex = selectImage.selectedIndex;
+  localStorage.setItem('image', viewImageIndex);
 
   selectImage.addEventListener('change', (secondEvent) => {
     model.setLevel(level);
-    model.setImage(secondEvent.target.selectedIndex);
+    if (secondEvent.detail !== undefined) {
+      model.setImage(secondEvent.detail);
+      selectImage.selectedIndex = secondEvent.detail;
+    } else {
+      model.setImage(secondEvent.target.selectedIndex);
+    }
     model.generateDefault();
     renderGameField();
+    viewImageIndex = selectImage.selectedIndex;
+    localStorage.setItem('image', viewImageIndex);
     chosenTrueCells = [];
     chosenFalseCells = [];
     viewTime.textContent = '00:00';
     seconds = 1;
+    viewImageSelector = selectImage;
   });
 }
 
@@ -258,15 +287,11 @@ function countTime() {
   if (isPaused) {
     return;
   }
-
   const minutes = Math.floor(seconds / 60);
   const remainSeconds = seconds % 60;
-
   const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainSeconds).padStart(2, '0')}`;
   currentTime = formattedTime;
-
   viewTime.textContent = formattedTime;
-
   seconds++;
 }
 
@@ -284,14 +309,10 @@ function renderElement(elTag, elClass, elParent, addElClass) {
 }
 
 //// ЛОГИКА КЛИКОВ ПО ЯЧЕЙКАМ
-// function setCheckAndRerenderMatrix(innerFunction) {
-//   checkAndRerenderMatrix = innerFunction;
-// }
-
-// import { trueСellsArray } from './model.js';
-
 let chosenTrueCells = [];
 let chosenFalseCells = [];
+let crossedCellsArr = [];
+let darkedCellsArr = [];
 
 function checkAndRerenderMatrix(event) {
   isPaused = false;
@@ -327,13 +348,16 @@ function makeCeilDark(event) {
   if (viewGame.classList.contains('disabled')) {
     return;
   }
+  const index = event.target.dataset.index;
   if (!event.target.classList.contains('dark')) {
-    console.log(darkSound);
     darkSound.play();
     event.target.classList.add('dark');
+    darkedCellsArr.push(index);
   } else {
     clearSound.play();
     event.target.classList.remove('dark');
+    let delitingIndex = darkedCellsArr.indexOf(index);
+    darkedCellsArr.splice(delitingIndex, 1);
   }
 }
 
@@ -342,12 +366,16 @@ function makeCeilCrossed(event) {
   if (viewGame.classList.contains('disabled')) {
     return;
   }
+  const index = event.target.dataset.index;
   if (!event.target.classList.contains('crossed')) {
     crossSound.play();
     event.target.classList.add('crossed');
+    crossedCellsArr.push(index);
   } else {
     clearSound.play();
     event.target.classList.remove('crossed');
+    let delitingIndex = crossedCellsArr.indexOf(index);
+    crossedCellsArr.splice(delitingIndex, 1);
   }
 }
 
@@ -404,4 +432,72 @@ function checkSounds(event) {
     winSound.muted = false;
   }
   console.log(darkSound);
+}
+
+// сохранять таймер, сохранять поле, сохранять в идеале состояние селектора
+
+function saveGame() {
+  const savedGame = {
+    level: viewLevel,
+    image: viewImageIndex,
+    time: currentTime,
+    seconds: seconds,
+    crossedCells: crossedCellsArr,
+    darkedCells: darkedCellsArr,
+  };
+
+  localStorage.setItem('savedGame', JSON.stringify(savedGame));
+}
+
+function continueGame() {
+  isPaused = false;
+  const savedGameinStr = localStorage.getItem('savedGame');
+  const savedGame = JSON.parse(savedGameinStr);
+
+  currentTime = savedGame.time;
+  seconds = savedGame.seconds;
+  viewLevel = savedGame.level;
+  viewImageIndex = savedGame.image;
+  darkedCellsArr = savedGame.darkedCells;
+  crossedCellsArr = savedGame.crossedCells;
+
+  viewLevelSelector.value = viewLevel;
+  const event = new Event('change');
+  viewLevelSelector.dispatchEvent(event);
+  viewImageIndex = savedGame.image;
+  const imageEvent = new CustomEvent('change', { detail: viewImageIndex });
+  viewImageSelector.dispatchEvent(imageEvent);
+
+  model.setLevel(viewLevel);
+  model.setImage(viewImageIndex);
+  model.generateDefault();
+  renderGameField();
+
+  viewGame.childNodes.forEach((row) => {
+    row.childNodes.forEach((cell) => {
+      let cellIndex = cell.dataset.index;
+      darkedCellsArr.forEach((item) => {
+        if (item === cellIndex) {
+          cell.classList.add('dark');
+        }
+      });
+      crossedCellsArr.forEach((item) => {
+        if (item === cellIndex) {
+          cell.classList.add('crossed');
+        }
+      });
+    });
+  });
+}
+
+function showSolution() {
+  isPaused = true;
+  disableGame();
+  viewGame.childNodes.forEach((row) => {
+    row.childNodes.forEach((cell) => {
+      if (cell.dataset.value === '1') {
+        cell.classList.add('dark');
+      }
+    });
+  });
 }
