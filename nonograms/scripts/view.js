@@ -292,8 +292,13 @@ function renderScoreModal(parent) {
   const results = JSON.parse(resultsStr);
 
   results.forEach((el) => {
-    const modalItem = renderElement('ul', 'result-message', modalList);
-    modalItem.innerText = `Time: ${el[0]}, Level:  ${el[1]}, Image name: ${el[3]}`;
+    const modalItem = renderElement(
+      'li',
+      'result-message',
+      modalList,
+      'modal-list-item',
+    );
+    modalItem.innerText = `Time: ${el[0]}, Level:  ${el[1]}, Image name: ${el[2]}`;
   });
 }
 
@@ -423,9 +428,8 @@ function checkMatrix(event) {
       console.log('You win!');
       disableGame();
       winSound.play();
-      renderModal(event);
       localStorage.setItem('time', currentTime);
-
+      renderModal(event);
       //Сохранение результатов в ЛС
       rememberResults();
     }
@@ -558,7 +562,7 @@ function rememberResults() {
   results.push(currentResult);
 
   if (results.length > 5) {
-    results.splice(0, results.length - 1);
+    results.splice(0, 1);
   }
   results.sort((a, b) => (a.currentTime < b.currentTime ? -1 : 1));
 
