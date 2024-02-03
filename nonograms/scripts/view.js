@@ -75,6 +75,13 @@ export function renderApp() {
 
   const randomButton = renderButton(buttonsContainer, 'random');
   randomButton.innerText = 'Random game';
+  randomButton.addEventListener('click', () => {
+    model.getRandomMatrix();
+    renderGameField();
+    viewLevel = model.level;
+    viewImageIndex = model.imageIndex;
+    renderSelectors(viewLevel, viewImageIndex);
+  });
 
   const scoresButton = renderButton(buttonsContainer, 'scores');
   scoresButton.innerText = 'Scores';
@@ -492,6 +499,15 @@ function saveGame() {
   localStorage.setItem('savedGame', JSON.stringify(savedGame));
 }
 
+function renderSelectors(level, imageIndex) {
+  viewLevelSelector.value = level;
+  const event = new Event('change');
+  viewLevelSelector.dispatchEvent(event);
+  viewImageIndex = imageIndex;
+  const imageEvent = new CustomEvent('change', { detail: viewImageIndex });
+  viewImageSelector.dispatchEvent(imageEvent);
+}
+
 function continueGame() {
   isPaused = false;
   const savedGameinStr = localStorage.getItem('savedGame');
@@ -504,12 +520,13 @@ function continueGame() {
   darkedCellsArr = savedGame.darkedCells;
   crossedCellsArr = savedGame.crossedCells;
 
-  viewLevelSelector.value = viewLevel;
-  const event = new Event('change');
-  viewLevelSelector.dispatchEvent(event);
-  viewImageIndex = savedGame.image;
-  const imageEvent = new CustomEvent('change', { detail: viewImageIndex });
-  viewImageSelector.dispatchEvent(imageEvent);
+  // viewLevelSelector.value = viewLevel;
+  // const event = new Event('change');
+  // viewLevelSelector.dispatchEvent(event);
+  // viewImageIndex = savedGame.image;
+  // const imageEvent = new CustomEvent('change', { detail: viewImageIndex });
+  // viewImageSelector.dispatchEvent(imageEvent);
+  renderSelectors(viewLevel, viewImageIndex);
 
   model.setLevel(viewLevel);
   model.setImage(viewImageIndex);

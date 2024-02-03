@@ -29,9 +29,13 @@ function randomNumber(min, max) {
   return Math.floor(randonInteger);
 }
 
-function getRandomMatrix() {
-  let number = randomNumber(0, 5);
-  return data[level][number];
+export function getRandomMatrix() {
+  let levelIndex = randomNumber(0, 3);
+  let level = findLevels()[levelIndex];
+  let imageIndex = randomNumber(0, 5);
+  setLevel(level);
+  setImage(imageIndex);
+  generateDefault();
 }
 
 function formVerticalHints() {
