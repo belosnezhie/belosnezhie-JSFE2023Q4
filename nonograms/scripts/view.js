@@ -76,6 +76,13 @@ export function renderApp() {
   const randomButton = renderButton(buttonsContainer, 'random');
   randomButton.innerText = 'Random game';
 
+  const scoresButton = renderButton(buttonsContainer, 'scores');
+  scoresButton.innerText = 'Scores';
+  scoresButton.addEventListener('click', (event) => {
+    event._isClickWithInGame = true;
+    renderModal(event);
+  });
+
   const gameFieldContainer = renderElement(
     'div',
     'game-field-container',
@@ -134,6 +141,8 @@ export function renderGameField() {
       viewField.removeChild(viewField.lastChild);
     }
   }
+  chosenFalseCells = [];
+  chosenTrueCells = [];
   const verticalClues = renderElement(
     'div',
     'vertical-clues-container',
@@ -241,7 +250,7 @@ function renderButton(parent, type) {
 }
 
 //Рендер модалки
-function renderModal() {
+function renderModal(event) {
   isPaused = true;
   const shadowWrapper = renderElement('div', 'shadow-wrapper', document.body);
   shadowWrapper.setAttribute('id', 'shadow-wrapper');
@@ -252,11 +261,40 @@ function renderModal() {
   });
   const closeModalButton = renderButton(modalWindow, 'close-modal');
   closeModalButton.addEventListener('click', closeModal);
-  const modalGreetings = renderElement('h2', 'result-message', modalWindow);
+  // const modalGreetings = renderElement('h2', 'result-message', modalWindow);
+  // modalGreetings.innerText = 'Great!';
+  // const modalText = renderElement('h2', 'result-message', modalWindow);
+  // const winTime = localStorage.getItem('time');
+  // modalText.textContent = `You have solved the nonogram in ${winTime} seconds!`;
+
+  if (!event) {
+    renderWinModal(modalWindow);
+  } else {
+    console.log('scores');
+    // event.target.classList.contains('scores')
+    renderScoreModal(modalWindow);
+  }
+}
+
+function renderWinModal(parent) {
+  const modalGreetings = renderElement('h2', 'result-message', parent);
   modalGreetings.innerText = 'Great!';
-  const modalText = renderElement('h2', 'result-message', modalWindow);
+  const modalText = renderElement('h2', 'result-message', parent);
   const winTime = localStorage.getItem('time');
   modalText.textContent = `You have solved the nonogram in ${winTime} seconds!`;
+}
+
+function renderScoreModal(parent) {
+  const modalList = renderElement('ul', 'result-message', parent);
+  modalList.innerText = 'Best scores:';
+
+  const resultsStr = localStorage.getItem('JSFE2023Q4results');
+  const results = JSON.parse(resultsStr);
+
+  results.forEach((el) => {
+    const modalItem = renderElement('ul', 'result-message', modalList);
+    modalItem.innerText = `Time: ${el[0]}, Level:  ${el[1]}, Image name: ${el[3]}`;
+  });
 }
 
 function closeModal(event) {
@@ -379,14 +417,17 @@ function makeCeilCrossed(event) {
   }
 }
 
-function checkMatrix() {
+function checkMatrix(event) {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
       console.log('You win!');
       disableGame();
       winSound.play();
-      renderModal();
+      renderModal(event);
       localStorage.setItem('time', currentTime);
+
+      //Сохранение результатов в ЛС
+      rememberResults();
     }
   }
 }
@@ -433,8 +474,6 @@ function checkSounds(event) {
   }
   console.log(darkSound);
 }
-
-// сохранять таймер, сохранять поле, сохранять в идеале состояние селектора
 
 function saveGame() {
   const savedGame = {
@@ -500,4 +539,28 @@ function showSolution() {
       }
     });
   });
+}
+
+function rememberResults() {
+  if (!localStorage.getItem('JSFE2023Q4results')) {
+    const results = [];
+    localStorage.setItem('JSFE2023Q4results', JSON.stringify(results));
+  }
+
+  const resultsStr = localStorage.getItem('JSFE2023Q4results');
+  const results = JSON.parse(resultsStr);
+
+  const currentResult = [];
+  currentResult.push(currentTime);
+  currentResult.push(viewLevel);
+  currentResult.push(viewImageSelector.value);
+
+  results.push(currentResult);
+
+  if (results.length > 5) {
+    results.splice(0, results.length - 1);
+  }
+  results.sort((a, b) => (a.currentTime < b.currentTime ? -1 : 1));
+
+  localStorage.setItem('JSFE2023Q4results', JSON.stringify(results));
 }
