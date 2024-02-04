@@ -1,16 +1,27 @@
+@media (max-width: 700px) {
+
+  .game-field-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .level-controls-conteiner {
+    max-width: 100%;
+  }
+}
+
 @media (max-width: 480px) {
 
+  .game-field-container {
+    flex-direction: column;
+    justify-content: center;
+  }
 
-.game-field-container {
-  flex-direction: column;
-  justify-content: center;
-}
-
-.level-controls-conteiner {
-  max-width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
+  .level-controls-conteiner {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
 }

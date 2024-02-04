@@ -30,9 +30,9 @@ function randomNumber(min, max) {
 }
 
 export function getRandomMatrix() {
-  let levelIndex = randomNumber(0, 3);
+  let levelIndex = randomNumber(0, 2);
   let level = findLevels()[levelIndex];
-  let imageIndex = randomNumber(0, 5);
+  let imageIndex = randomNumber(0, 4);
   setLevel(level);
   setImage(imageIndex);
   generateDefault();

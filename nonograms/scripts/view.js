@@ -24,6 +24,9 @@ let viewImageIndex = undefined;
 let viewLevelSelector = undefined;
 let viewImageSelector = undefined;
 
+// Переменные кнопок
+let viewSaveButton = undefined;
+
 export function renderApp() {
   document.body.classList.add('app');
   const appWrapper = renderElement('div', 'app-wrapper', document.body);
@@ -57,6 +60,7 @@ export function renderApp() {
   resetButton.addEventListener('click', () => {
     isPaused = false;
     enableGame();
+    enableButton(viewSaveButton);
     clearGameFromCrosses();
     clearGameFromDarkCells();
     chosenTrueCells = [];
@@ -66,6 +70,7 @@ export function renderApp() {
   const saveButton = renderButton(buttonsContainer, 'save');
   saveButton.innerText = 'Save game';
   saveButton.addEventListener('click', saveGame);
+  viewSaveButton = saveButton;
 
   const continueButton = renderButton(buttonsContainer, 'continue');
   continueButton.innerText = 'Continue last game';
@@ -76,11 +81,13 @@ export function renderApp() {
   const randomButton = renderButton(buttonsContainer, 'random');
   randomButton.innerText = 'Random game';
   randomButton.addEventListener('click', () => {
+    isPaused = true;
     model.getRandomMatrix();
     renderGameField();
     viewLevel = model.level;
     viewImageIndex = model.imageIndex;
     renderSelectors(viewLevel, viewImageIndex);
+    enableButton(viewSaveButton);
   });
 
   const scoresButton = renderButton(buttonsContainer, 'scores');
@@ -121,6 +128,7 @@ export function renderApp() {
     localStorage.setItem('level', viewLevel);
     checkLevel(levelControlsConteiner, event);
     viewLevelSelector = selectLevel;
+    enableButton(viewSaveButton);
   });
   checkLevel(levelControlsConteiner);
 
@@ -248,6 +256,7 @@ function checkLevel(parent, event) {
     viewTime.textContent = '00:00';
     seconds = 1;
     viewImageSelector = selectImage;
+    enableButton(viewSaveButton);
   });
 }
 
@@ -268,17 +277,11 @@ function renderModal(event) {
   });
   const closeModalButton = renderButton(modalWindow, 'close-modal');
   closeModalButton.addEventListener('click', closeModal);
-  // const modalGreetings = renderElement('h2', 'result-message', modalWindow);
-  // modalGreetings.innerText = 'Great!';
-  // const modalText = renderElement('h2', 'result-message', modalWindow);
-  // const winTime = localStorage.getItem('time');
-  // modalText.textContent = `You have solved the nonogram in ${winTime} seconds!`;
 
   if (!event) {
     renderWinModal(modalWindow);
   } else {
     console.log('scores');
-    // event.target.classList.contains('scores')
     renderScoreModal(modalWindow);
   }
 }
@@ -287,8 +290,10 @@ function renderWinModal(parent) {
   const modalGreetings = renderElement('h2', 'result-message', parent);
   modalGreetings.innerText = 'Great!';
   const modalText = renderElement('h2', 'result-message', parent);
-  const winTime = localStorage.getItem('time');
-  modalText.textContent = `You have solved the nonogram in ${winTime} seconds!`;
+  const time = localStorage.getItem('time');
+  const winTime = convertTimeStrToSec(time);
+  const winTimeStr = winTime.toString().padStart(2, '0');
+  modalText.textContent = `You have solved the nonogram in ${winTimeStr} seconds!`;
 }
 
 function renderScoreModal(parent) {
@@ -297,6 +302,7 @@ function renderScoreModal(parent) {
 
   const resultsStr = localStorage.getItem('JSFE2023Q4results');
   const results = JSON.parse(resultsStr);
+  results.sort((a, b) => (a.currentTime < b.currentTime ? -1 : 1));
 
   results.forEach((el) => {
     const modalItem = renderElement(
@@ -338,10 +344,10 @@ function countTime() {
     return;
   }
   const minutes = Math.floor(seconds / 60);
-  const remainSeconds = seconds % 60;
-  const formattedTime = `${String(minutes).padStart(2, '0')}:${String(remainSeconds).padStart(2, '0')}`;
-  currentTime = formattedTime;
-  viewTime.textContent = formattedTime;
+  const remainedSeconds = seconds % 60;
+  const formatTime = `${minutes.toString().padStart(2, '0')}:${remainedSeconds.toString().padStart(2, '0')}`;
+  currentTime = formatTime;
+  viewTime.textContent = formatTime;
   seconds++;
 }
 
@@ -402,6 +408,7 @@ function makeCeilDark(event) {
   if (!event.target.classList.contains('dark')) {
     darkSound.play();
     event.target.classList.add('dark');
+    event.target.classList.remove('crossed');
     darkedCellsArr.push(index);
   } else {
     clearSound.play();
@@ -417,6 +424,9 @@ function makeCeilCrossed(event) {
     return;
   }
   const index = event.target.dataset.index;
+  if (event.target.classList.contains('dark')) {
+    return;
+  }
   if (!event.target.classList.contains('crossed')) {
     crossSound.play();
     event.target.classList.add('crossed');
@@ -483,7 +493,6 @@ function checkSounds(event) {
     clearSound.muted = false;
     winSound.muted = false;
   }
-  console.log(darkSound);
 }
 
 function saveGame() {
@@ -520,18 +529,16 @@ function continueGame() {
   darkedCellsArr = savedGame.darkedCells;
   crossedCellsArr = savedGame.crossedCells;
 
-  // viewLevelSelector.value = viewLevel;
-  // const event = new Event('change');
-  // viewLevelSelector.dispatchEvent(event);
-  // viewImageIndex = savedGame.image;
-  // const imageEvent = new CustomEvent('change', { detail: viewImageIndex });
-  // viewImageSelector.dispatchEvent(imageEvent);
   renderSelectors(viewLevel, viewImageIndex);
+
+  seconds = savedGame.seconds;
 
   model.setLevel(viewLevel);
   model.setImage(viewImageIndex);
   model.generateDefault();
   renderGameField();
+
+  enableButton(viewSaveButton);
 
   viewGame.childNodes.forEach((row) => {
     row.childNodes.forEach((cell) => {
@@ -553,6 +560,8 @@ function continueGame() {
 function showSolution() {
   isPaused = true;
   disableGame();
+  disableButton(viewSaveButton);
+  clearGameFromCrosses();
   viewGame.childNodes.forEach((row) => {
     row.childNodes.forEach((cell) => {
       if (cell.dataset.value === '1') {
@@ -581,7 +590,23 @@ function rememberResults() {
   if (results.length > 5) {
     results.splice(0, 1);
   }
-  results.sort((a, b) => (a.currentTime < b.currentTime ? -1 : 1));
 
   localStorage.setItem('JSFE2023Q4results', JSON.stringify(results));
+}
+
+function convertTimeStrToSec(time) {
+  const arr = time.split(':');
+  return Number(arr[0]) * 60 + Number(arr[1]);
+}
+
+function disableButton(button) {
+  if (!button.classList.contains('disabled')) {
+    button.classList.add('disabled');
+  }
+}
+
+function enableButton(button) {
+  if (button.classList.contains('disabled')) {
+    button.classList.remove('disabled');
+  }
 }
