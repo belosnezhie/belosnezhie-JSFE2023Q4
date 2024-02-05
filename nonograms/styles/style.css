@@ -55,18 +55,40 @@ button {
   cursor: default;
 }
 
-/* Colors */
+/* Themes */
 
-:root {
-  --main-bg-color: #fde8e9;
-  --game-bg-color: #8B819B;
-  --buttons-bg-color: #e3bac6;
-  --border-color: #e3bac6;
-  --field-border-color:#596475;
-  --main-text-color: #fde8e9;
-  --text-color: #596475;
-  --ceils-color: #1f2232;
-  --title-font: 40px;
+.light-theme {
+  background-image: url('../assets/images/Light.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+
+  --main-bg-color: #fff4ec;
+  --game-bg-color: rgba(116,164,156, 60%);
+  --buttons-bg-color: #fad8c8;
+  --border-color: #c8aca4;
+  --field-border-color:#9f9a8b;
+  --main-text-color: #fce6db;
+  --text-color: #2e645f;
+  --ceils-color: #2e645f;
+}
+
+.dark-theme {
+  background-image: url('../assets/images/Dark.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+
+  --main-bg-color: #e9dccc;
+  --game-bg-color: rgba(116,120,143, 40%);
+  --buttons-bg-color: #ddc19f;
+  --border-color: #f4b05f;
+  --field-border-color:#11192e;
+  --main-text-color: #f4b05f;
+  --text-color: #11192e;
+  --ceils-color: #11192e;
 }
 
 /* Main */
@@ -100,7 +122,7 @@ body {
 
 .title {
   font-family: 'Moirai One', system-ui;
-  font-size: var(--title-font);
+  font-size: 40px;
 }
 
 .game-wprapper {

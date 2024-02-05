@@ -29,6 +29,7 @@ let viewSaveButton = undefined;
 
 export function renderApp() {
   document.body.classList.add('app');
+  document.body.classList.add('dark-theme');
   const appWrapper = renderElement('div', 'app-wrapper', document.body);
   const title = renderElement('h1', 'title', appWrapper);
   title.innerText = 'Nonograms';
@@ -562,6 +563,7 @@ function showSolution() {
   disableGame();
   disableButton(viewSaveButton);
   clearGameFromCrosses();
+  clearGameFromDarkCells();
   viewGame.childNodes.forEach((row) => {
     row.childNodes.forEach((cell) => {
       if (cell.dataset.value === '1') {
