@@ -201,7 +201,6 @@ body {
   grid-template-rows: repeat(2, min-content);
   background-color: var(--main-bg-color);
   border-top: 3px solid var(--field-border-color);
-  border-bottom: 3px solid var(--field-border-color);
   border-left: 3px solid var(--field-border-color);
   align-items: stretch;
   color: var(--text-color);
@@ -210,7 +209,6 @@ body {
 .game {
   grid-row: 2 / 3;
   grid-column: 2 / 3;
-  border-right: 3px solid var(--field-border-color);
 }
 
 .game.disabled .ceil {
@@ -218,14 +216,12 @@ body {
   cursor: default;
 }
 
-
 .horisontal-clues-container {
   grid-column-start: 2;
   grid-column-end: 2;
   margin-left: -3px;
   display: flex;
   border-bottom: 3px solid var(--field-border-color);
-  border-right: 3px solid var(--field-border-color);
   border-left: 3px solid var(--field-border-color);
 }
 
@@ -287,6 +283,24 @@ body {
   border-left: none;
  }
 
+ .ceil:nth-child(5n) {
+  border-right: 3px solid var(--field-border-color);
+  width: 28px;
+ }
+
+ .ceil:nth-child(5n + 1) {
+  border-left: none;
+ }
+
+ .clue-column:nth-child(5n) {
+  border-right: 3px solid var(--field-border-color);
+  width: 28px;
+ }
+
+ .clue-column:nth-child(5n + 1) {
+  border-left: none;
+ }
+
 .ceil {
   width: 25px;
   height: 25px;
@@ -295,6 +309,22 @@ body {
   transition: 0.2s;
   position: relative;
 }
+
+.row:nth-child(5n) {
+  border-bottom: 3px solid var(--field-border-color);
+ }
+
+ .row:nth-child(5n + 1) {
+  border-left: none;
+ }
+
+ .clue-row:nth-child(5n) {
+  border-bottom: 3px solid var(--field-border-color);
+ }
+
+ .clue-row:nth-child(5n + 1) {
+  border-top: none;
+ }
 
 .ceil.dark {
   background-color: var(--ceils-color);
