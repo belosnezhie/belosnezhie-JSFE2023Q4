@@ -74,6 +74,8 @@ export function renderApp() {
     clearGameFromDarkCells();
     chosenTrueCells = [];
     chosenFalseCells = [];
+    crossedCellsArr = [];
+    darkedCellsArr = [];
   });
 
   const saveButton = renderButton(buttonsContainer, 'save');
@@ -131,12 +133,14 @@ export function renderApp() {
   });
   viewLevelSelector = selectLevel;
   viewLevel = selectLevel.value;
-  localStorage.setItem('level', viewLevel);
+  // ВОТ ТУТ !!!!!!!!!!!!!!!!!!!!!!!!!
+  // localStorage.setItem('level', viewLevel);
   selectLevel.addEventListener('change', (event) => {
     viewLevel = selectLevel.value;
-    localStorage.setItem('level', viewLevel);
+    // localStorage.setItem('level', viewLevel);
     checkLevel(levelControlsConteiner, event);
     viewLevelSelector = selectLevel;
+    isPaused = true;
     enableButton(viewSaveButton);
   });
   checkLevel(levelControlsConteiner);
@@ -160,6 +164,7 @@ export function renderApp() {
 
 // ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
 export function renderGameField() {
+  console.clear();
   if (viewField.childNodes.length > 0) {
     while (viewField.firstChild) {
       viewField.removeChild(viewField.lastChild);
@@ -167,6 +172,8 @@ export function renderGameField() {
   }
   chosenFalseCells = [];
   chosenTrueCells = [];
+  crossedCellsArr = [];
+  darkedCellsArr = [];
   const verticalClues = renderElement(
     'div',
     'vertical-clues-container',
@@ -195,11 +202,12 @@ function createGame(parent) {
     const row = renderElement('div', 'row', parent);
     for (let j = 0; j < matrix[i].length; j += 1) {
       const ceil = renderElement('div', 'ceil', row);
-      ceil.innerText = matrix[i][j];
+      // ceil.innerText = matrix[i][j];
       ceil.setAttribute('data-value', matrix[i][j]);
       ceil.setAttribute('data-index', `${i},${j}`);
     }
   }
+  console.log(matrix);
 }
 
 function createHorisontalHints(parent) {
@@ -234,6 +242,8 @@ function checkLevel(parent, event) {
     renderGameField();
     chosenTrueCells = [];
     chosenFalseCells = [];
+    crossedCellsArr = [];
+    darkedCellsArr = [];
     viewTime.textContent = '00:00';
     seconds = 1;
   }
@@ -246,7 +256,8 @@ function checkLevel(parent, event) {
   });
   viewImageSelector = selectImage;
   viewImageIndex = selectImage.selectedIndex;
-  localStorage.setItem('image', viewImageIndex);
+  // И ВОТ ТУТ!!!!!
+  // localStorage.setItem('image', viewImageIndex);
 
   selectImage.addEventListener('change', (secondEvent) => {
     model.setLevel(level);
@@ -259,13 +270,16 @@ function checkLevel(parent, event) {
     model.generateDefault();
     renderGameField();
     viewImageIndex = selectImage.selectedIndex;
-    localStorage.setItem('image', viewImageIndex);
+    // localStorage.setItem('image', viewImageIndex);
     chosenTrueCells = [];
     chosenFalseCells = [];
+    crossedCellsArr = [];
+    darkedCellsArr = [];
     viewTime.textContent = '00:00';
     seconds = 1;
     viewImageSelector = selectImage;
     enableButton(viewSaveButton);
+    isPaused = true;
   });
 }
 
@@ -286,11 +300,11 @@ function renderModal(event) {
   });
   const closeModalButton = renderButton(modalWindow, 'close-modal');
   closeModalButton.addEventListener('click', closeModal);
+  disableButton(viewSaveButton);
 
   if (!event) {
     renderWinModal(modalWindow);
   } else {
-    console.log('scores');
     renderScoreModal(modalWindow);
   }
 }
@@ -299,7 +313,7 @@ function renderWinModal(parent) {
   const modalGreetings = renderElement('h2', 'result-message', parent);
   modalGreetings.innerText = 'Great!';
   const modalText = renderElement('h2', 'result-message', parent);
-  const time = localStorage.getItem('time');
+  const time = localStorage.getItem('JSFE2023Q4time');
   const winTime = convertTimeStrToSec(time);
   const winTimeStr = winTime.toString().padStart(2, '0');
   modalText.textContent = `You have solved the nonogram in ${winTimeStr} seconds!`;
@@ -311,7 +325,7 @@ function renderScoreModal(parent) {
 
   const resultsStr = localStorage.getItem('JSFE2023Q4results');
   const results = JSON.parse(resultsStr);
-  results.sort((a, b) => (a.currentTime < b.currentTime ? -1 : 1));
+  results.sort((a, b) => (a[0] < b[0] ? -1 : 1));
 
   results.forEach((el) => {
     const modalItem = renderElement(
@@ -397,8 +411,6 @@ function checkAndRerenderMatrix(event) {
       chosenFalseCells.pop(ceil.dataset.value);
     }
   }
-  console.log(`chosenTrueCeils: ${chosenTrueCells}`);
-  console.log(`chosenFalseCeils: ${chosenFalseCells}`);
   checkMatrix();
 }
 
@@ -429,6 +441,7 @@ function makeCeilDark(event) {
 
 function makeCeilCrossed(event) {
   event.preventDefault();
+  isPaused = false;
   if (viewGame.classList.contains('disabled')) {
     return;
   }
@@ -451,10 +464,9 @@ function makeCeilCrossed(event) {
 function checkMatrix(event) {
   if (trueСellsArray.length === chosenTrueCells.length) {
     if (chosenFalseCells.length === 0) {
-      console.log('You win!');
       disableGame();
       winSound.play();
-      localStorage.setItem('time', currentTime);
+      localStorage.setItem('JSFE2023Q4time', currentTime);
       renderModal(event);
       //Сохранение результатов в ЛС
       rememberResults();
@@ -514,7 +526,7 @@ function saveGame() {
     darkedCells: darkedCellsArr,
   };
 
-  localStorage.setItem('savedGame', JSON.stringify(savedGame));
+  localStorage.setItem('JSFE2023Q4savedGame', JSON.stringify(savedGame));
 }
 
 function renderSelectors(level, imageIndex) {
@@ -528,15 +540,13 @@ function renderSelectors(level, imageIndex) {
 
 function continueGame() {
   isPaused = false;
-  const savedGameinStr = localStorage.getItem('savedGame');
+  const savedGameinStr = localStorage.getItem('JSFE2023Q4savedGame');
   const savedGame = JSON.parse(savedGameinStr);
 
   currentTime = savedGame.time;
   seconds = savedGame.seconds;
   viewLevel = savedGame.level;
   viewImageIndex = savedGame.image;
-  darkedCellsArr = savedGame.darkedCells;
-  crossedCellsArr = savedGame.crossedCells;
 
   renderSelectors(viewLevel, viewImageIndex);
 
@@ -548,6 +558,9 @@ function continueGame() {
   renderGameField();
 
   enableButton(viewSaveButton);
+
+  darkedCellsArr = savedGame.darkedCells;
+  crossedCellsArr = savedGame.crossedCells;
 
   viewGame.childNodes.forEach((row) => {
     row.childNodes.forEach((cell) => {
