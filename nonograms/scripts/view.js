@@ -186,7 +186,7 @@ export function renderGameField() {
   const game = renderElement('div', 'game', viewField);
   viewGame = game;
   game.addEventListener('click', checkAndRerenderMatrix);
-  game.addEventListener('contextmenu', makeCeilCrossed);
+  game.addEventListener('contextmenu', makecellCrossed);
 
   createHorisontalHints(horisontalClues);
   createVerticalHints(verticalClues);
@@ -198,9 +198,9 @@ function createGame(parent) {
   for (let i = 0; i < matrix.length; i += 1) {
     const row = renderElement('div', 'row', parent);
     for (let j = 0; j < matrix[i].length; j += 1) {
-      const ceil = renderElement('div', 'ceil', row);
-      ceil.setAttribute('data-value', matrix[i][j]);
-      ceil.setAttribute('data-index', `${i},${j}`);
+      const cell = renderElement('div', 'cell', row);
+      cell.setAttribute('data-value', matrix[i][j]);
+      cell.setAttribute('data-index', `${i},${j}`);
     }
   }
   console.log(matrix);
@@ -389,19 +389,19 @@ let darkedCellsArr = [];
 function checkAndRerenderMatrix(event) {
   isPaused = false;
   event._isClickWithInGame = true;
-  makeCeilDark(event);
-  const ceil = event.target;
+  makecellDark(event);
+  const cell = event.target;
   if (event.target.classList.contains('dark')) {
-    if (ceil.dataset.value === '1') {
-      chosenTrueCells.push(ceil.dataset.value);
+    if (cell.dataset.value === '1') {
+      chosenTrueCells.push(cell.dataset.value);
     } else {
-      chosenFalseCells.push(ceil.dataset.value);
+      chosenFalseCells.push(cell.dataset.value);
     }
   } else {
-    if (ceil.dataset.value === '1') {
-      chosenTrueCells.pop(ceil.dataset.value);
+    if (cell.dataset.value === '1') {
+      chosenTrueCells.pop(cell.dataset.value);
     } else {
-      chosenFalseCells.pop(ceil.dataset.value);
+      chosenFalseCells.pop(cell.dataset.value);
     }
   }
   checkMatrix();
@@ -413,7 +413,7 @@ import { crossSound } from './model.js';
 import { clearSound } from './model.js';
 import { winSound } from './model.js';
 
-function makeCeilDark(event) {
+function makecellDark(event) {
   if (viewGame.classList.contains('disabled')) {
     return;
   }
@@ -431,7 +431,7 @@ function makeCeilDark(event) {
   }
 }
 
-function makeCeilCrossed(event) {
+function makecellCrossed(event) {
   event.preventDefault();
   isPaused = false;
   if (viewGame.classList.contains('disabled')) {

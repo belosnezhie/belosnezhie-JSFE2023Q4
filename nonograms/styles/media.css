@@ -8,12 +8,12 @@
     background-color: var(--border-color);
   }
 
-  .light-theme .ceil:hover {
+  .light-theme .cell:hover {
     /* background-color: rgba(116,120,143, 20%); */
     box-shadow: 1px 1px 8px 2px var(--border-color) inset;
   }
 
-  .dark-theme .ceil:hover {
+  .dark-theme .cell:hover {
     box-shadow: 1px 1px 8px 2px var(--field-border-color) inset;
   }
 }

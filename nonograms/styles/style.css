@@ -71,7 +71,7 @@ button {
   --field-border-color:#9f9a8b;
   --main-text-color: #fce6db;
   --text-color: #2e645f;
-  --ceils-color: #2e645f;
+  --cells-color: #2e645f;
 }
 
 .dark-theme {
@@ -88,7 +88,7 @@ button {
   --field-border-color:rgb(116,120,143);
   --main-text-color: #f4b05f;
   --text-color: #11192e;
-  --ceils-color: #11192e;
+  --cells-color: #11192e;
 }
 
 /* Main */
@@ -171,7 +171,7 @@ body {
   height: 35px;
   border-radius: 50%;
   border: 2px solid var(--field-border-color);
-  background-image: url('../assets/icones/volume.png');
+  background-image: url('../assets/icons/volume.png');
   background-size: contain;
   position: relative;
   cursor: pointer;
@@ -196,7 +196,7 @@ body {
   height: 35px;
   border-radius: 50%;
   border: 2px solid var(--field-border-color);
-  background-image: url('../assets/icones/moon.png');
+  background-image: url('../assets/icons/moon.png');
   background-size: 84%, contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -204,7 +204,7 @@ body {
 }
 
 .theme:checked {
-  background-image: url('../assets/icones/sun.png');
+  background-image: url('../assets/icons/sun.png');
 }
 
 
@@ -251,7 +251,7 @@ body {
   color: var(--text-color);
 }
 
-.game.disabled .ceil {
+.game.disabled .cell {
   pointer-events: none;
   cursor: default;
 }
@@ -319,16 +319,16 @@ body {
   border-bottom: none;
 }
 
-.row>.ceil:first-child{
+.row>.cell:first-child{
   border-left: none;
  }
 
- .ceil:nth-child(5n) {
+ .cell:nth-child(5n) {
   border-right: 3px solid var(--field-border-color);
   width: 28px;
  }
 
- .ceil:nth-child(5n + 1) {
+ .cell:nth-child(5n + 1) {
   border-left: none;
  }
 
@@ -341,7 +341,7 @@ body {
   border-left: none;
  }
 
-.ceil {
+.cell {
   width: 25px;
   height: 25px;
   border-left: 1px solid var(--field-border-color);
@@ -366,8 +366,8 @@ body {
   border-top: none;
  }
 
-.ceil.dark {
-  background-color: var(--ceils-color);
+.cell.dark {
+  background-color: var(--cells-color);
 }
 
 .crossed::before,
@@ -377,7 +377,7 @@ body {
   width: 36px;
   height: 3px;
   border-radius: 2px;
-  background-color: var(--ceils-color);
+  background-color: var(--cells-color);
   position: absolute;
   left: -6px;
 }
