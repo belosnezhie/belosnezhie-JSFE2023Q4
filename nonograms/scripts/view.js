@@ -133,11 +133,8 @@ export function renderApp() {
   });
   viewLevelSelector = selectLevel;
   viewLevel = selectLevel.value;
-  // ВОТ ТУТ !!!!!!!!!!!!!!!!!!!!!!!!!
-  // localStorage.setItem('level', viewLevel);
   selectLevel.addEventListener('change', (event) => {
     viewLevel = selectLevel.value;
-    // localStorage.setItem('level', viewLevel);
     checkLevel(levelControlsConteiner, event);
     viewLevelSelector = selectLevel;
     isPaused = true;
@@ -202,7 +199,6 @@ function createGame(parent) {
     const row = renderElement('div', 'row', parent);
     for (let j = 0; j < matrix[i].length; j += 1) {
       const ceil = renderElement('div', 'ceil', row);
-      // ceil.innerText = matrix[i][j];
       ceil.setAttribute('data-value', matrix[i][j]);
       ceil.setAttribute('data-index', `${i},${j}`);
     }
@@ -256,8 +252,6 @@ function checkLevel(parent, event) {
   });
   viewImageSelector = selectImage;
   viewImageIndex = selectImage.selectedIndex;
-  // И ВОТ ТУТ!!!!!
-  // localStorage.setItem('image', viewImageIndex);
 
   selectImage.addEventListener('change', (secondEvent) => {
     model.setLevel(level);
@@ -270,7 +264,6 @@ function checkLevel(parent, event) {
     model.generateDefault();
     renderGameField();
     viewImageIndex = selectImage.selectedIndex;
-    // localStorage.setItem('image', viewImageIndex);
     chosenTrueCells = [];
     chosenFalseCells = [];
     crossedCellsArr = [];
@@ -300,7 +293,6 @@ function renderModal(event) {
   });
   const closeModalButton = renderButton(modalWindow, 'close-modal');
   closeModalButton.addEventListener('click', closeModal);
-  disableButton(viewSaveButton);
 
   if (!event) {
     renderWinModal(modalWindow);
@@ -317,6 +309,7 @@ function renderWinModal(parent) {
   const winTime = convertTimeStrToSec(time);
   const winTimeStr = winTime.toString().padStart(2, '0');
   modalText.textContent = `You have solved the nonogram in ${winTimeStr} seconds!`;
+  disableButton(viewSaveButton);
 }
 
 function renderScoreModal(parent) {
@@ -419,7 +412,6 @@ import { darkSound } from './model.js';
 import { crossSound } from './model.js';
 import { clearSound } from './model.js';
 import { winSound } from './model.js';
-// import { soundsArr } from './model.js';
 
 function makeCeilDark(event) {
   if (viewGame.classList.contains('disabled')) {
@@ -446,12 +438,10 @@ function makeCeilCrossed(event) {
     return;
   }
   const index = event.target.dataset.index;
-  if (event.target.classList.contains('dark')) {
-    return;
-  }
   if (!event.target.classList.contains('crossed')) {
     crossSound.play();
     event.target.classList.add('crossed');
+    event.target.classList.remove('dark');
     crossedCellsArr.push(index);
   } else {
     clearSound.play();
@@ -558,6 +548,7 @@ function continueGame() {
   renderGameField();
 
   enableButton(viewSaveButton);
+  viewTime.innerText = currentTime;
 
   darkedCellsArr = savedGame.darkedCells;
   crossedCellsArr = savedGame.crossedCells;

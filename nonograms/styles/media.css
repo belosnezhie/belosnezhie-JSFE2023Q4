@@ -9,11 +9,12 @@
   }
 
   .light-theme .ceil:hover {
-    background-color: var(--field-border-color);
+    /* background-color: rgba(116,120,143, 20%); */
+    box-shadow: 1px 1px 8px 2px var(--border-color) inset;
   }
 
   .dark-theme .ceil:hover {
-    background-color: var(--border-color);
+    box-shadow: 1px 1px 8px 2px var(--field-border-color) inset;
   }
 }
 
