@@ -63,7 +63,6 @@ button {
   background-repeat: no-repeat;
   background-position: center;
 
-
   --main-bg-color: #fff4ec;
   --game-bg-color: rgba(116,164,156, 60%);
   --buttons-bg-color: #fad8c8;
@@ -80,8 +79,7 @@ button {
   background-repeat: no-repeat;
   background-position: center;
 
-
-  --main-bg-color: #e9dccc;
+  --main-bg-color: #ddc19f;
   --game-bg-color: rgba(116,120,143, 40%);
   --buttons-bg-color: #ddc19f;
   --border-color: #f4b05f;
@@ -152,6 +150,7 @@ body {
   border: 2px solid var(--border-color);
   border-radius: 20px;
   color: var(--text-color);
+  transition: 0.2s;
 }
 
 .sounds-container {
@@ -222,6 +221,7 @@ body {
   border-radius: 10px;
   background-color: var(--main-bg-color);
   color: var(--text-color);
+  cursor: pointer;
 }
 
 .game-field {

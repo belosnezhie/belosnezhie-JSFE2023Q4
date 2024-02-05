@@ -1,3 +1,22 @@
+@media (hover: hover) {
+
+  .light-theme .button:hover {
+    background-color: var(--border-color);
+  }
+
+  .dark-theme .button:hover {
+    background-color: var(--border-color);
+  }
+
+  .light-theme .ceil:hover {
+    background-color: var(--field-border-color);
+  }
+
+  .dark-theme .ceil:hover {
+    background-color: var(--border-color);
+  }
+}
+
 @media (max-width: 700px) {
 
   .game-field-container {
