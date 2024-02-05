@@ -105,6 +105,7 @@ body {
   align-items: center;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
+  transition: 0.5s;
 }
 
 .app-wrapper {
@@ -161,8 +162,8 @@ body {
 }
 
 .sound {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
   border: 2px solid var(--field-border-color);
   background-image: url('../assets/icones/volume.png');
@@ -173,15 +174,30 @@ body {
 .sound:checked::before{
   display: block;
   content: '';
-  width: 28px;
+  width: 34px;
   height: 3px;
   border-radius: 2px;
   background-color: var(--field-border-color);
   position: absolute;
-  left: -2px;
+  left: 0px;
   transform: rotate(45deg);
-  top: 12px;
+  top: 13px;
   transition: 0.2s;
+}
+
+.theme {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid var(--field-border-color);
+  background-image: url('../assets/icones/moon.png');
+  background-size: 84%, contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.theme:checked {
+  background-image: url('../assets/icones/sun.png');
 }
 
 

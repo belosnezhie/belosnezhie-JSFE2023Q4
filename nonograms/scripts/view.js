@@ -29,7 +29,7 @@ let viewSaveButton = undefined;
 
 export function renderApp() {
   document.body.classList.add('app');
-  document.body.classList.add('dark-theme');
+  document.body.classList.add('light-theme');
   const appWrapper = renderElement('div', 'app-wrapper', document.body);
   const title = renderElement('h1', 'title', appWrapper);
   title.innerText = 'Nonograms';
@@ -48,6 +48,14 @@ export function renderApp() {
   soundsInput.setAttribute('type', 'checkbox');
   soundsInput.setAttribute('id', 'soundsInput');
   soundsInput.addEventListener('change', checkSounds);
+
+  const themelabel = renderElement('label', '', soundsContainer);
+  themelabel.setAttribute('for', 'themeInput');
+  themelabel.textContent = 'Change theme';
+  const themeInput = renderElement('input', 'button', soundsContainer, 'theme');
+  themeInput.setAttribute('type', 'checkbox');
+  themeInput.setAttribute('id', 'themeInput');
+  themeInput.addEventListener('change', changeTheme);
 
   const gameWrapper = renderElement('div', 'game-wprapper', appWrapper);
   const buttonsContainer = renderElement(
@@ -610,5 +618,15 @@ function disableButton(button) {
 function enableButton(button) {
   if (button.classList.contains('disabled')) {
     button.classList.remove('disabled');
+  }
+}
+
+function changeTheme(event) {
+  if (event.target.checked) {
+    document.body.classList.remove('light-theme');
+    document.body.classList.add('dark-theme');
+  } else {
+    document.body.classList.remove('dark-theme');
+    document.body.classList.add('light-theme');
   }
 }
