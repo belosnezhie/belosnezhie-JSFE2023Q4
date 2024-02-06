@@ -422,7 +422,12 @@ function makecellDark(event) {
   if (!event.target.classList.contains('dark')) {
     darkSound.play();
     event.target.classList.add('dark');
-    event.target.classList.remove('crossed');
+    if (event.target.classList.contains('crossed')) {
+      event.target.classList.remove('crossed');
+      const index = event.target.dataset.index;
+      let delitingIndex = crossedCellsCoordinates.indexOf(index);
+      crossedCellsCoordinates.splice(delitingIndex, 1);
+    }
     darkedCellsCoordinates.push(index);
   } else {
     clearSound.play();
@@ -444,6 +449,9 @@ function makecellCrossed(event) {
     event.target.classList.add('crossed');
     if (event.target.classList.contains('dark')) {
       event.target.classList.remove('dark');
+      const index = event.target.dataset.index;
+      let delitingIndex = darkedCellsCoordinates.indexOf(index);
+      darkedCellsCoordinates.splice(delitingIndex, 1);
       if (event.target.dataset.value === '1') {
         chosenTrueCells.pop();
       } else {
