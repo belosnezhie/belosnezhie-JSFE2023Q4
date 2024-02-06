@@ -74,8 +74,8 @@ export function renderApp() {
     clearGameFromDarkCells();
     chosenTrueCells = [];
     chosenFalseCells = [];
-    crossedCellsArr = [];
-    darkedCellsArr = [];
+    crossedCellsCoordinates = [];
+    darkedCellsCoordinates = [];
   });
 
   const saveButton = renderButton(buttonsContainer, 'save');
@@ -169,8 +169,8 @@ export function renderGameField() {
   }
   chosenFalseCells = [];
   chosenTrueCells = [];
-  crossedCellsArr = [];
-  darkedCellsArr = [];
+  crossedCellsCoordinates = [];
+  darkedCellsCoordinates = [];
   const verticalClues = renderElement(
     'div',
     'vertical-clues-container',
@@ -238,8 +238,8 @@ function checkLevel(parent, event) {
     renderGameField();
     chosenTrueCells = [];
     chosenFalseCells = [];
-    crossedCellsArr = [];
-    darkedCellsArr = [];
+    crossedCellsCoordinates = [];
+    darkedCellsCoordinates = [];
     viewTime.textContent = '00:00';
     seconds = 1;
   }
@@ -266,8 +266,8 @@ function checkLevel(parent, event) {
     viewImageIndex = selectImage.selectedIndex;
     chosenTrueCells = [];
     chosenFalseCells = [];
-    crossedCellsArr = [];
-    darkedCellsArr = [];
+    crossedCellsCoordinates = [];
+    darkedCellsCoordinates = [];
     viewTime.textContent = '00:00';
     seconds = 1;
     viewImageSelector = selectImage;
@@ -384,8 +384,8 @@ function renderElement(elTag, elClass, elParent, addElClass) {
 let chosenTrueCells = [];
 let chosenFalseCells = [];
 // Массивы для сохранения игры и ее рендера после загрузки
-let crossedCellsArr = [];
-let darkedCellsArr = [];
+let crossedCellsCoordinates = [];
+let darkedCellsCoordinates = [];
 
 function checkAndRerenderMatrix(event) {
   isPaused = false;
@@ -423,14 +423,12 @@ function makecellDark(event) {
     darkSound.play();
     event.target.classList.add('dark');
     event.target.classList.remove('crossed');
-    darkedCellsArr.push(index);
-    console.log(darkedCellsArr);
+    darkedCellsCoordinates.push(index);
   } else {
     clearSound.play();
     event.target.classList.remove('dark');
-    let delitingIndex = darkedCellsArr.indexOf(index);
-    darkedCellsArr.splice(delitingIndex, 1);
-    console.log(darkedCellsArr);
+    let delitingIndex = darkedCellsCoordinates.indexOf(index);
+    darkedCellsCoordinates.splice(delitingIndex, 1);
   }
 }
 
@@ -444,15 +442,20 @@ function makecellCrossed(event) {
   if (!event.target.classList.contains('crossed')) {
     crossSound.play();
     event.target.classList.add('crossed');
-    event.target.classList.remove('dark');
-    crossedCellsArr.push(index);
-    console.log(crossedCellsArr);
+    if (event.target.classList.contains('dark')) {
+      event.target.classList.remove('dark');
+      if (event.target.dataset.value === '1') {
+        chosenTrueCells.pop();
+      } else {
+        chosenFalseCells.pop();
+      }
+    }
+    crossedCellsCoordinates.push(index);
   } else {
     clearSound.play();
     event.target.classList.remove('crossed');
-    let delitingIndex = crossedCellsArr.indexOf(index);
-    crossedCellsArr.splice(delitingIndex, 1);
-    console.log(crossedCellsArr);
+    let delitingIndex = crossedCellsCoordinates.indexOf(index);
+    crossedCellsCoordinates.splice(delitingIndex, 1);
   }
 }
 
@@ -519,8 +522,8 @@ function saveGame() {
     seconds: seconds,
     chosenTrueCells: chosenTrueCells,
     chosenFalseCells: chosenFalseCells,
-    crossedCells: crossedCellsArr,
-    darkedCells: darkedCellsArr,
+    crossedCells: crossedCellsCoordinates,
+    darkedCells: darkedCellsCoordinates,
   };
 
   localStorage.setItem('JSFE2023Q4savedGame', JSON.stringify(savedGame));
@@ -560,18 +563,18 @@ function continueGame() {
   chosenTrueCells = savedGame.chosenTrueCells;
   chosenFalseCells = savedGame.chosenFalseCells;
 
-  darkedCellsArr = savedGame.darkedCells;
-  crossedCellsArr = savedGame.crossedCells;
+  darkedCellsCoordinates = savedGame.darkedCells;
+  crossedCellsCoordinates = savedGame.crossedCells;
 
   viewGame.childNodes.forEach((row) => {
     row.childNodes.forEach((cell) => {
       let cellIndex = cell.dataset.index;
-      darkedCellsArr.forEach((item) => {
+      darkedCellsCoordinates.forEach((item) => {
         if (item === cellIndex) {
           cell.classList.add('dark');
         }
       });
-      crossedCellsArr.forEach((item) => {
+      crossedCellsCoordinates.forEach((item) => {
         if (item === cellIndex) {
           cell.classList.add('crossed');
         }
