@@ -383,6 +383,7 @@ function renderElement(elTag, elClass, elParent, addElClass) {
 //// ЛОГИКА КЛИКОВ ПО ЯЧЕЙКАМ
 let chosenTrueCells = [];
 let chosenFalseCells = [];
+// Массивы для сохранения игры и ее рендера после загрузки
 let crossedCellsArr = [];
 let darkedCellsArr = [];
 
@@ -423,11 +424,13 @@ function makecellDark(event) {
     event.target.classList.add('dark');
     event.target.classList.remove('crossed');
     darkedCellsArr.push(index);
+    console.log(darkedCellsArr);
   } else {
     clearSound.play();
     event.target.classList.remove('dark');
     let delitingIndex = darkedCellsArr.indexOf(index);
     darkedCellsArr.splice(delitingIndex, 1);
+    console.log(darkedCellsArr);
   }
 }
 
@@ -443,11 +446,13 @@ function makecellCrossed(event) {
     event.target.classList.add('crossed');
     event.target.classList.remove('dark');
     crossedCellsArr.push(index);
+    console.log(crossedCellsArr);
   } else {
     clearSound.play();
     event.target.classList.remove('crossed');
     let delitingIndex = crossedCellsArr.indexOf(index);
     crossedCellsArr.splice(delitingIndex, 1);
+    console.log(crossedCellsArr);
   }
 }
 
@@ -512,6 +517,8 @@ function saveGame() {
     image: viewImageIndex,
     time: currentTime,
     seconds: seconds,
+    chosenTrueCells: chosenTrueCells,
+    chosenFalseCells: chosenFalseCells,
     crossedCells: crossedCellsArr,
     darkedCells: darkedCellsArr,
   };
@@ -549,6 +556,9 @@ function continueGame() {
 
   enableButton(viewSaveButton);
   viewTime.innerText = currentTime;
+
+  chosenTrueCells = savedGame.chosenTrueCells;
+  chosenFalseCells = savedGame.chosenFalseCells;
 
   darkedCellsArr = savedGame.darkedCells;
   crossedCellsArr = savedGame.crossedCells;
