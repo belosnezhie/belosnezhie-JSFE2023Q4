@@ -1,0 +1,1 @@
+npm --prefix rss-puzzle run lint:staged
