@@ -1,0 +1,34 @@
+@import '../../style.css';
+
+.login_page {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login_container {
+    min-width: 400px;
+    padding: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--containers-background-color);
+    border-radius: 10px;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.input {
+    padding: 10px;
+    border: 1px solid var(--main-border-color);
+    border-radius: 10px;
+}

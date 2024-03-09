@@ -1,12 +1,25 @@
 import './style.css';
 
-function index(): number {
-  const a = 1;
-  const b = 2;
+// import { BasicComponent } from './components/BasicComponent';
+import { LoginPage } from './components/loginPage/LoginPage';
 
-  return a + b;
+class App {
+  // loginPage: BasicComponent;
+
+  // constructor() {
+  //   this.loginPage = new BasicComponent({
+  //     tag: 'div',
+  //     className: 'pageWrapper',
+  //   });
+  // }
+
+  render(parent: HTMLElement | null): void {
+    if (parent) {
+      parent.append(new LoginPage().component);
+    }
+  }
 }
 
-index();
+const app: App = new App();
 
-document.createElement('div');
+app.render(document.querySelector<HTMLElement>('body'));
