@@ -8,4 +8,8 @@ export class Input extends BasicComponent {
     });
     this.addAttribute('name', inputName);
   }
+
+  public setPattern() {
+    this.addAttribute('pattern', '^[A-Z][\\-a-zA-z]+$');
+  }
 }

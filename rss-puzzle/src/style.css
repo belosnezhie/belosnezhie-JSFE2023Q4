@@ -55,8 +55,9 @@ button {
 /* Themes */
 :root {
   --main-background-color: #355070;
-  --containers-background-color: #F0DADD;
+  --containers-background-color: #F9F1F2;
   --main-border-color: #355070;
+  --button-background-color: #B56576;
 }
 
 body {

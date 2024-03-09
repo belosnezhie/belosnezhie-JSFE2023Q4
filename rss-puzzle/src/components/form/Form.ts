@@ -9,12 +9,16 @@ const firstNameInput = new Input('firstNameInput');
 firstNameInput.addClass('first_name_input');
 firstNameInput.addAttribute('type', 'text');
 firstNameInput.addAttribute('required', '');
+firstNameInput.setPattern();
+firstNameInput.addAttribute('minlength', '3');
 
 const lastNameInput = new Input('lastNameInput');
 
 lastNameInput.addClass('last_name_input');
 lastNameInput.addAttribute('type', 'text');
 lastNameInput.addAttribute('required', '');
+lastNameInput.setPattern();
+lastNameInput.addAttribute('minlength', '4');
 
 const submitInput = new Input('submitInput');
 
@@ -29,9 +33,9 @@ export class Form extends BasicComponent {
         tag: 'form',
         className: 'login_form',
       },
-      new Label('First name', 'firstNameInput'),
+      new Label('First name:', 'firstNameInput'),
       firstNameInput,
-      new Label('Last name', 'lastNameInput'),
+      new Label('Last name:', 'lastNameInput'),
       lastNameInput,
       submitInput,
     );
