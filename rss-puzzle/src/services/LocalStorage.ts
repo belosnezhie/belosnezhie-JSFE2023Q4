@@ -19,6 +19,16 @@ class LoginStatus {
     localStorage.removeItem(this.key);
   }
 
+  public getName(): string {
+    const name = localStorage.getItem(this.key);
+
+    if (!name) {
+      throw new Error('Name is not defind');
+    }
+
+    return name;
+  }
+
   public setLoginStatus(value: string): void {
     localStorage.setItem(this.key, value);
   }

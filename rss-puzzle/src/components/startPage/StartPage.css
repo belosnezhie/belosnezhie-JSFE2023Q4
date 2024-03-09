@@ -21,7 +21,8 @@
     border-radius: 10px;
 }
 
-.start_headline {
+.start_headline,
+.start_greeting {
     margin: 0 auto;  
 }
 

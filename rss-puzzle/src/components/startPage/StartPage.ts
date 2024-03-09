@@ -1,5 +1,6 @@
 import './StartPage.css';
 
+import { loginStatus } from '../../services/LocalStorage';
 import { BasicComponent } from '../BasicComponent';
 import { Header } from '../Headers';
 
@@ -15,7 +16,8 @@ export class StartPage extends BasicComponent {
           tag: 'div',
           className: 'start_container',
         },
-        new Header('h2', 'start_headline', 'ENGLISH PUZZLE'),
+        new Header('h1', 'start_headline', 'ENGLISH PUZZLE'),
+        new Header('h2', 'start_greeting', `Hello, ${loginStatus.getName()}!`),
         new BasicComponent({
           tag: 'div',
           className: 'start_description',
