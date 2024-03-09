@@ -1,7 +1,8 @@
 import './style.css';
 
 // import { BasicComponent } from './components/BasicComponent';
-import { LoginPage } from './components/loginPage/LoginPage';
+// import { LoginPage } from './components/loginPage/LoginPage';
+import { StartPage } from './components/startPage/StartPage';
 
 class App {
   // loginPage: BasicComponent;
@@ -15,7 +16,7 @@ class App {
 
   render(parent: HTMLElement | null): void {
     if (parent) {
-      parent.append(new LoginPage().component);
+      parent.append(new StartPage().component);
     }
   }
 }

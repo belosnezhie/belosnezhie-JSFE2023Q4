@@ -1,0 +1,30 @@
+@import '../../style.css';
+
+.start_page {
+    min-width: 100vw;
+    min-height: 100vh;
+    padding: 0% 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.start_container {
+    min-width: 400px;
+    padding: 20px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 40px;
+    background-color: var(--containers-background-color);
+    border-radius: 10px;
+}
+
+.start_headline {
+    margin: 0 auto;  
+}
+
+.start_description {
+    text-align: center;
+}
