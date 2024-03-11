@@ -2,7 +2,7 @@ import './LoginPage.css';
 
 import { BasicComponent } from '../BasicComponent';
 import { Form } from '../form/Form';
-import { Header } from '../Headers';
+import { Headline } from '../Headline';
 
 // const loginPage = new BasicComponent({
 //   tag: 'div',
@@ -21,9 +21,11 @@ export class LoginPage extends BasicComponent {
           tag: 'div',
           className: 'login_container',
         },
-        new Header('h2', 'login_header', 'Login to start learning!'),
+        new Headline('h2', 'login_header', 'Login to start learning!'),
         new Form(),
       ),
     );
   }
 }
+
+export const loginPage = new LoginPage();

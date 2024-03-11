@@ -1,8 +1,11 @@
 import './StartPage.css';
 
+import { state } from '../..';
 import { loginStatus } from '../../services/LocalStorage';
 import { BasicComponent } from '../BasicComponent';
-import { Header } from '../Headers';
+import { Button } from '../Buttons/Button';
+import { Headline } from '../Headline';
+import { mainPage } from '../mainPage/MainPage';
 
 export class StartPage extends BasicComponent {
   constructor() {
@@ -16,8 +19,8 @@ export class StartPage extends BasicComponent {
           tag: 'div',
           className: 'start_container',
         },
-        new Header('h1', 'start_headline', 'ENGLISH PUZZLE'),
-        new Header('h2', 'start_greeting', `Hello, ${loginStatus.getName()}!`),
+        new Headline('h1', 'start_headline', 'ENGLISH PUZZLE'),
+        new Headline('h2', 'start_greeting'),
         new BasicComponent({
           tag: 'div',
           className: 'start_description',
@@ -26,7 +29,23 @@ export class StartPage extends BasicComponent {
           choose nessessary hints in the menu, 
           check your results.`,
         }),
+        new Button('Start', 'start_button', () => {
+          state.setCurrentPage(mainPage);
+        }),
       ),
     );
   }
+
+  public render() {
+    if (this.children) {
+      const firstChild = this.children[0];
+
+      if (firstChild.children) {
+        firstChild.children[1].addText(`Hello, ${loginStatus.getName()}!`);
+        super.render();
+      }
+    }
+  }
 }
+
+export const startPage = new StartPage();

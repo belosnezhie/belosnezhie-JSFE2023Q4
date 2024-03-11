@@ -58,6 +58,8 @@ button {
   --containers-background-color: #F9F1F2;
   --main-border-color: #355070;
   --button-background-color: #B56576;
+  --button-hover-color: #E56B6F;
+  --button-disabled-color: #6D597A;
 }
 
 body {

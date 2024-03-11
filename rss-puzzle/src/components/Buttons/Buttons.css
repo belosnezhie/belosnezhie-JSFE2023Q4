@@ -1,0 +1,18 @@
+@import '../../style.css';
+
+.button {
+    min-width: 180px;
+    margin: 0 auto;
+    padding: 20px 0px;
+    background-color: var(--button-background-color);
+    border-radius: 10px;
+    transition: 0.5s;
+}
+
+.button:hover {
+    background-color: var(--button-hover-color);
+}
+
+.button.disabled {
+    background-color: var(--button-disabled-color);
+}

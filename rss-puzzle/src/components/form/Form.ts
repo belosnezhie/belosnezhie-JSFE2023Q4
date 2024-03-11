@@ -1,9 +1,11 @@
 import '../loginPage/LoginPage.css';
 
+import { state } from '../..';
 import { loginStatus } from '../../services/LocalStorage';
 import { BasicComponent } from '../BasicComponent';
 import { Input } from '../Input';
 import { Label } from '../loginPage/Label';
+import { startPage } from '../startPage/StartPage';
 
 const firstNameInput = new Input('firstNameInput');
 
@@ -40,6 +42,10 @@ export class Form extends BasicComponent {
       lastNameInput,
       submitInput,
     );
+  }
+
+  public render() {
+    super.render();
     this.component.addEventListener('submit', (event: Event) => {
       event.preventDefault();
       if (event.target) {
@@ -50,24 +56,10 @@ export class Form extends BasicComponent {
         const lastNameValue: string = lastName.value;
         const loginUserName: string = `${firstNameValue} ${lastNameValue}`;
 
-        // firstNameValue = event.target[0].value;
-
         loginStatus.setLoginStatus(loginUserName);
+
+        state.setCurrentPage(startPage);
       }
     });
-    // this.onSubmit = (event: Event) => {
-    //   event.preventDefault();
-    //   console.log('login');
-    //   loginStatus.setLoginStatus('true');
-    // };
-    // onsubmit: (event: Event) => {
-    //   event.preventDefault();
-    //   this.subbmitLoginStatus();
-    // };
   }
-
-  // private subbmitLoginStatus(event: Event) {
-  //   event.preventDefault();
-  //   loginStatus.setLoginStatus('true');
-  // }
 }
