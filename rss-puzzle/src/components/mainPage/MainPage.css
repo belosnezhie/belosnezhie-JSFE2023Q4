@@ -41,7 +41,7 @@
 }
 
 .word_card {
-    flex-grow: 1;
+    /* flex-grow: 1; */
     min-height: 50px;
     display: flex;
     align-items: center;

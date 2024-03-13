@@ -27,13 +27,16 @@ export class WordCardsField extends BasicComponent {
   public render(): void {
     super.render();
     this.children?.forEach((child: BasicComponent) => {
+      const wordWidth: number = child.component.innerHTML.length;
+      const cardWidth: number = (wordWidth / 10) * 100;
+
+      child.component.setAttribute('style', `width:${cardWidth}%`);
+
       child.component.addEventListener('click', () => {
         child.component.classList.add('disappear');
         setTimeout(() => {
-          // child.removeComponent();
           this.moveCardEvent.emit('move', child);
         }, 400);
-        // this.moveCardEvent.emit('move', child);
       });
     });
   }
