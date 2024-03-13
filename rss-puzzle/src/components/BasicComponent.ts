@@ -2,11 +2,11 @@ export type ElementParam = Partial<Element>;
 
 export class BasicComponent {
   public children?: BasicComponent[] | undefined = [];
+  public classNames: string[] = [];
   public component: Element = document.createElement('div');
+  public tag: string;
+  public text?: string;
   private attributes: Map<string, string> = new Map();
-  private classNames: string[] = [];
-  private tag: string;
-  private text?: string;
 
   constructor(
     { tag = 'div', className = '', text = '' },
@@ -22,6 +22,12 @@ export class BasicComponent {
     this.attributes.set(type, content);
   }
 
+  public addChild(child: BasicComponent) {
+    if (this.children) {
+      this.children.push(child);
+    }
+  }
+
   public addClass(className: string): void {
     this.classNames.push(className);
   }
@@ -32,7 +38,10 @@ export class BasicComponent {
 
   public append(child: BasicComponent) {
     if (this.children) {
-      this.children.push(child);
+      // this.children.push(child);
+      if (!this.children.includes(child)) {
+        this.addChild(child);
+      }
       this.component.append(child.component);
     }
   }
@@ -43,6 +52,10 @@ export class BasicComponent {
         child.component.remove();
       });
     }
+  }
+
+  public removeClass(className: string): void {
+    this.component.classList.remove(className);
   }
 
   public removeComponent() {
@@ -75,9 +88,5 @@ export class BasicComponent {
 
   protected removeAttribute(type: string): void {
     this.component.removeAttribute(type);
-  }
-
-  protected removeClass(className: string): void {
-    this.component.classList.remove(className);
   }
 }

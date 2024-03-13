@@ -22,6 +22,26 @@ export class WordCardsField extends BasicComponent {
         text: word,
       });
     });
+
+    moveCardEvent.subscribe('moveBack', (resultCard: BasicComponent) => {
+      resultCard.component.classList.remove('appear');
+      resultCard.component.classList.add('disappear');
+      setTimeout(() => {
+        resultCard.removeComponent();
+      }, 400);
+      if (this.children) {
+        const firstPlaceholder = this.children.find((child) =>
+          child.component.classList.contains('placeholder'),
+        );
+
+        if (firstPlaceholder) {
+          firstPlaceholder.removeClass('placeholder');
+          firstPlaceholder.component.classList.add('word_card');
+          firstPlaceholder.component.textContent =
+            resultCard.component.textContent;
+        }
+      }
+    });
   }
 
   public render(): void {
@@ -36,6 +56,9 @@ export class WordCardsField extends BasicComponent {
         child.component.classList.add('disappear');
         setTimeout(() => {
           this.moveCardEvent.emit('move', child);
+          child.component.classList.remove('word_card');
+          child.component.classList.add('placeholder');
+          child.component.innerHTML = '';
         }, 400);
       });
     });
