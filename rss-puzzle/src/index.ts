@@ -1,11 +1,12 @@
 import './style.css';
 
-import { loginPage } from './components/loginPage/LoginPage';
+// import { loginPage } from './components/loginPage/LoginPage';
+import { mainPage } from './components/mainPage/MainPage';
 import { PageState } from './services/State';
 
 class App {
   render(state: PageState): void {
-    state.setCurrentPage(loginPage);
+    state.setCurrentPage(mainPage);
   }
 }
 

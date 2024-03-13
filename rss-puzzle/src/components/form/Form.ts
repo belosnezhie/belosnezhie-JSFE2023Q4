@@ -44,7 +44,7 @@ export class Form extends BasicComponent {
     );
   }
 
-  public render() {
+  public render(): void {
     super.render();
     this.component.addEventListener('submit', (event: Event) => {
       event.preventDefault();

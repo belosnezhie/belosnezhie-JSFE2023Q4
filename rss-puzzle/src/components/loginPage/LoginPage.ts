@@ -4,11 +4,6 @@ import { BasicComponent } from '../BasicComponent';
 import { Form } from '../form/Form';
 import { Headline } from '../Headline';
 
-// const loginPage = new BasicComponent({
-//   tag: 'div',
-//   className: 'pageWrapper',
-// });
-
 export class LoginPage extends BasicComponent {
   constructor() {
     super(

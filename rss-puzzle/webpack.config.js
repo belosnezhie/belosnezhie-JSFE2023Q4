@@ -36,6 +36,10 @@ const baseConfig = {
       {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      { 
+        test: /\.geojson$/,
+        type: 'json',
       }
     ]
   },
