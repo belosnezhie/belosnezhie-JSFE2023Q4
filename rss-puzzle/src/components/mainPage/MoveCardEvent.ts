@@ -41,7 +41,7 @@ export class MoveCardEvent {
 
     if (current !== undefined) {
       const filtered = current.filter(
-        (callback) => callback.toString() !== func.toString(),
+        (callback) => callback.name !== func.name,
       );
 
       this.listeners.set(eventName, filtered);
@@ -52,3 +52,5 @@ export class MoveCardEvent {
     this.listeners.set(eventName, []);
   }
 }
+
+export const currentMoveCardEvent = new MoveCardEvent();

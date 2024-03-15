@@ -38,11 +38,26 @@ export class BasicComponent {
 
   public append(child: BasicComponent) {
     if (this.children) {
-      // this.children.push(child);
       if (!this.children.includes(child)) {
         this.addChild(child);
       }
       this.component.append(child.component);
+    }
+  }
+
+  public clearChildrenArr() {
+    this.children = [];
+  }
+
+  public removeAttribute(type: string): void {
+    this.component.removeAttribute(type);
+  }
+
+  public removeChild(child: BasicComponent) {
+    const index: number | undefined = this.children?.indexOf(child);
+
+    if (index !== undefined) {
+      this.children?.splice(index, 1);
     }
   }
 
@@ -79,14 +94,23 @@ export class BasicComponent {
     }
   }
 
+  public replaceChild(child: BasicComponent, replacement: BasicComponent) {
+    const index: number | undefined = this.children?.indexOf(child);
+
+    if (index !== undefined) {
+      this.children?.splice(index, 1, replacement);
+    }
+
+    if (this.children) {
+      this.removeChildren();
+      this.appendChildren(this.children);
+    }
+  }
+
   protected appendChildren(children: BasicComponent[]) {
     children.forEach((child) => {
       child.render();
       this.append(child);
     });
-  }
-
-  protected removeAttribute(type: string): void {
-    this.component.removeAttribute(type);
   }
 }

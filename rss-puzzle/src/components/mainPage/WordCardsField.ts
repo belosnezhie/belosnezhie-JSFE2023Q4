@@ -1,11 +1,10 @@
 import { data } from '../../services/dataServices/Data';
 import { BasicComponent } from '../BasicComponent';
 
-import { MoveCardEvent } from './MoveCardEvent';
+import { MoveCardEvent, currentMoveCardEvent } from './MoveCardEvent';
 
 export class WordCardsField extends BasicComponent {
   moveCardEvent: MoveCardEvent;
-  sentence: string[];
   constructor(moveCardEvent: MoveCardEvent) {
     super({
       tag: 'div',
@@ -13,19 +12,16 @@ export class WordCardsField extends BasicComponent {
     });
 
     this.moveCardEvent = moveCardEvent;
-    this.sentence = data.setRandomSentenceOrder();
 
-    this.children = this.sentence.map((word: string) => {
-      return new BasicComponent({
-        tag: 'div',
-        className: 'word_card',
-        text: word,
-      });
-    });
+    this.updateWord();
 
+    moveCardEvent.unsubscribeAll('moveBack');
     moveCardEvent.subscribe('moveBack', (resultCard: BasicComponent) => {
       resultCard.component.classList.remove('appear');
       resultCard.component.classList.add('disappear');
+      const text: string | null =
+        resultCard.component.getAttribute('data_value');
+
       setTimeout(() => {
         resultCard.removeComponent();
       }, 400);
@@ -34,11 +30,11 @@ export class WordCardsField extends BasicComponent {
           child.component.classList.contains('placeholder'),
         );
 
-        if (firstPlaceholder) {
+        if (firstPlaceholder && text) {
           firstPlaceholder.removeClass('placeholder');
           firstPlaceholder.component.classList.add('word_card');
-          firstPlaceholder.component.textContent =
-            resultCard.component.textContent;
+          firstPlaceholder.component.textContent = text;
+          firstPlaceholder.component.setAttribute('data_value', text);
         }
       }
     });
@@ -47,10 +43,12 @@ export class WordCardsField extends BasicComponent {
   public render(): void {
     super.render();
     this.children?.forEach((child: BasicComponent) => {
-      const wordWidth: number = child.component.innerHTML.length;
-      const cardWidth: number = (wordWidth / 10) * 100;
+      // const wordWidth: number = child.component.innerHTML.length;
+      // const cardWidth: number = (wordWidth / 10) * 100;
 
-      child.component.setAttribute('style', `width:${cardWidth}%`);
+      // child.component.setAttribute('style', `width:${cardWidth}%`);
+
+      this.countWidth(child);
 
       child.component.addEventListener('click', () => {
         child.component.classList.add('disappear');
@@ -58,9 +56,52 @@ export class WordCardsField extends BasicComponent {
           this.moveCardEvent.emit('move', child);
           child.component.classList.remove('word_card');
           child.component.classList.add('placeholder');
+          child.component.removeAttribute('data_value');
           child.component.innerHTML = '';
         }, 400);
       });
     });
   }
+
+  public updateCards() {
+    this.removeChildren();
+    this.clearChildrenArr();
+    this.updateWord();
+    this.removeComponent();
+    this.render();
+  }
+
+  public updateWord() {
+    const sentence: string[] = data.setRandomSentenceOrder();
+
+    this.children = sentence.map((word: string) => {
+      const card = new BasicComponent({
+        tag: 'div',
+        className: 'word_card',
+        text: word,
+      });
+
+      card.addAttribute('data_value', word);
+
+      return card;
+    });
+  }
+
+  private countWidth(child: BasicComponent) {
+    const sentenceLength: number = data.currentSentence.join('').length;
+
+    const wordWidth: number = child.component.innerHTML.length;
+    const cardWidth: number = Math.floor((wordWidth * 100) / sentenceLength);
+
+    child.component.setAttribute('style', `width:${cardWidth}%`);
+    child.component.setAttribute('data_width', `width:${cardWidth}%`);
+  }
+
+  private setDataWidth(child: BasicComponent) {
+    const cardWidthPx: number = child.component.clientWidth;
+
+    child.component.setAttribute('data_width', `width:${cardWidthPx}px`);
+  }
 }
+
+export const wordCardsField = new WordCardsField(currentMoveCardEvent);

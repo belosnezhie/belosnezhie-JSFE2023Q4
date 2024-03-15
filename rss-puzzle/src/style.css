@@ -50,6 +50,7 @@ button {
 .disabled {
   pointer-events: none;
   cursor: default;
+  background-color: var(--button-disabled-color);
 }
 
 /* Themes */

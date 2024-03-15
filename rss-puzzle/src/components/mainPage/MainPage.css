@@ -10,12 +10,12 @@
 
 .game_field {
     min-width: 95%;
-    padding: 20px 40px;
+    padding: 10px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 40px;
+    gap: 20px;
     background-color: var(--containers-background-color);
     border-radius: 10px;
 }
@@ -24,15 +24,30 @@
     width: 100%;
     min-height: 600px;
     display: flex;
+    flex-direction: column;
     gap: 5px;
     padding: 5px;
     background-color: var(--game-field-background-color);
     border-radius: inherit;
 }
 
+.result_sentense {
+  width: 100%;
+  height: 60px;
+  display: flex;
+  gap: 5px;
+  padding: 5px;
+  background-color: var(--containers-background-color);
+  border-radius: inherit;
+}
+
+.result_sentense.disabled .word_card {
+  flex-grow: 1;
+}
+
 .word_cards_field {
     width: 100%;
-    min-height: 70px;
+    min-height: 50px;
     padding: 5px;
     display: flex;
     gap: 5px;
@@ -42,7 +57,7 @@
 
 .word_card {
     /* flex-grow: 1; */
-    min-height: 50px;
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
