@@ -1,29 +1,36 @@
 import { BasicComponent } from '../BasicComponent';
 
+import { ResultSentence } from './ResultSentence';
+
 export class MoveCardEvent {
   listeners: Map<string, ((component: BasicComponent) => void)[]>;
   constructor() {
     this.listeners = new Map();
   }
 
-  public emit(eventName: string, component: BasicComponent): void {
+  public emit(
+    eventName: string,
+    component: BasicComponent | ResultSentence,
+  ): void {
     const current = this.listeners.get(eventName);
 
     if (current !== undefined) {
       current.forEach((listener) => {
-        listener.call(null, component);
+        if (component) {
+          listener.call(null, component);
+        }
       });
     }
   }
 
   public subscribe(
     eventName: string,
-    func: (component: BasicComponent) => void,
+    func: (component: BasicComponent | ResultSentence) => void,
   ): void {
     const current = this.listeners.get(eventName);
 
     if (current === undefined) {
-      const arr: ((component: BasicComponent) => void)[] = [];
+      const arr: ((component: BasicComponent | ResultSentence) => void)[] = [];
 
       arr.push(func);
       this.listeners.set(eventName, arr);

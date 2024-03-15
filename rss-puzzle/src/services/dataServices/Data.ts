@@ -12,7 +12,7 @@ class Data {
   // Текущее предложение
   public currentSentence: string[] = [];
   // Индекс текущего предложения
-  public sentenceIndex: number = 0;
+  public sentenceIndex: number = 2;
   // Инддекс количество уровней в картинке
   public sentenceLevelsCount: number = 0;
   // Все раунды этого уровня (сколько всего картинок)

@@ -82,6 +82,10 @@
     animation: appear ease-in 0.4s;
 }
 
+.word_card.mistake {
+  background-color: aqua;
+}
+
 @keyframes disappear {
     0% {
       opacity: 1;

@@ -1,8 +1,9 @@
 import { checkSentence } from '../../logic/SentenceCheck';
 import { data } from '../../services/dataServices/Data';
 import { BasicComponent } from '../BasicComponent';
-import { Button } from '../Buttons/Button';
 
+import { CheckButton } from './CheckButton';
+import { ContinueButton } from './ContinueButton';
 import { currentMoveCardEvent } from './MoveCardEvent';
 import { ResultField } from './ResultField';
 import { ResultSentence } from './ResultSentence';
@@ -12,35 +13,21 @@ let resultSentence = new ResultSentence(currentMoveCardEvent);
 const resultField = new ResultField(resultSentence);
 
 export class GameField extends BasicComponent {
-  continueButton: Button;
+  private checkButton: CheckButton;
+  private continueButton: ContinueButton;
 
   constructor() {
-    const continueButton = new Button('Continue', 'continue_button', () => {
-      const swichedToNextRound = data.checkCurrentRound();
+    const continueButton: ContinueButton = new ContinueButton(
+      resultField,
+      resultSentence,
+      wordCardsField,
+      currentMoveCardEvent,
+    );
 
-      if (swichedToNextRound) {
-        resultField.changeRound();
-      } else {
-        data.setSentenceIndex();
-      }
-
-      const newSentense = new ResultSentence(currentMoveCardEvent);
-
-      newSentense.render();
-
-      resultField.append(newSentense);
-
-      wordCardsField.updateCards();
-      this.replaceChild(wordCardsField, wordCardsField);
-      resultField.children?.forEach((child, index, array) => {
-        if (index !== array.length - 1) {
-          child.component.classList.add('disabled');
-        }
-      });
-      resultSentence = newSentense;
-    });
-
-    continueButton.addClass('disabled');
+    const checkButton: CheckButton = new CheckButton(
+      resultSentence,
+      currentMoveCardEvent,
+    );
 
     super(
       {
@@ -50,14 +37,37 @@ export class GameField extends BasicComponent {
       resultField,
       wordCardsField,
       continueButton,
+      checkButton,
     );
     this.continueButton = continueButton;
+    this.checkButton = checkButton;
+    this.continueButton.addClass('disabled');
+    this.checkButton.addClass('disabled');
     currentMoveCardEvent.subscribe('resultSentenseChanged', () => {
-      const user = resultSentence.getUserSentence();
-      const current = data.currentSentence;
+      const user: string[] = resultSentence.getUserSentence();
+      const current: string[] = data.currentSentence;
+
+      if (user.length === current.length) {
+        checkButton.removeClass('disabled');
+        checkButton.setCurrentSentence(current);
+        checkButton.setUserSentence(user);
+      }
 
       if (checkSentence(current, user)) {
         continueButton.removeClass('disabled');
+      }
+    });
+
+    currentMoveCardEvent.subscribe('reRender', (newSentense) => {
+      this.replaceChild(wordCardsField, wordCardsField);
+      resultField.children?.forEach((child, index, array) => {
+        if (index !== array.length - 1) {
+          child.component.classList.add('disabled');
+        }
+      });
+      if (newSentense instanceof ResultSentence) {
+        resultSentence = newSentense;
+        currentMoveCardEvent.emit('resultFieldChanged', resultSentence);
       }
     });
   }
