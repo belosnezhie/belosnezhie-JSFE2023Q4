@@ -36,13 +36,12 @@ export class GameField extends BasicComponent {
       },
       resultField,
       wordCardsField,
-      continueButton,
       checkButton,
     );
     this.continueButton = continueButton;
     this.checkButton = checkButton;
-    this.continueButton.addClass('disabled');
     this.checkButton.addClass('disabled');
+
     currentMoveCardEvent.subscribe('resultSentenseChanged', () => {
       const user: string[] = resultSentence.getUserSentence();
       const current: string[] = data.currentSentence;
@@ -54,12 +53,16 @@ export class GameField extends BasicComponent {
       }
 
       if (checkSentence(current, user)) {
-        continueButton.removeClass('disabled');
+        setTimeout(() => {
+          this.append(continueButton);
+          this.removeChildComponent(checkButton);
+        }, 500);
       }
     });
 
     currentMoveCardEvent.subscribe('reRender', (newSentense) => {
       this.replaceChild(wordCardsField, wordCardsField);
+      this.removeChildComponent(continueButton);
       resultField.children?.forEach((child, index, array) => {
         if (index !== array.length - 1) {
           child.component.classList.add('disabled');

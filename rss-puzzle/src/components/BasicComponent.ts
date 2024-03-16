@@ -41,6 +41,7 @@ export class BasicComponent {
       if (!this.children.includes(child)) {
         this.addChild(child);
       }
+      child.render();
       this.component.append(child.component);
     }
   }
@@ -59,6 +60,10 @@ export class BasicComponent {
     if (index !== undefined) {
       this.children?.splice(index, 1);
     }
+  }
+
+  public removeChildComponent(child: BasicComponent) {
+    child.removeComponent();
   }
 
   public removeChildren() {
