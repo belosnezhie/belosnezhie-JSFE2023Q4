@@ -14,7 +14,7 @@ export class ResultSentence extends BasicComponent {
     this.moveCardEvent = moveCardEvent;
     const moveCardInResult = (card: BasicComponent) => {
       this.createWordCards(card);
-      moveCardEvent.emit('resultSentenseChanged', card);
+      moveCardEvent.emit('resultSentenceChanged', card);
     };
 
     moveCardEvent.unsubscribe('move', moveCardInResult);

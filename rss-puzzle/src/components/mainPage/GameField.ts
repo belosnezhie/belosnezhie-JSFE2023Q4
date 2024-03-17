@@ -2,6 +2,7 @@ import { checkSentence } from '../../logic/SentenceCheck';
 import { data } from '../../services/dataServices/Data';
 import { BasicComponent } from '../BasicComponent';
 
+import { AutoCompleteButton } from './AutoCompleteButton';
 import { CheckButton } from './CheckButton';
 import { ContinueButton } from './ContinueButton';
 import { currentMoveCardEvent } from './MoveCardEvent';
@@ -14,7 +15,6 @@ const resultField = new ResultField(resultSentence);
 
 export class GameField extends BasicComponent {
   private checkButton: CheckButton;
-  private continueButton: ContinueButton;
 
   constructor() {
     const continueButton: ContinueButton = new ContinueButton(
@@ -29,6 +29,17 @@ export class GameField extends BasicComponent {
       currentMoveCardEvent,
     );
 
+    const autoCompleteButton: AutoCompleteButton = new AutoCompleteButton(
+      resultSentence,
+      wordCardsField,
+      currentMoveCardEvent,
+    );
+
+    const buttonsContainer = new BasicComponent({
+      tag: 'div',
+      className: 'buttons_container',
+    });
+
     super(
       {
         tag: 'div',
@@ -36,13 +47,17 @@ export class GameField extends BasicComponent {
       },
       resultField,
       wordCardsField,
-      checkButton,
+      buttonsContainer,
+      // autoCompleteButton,
+      // checkButton,
     );
-    this.continueButton = continueButton;
     this.checkButton = checkButton;
     this.checkButton.addClass('disabled');
 
-    currentMoveCardEvent.subscribe('resultSentenseChanged', () => {
+    buttonsContainer.append(autoCompleteButton);
+    buttonsContainer.append(checkButton);
+
+    currentMoveCardEvent.subscribe('resultSentenceChanged', () => {
       const user: string[] = resultSentence.getUserSentence();
       const current: string[] = data.currentSentence;
 
@@ -54,8 +69,8 @@ export class GameField extends BasicComponent {
 
       if (checkSentence(current, user)) {
         setTimeout(() => {
-          this.append(continueButton);
-          this.removeChildComponent(checkButton);
+          buttonsContainer.append(continueButton);
+          buttonsContainer.removeChildComponent(checkButton);
         }, 500);
       }
     });

@@ -54,6 +54,18 @@ button {
 }
 
 /* Themes */
+/* :root {
+  --main-background-color: #e8e2db;
+  --containers-background-color: #b7bf96;
+  --game-field-background-color: #b7bf96;
+  --cells-background-color: #e6b5a6;
+  --main-border-color: #355070;
+  --button-background-color: #B56576;
+  --button-hover-color: #bf9550;
+  --button-disabled-color: #436B5C;
+} */
+
+/* Themes */
 :root {
   --main-background-color: #355070;
   --containers-background-color: #F9F1F2;

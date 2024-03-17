@@ -21,6 +21,8 @@ export class WordCardsField extends BasicComponent {
       resultCard.component.classList.add('disappear');
       const text: string | null =
         resultCard.component.getAttribute('data_value');
+      const cardWidth: string | null =
+        resultCard.component.getAttribute('style');
 
       setTimeout(() => {
         resultCard.removeComponent();
@@ -35,8 +37,12 @@ export class WordCardsField extends BasicComponent {
           firstPlaceholder.component.classList.add('word_card');
           firstPlaceholder.component.textContent = text;
           firstPlaceholder.component.setAttribute('data_value', text);
+          if (cardWidth) {
+            firstPlaceholder.component.setAttribute('style', cardWidth);
+          }
         }
       }
+      this.moveCardEvent.emit('resultSentenceChanged', resultCard);
     });
   }
 
@@ -57,6 +63,7 @@ export class WordCardsField extends BasicComponent {
           child.component.classList.remove('word_card');
           child.component.classList.add('placeholder');
           child.component.removeAttribute('data_value');
+          child.component.removeAttribute('slyle');
           child.component.innerHTML = '';
         }, 400);
       });
