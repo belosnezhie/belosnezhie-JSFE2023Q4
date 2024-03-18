@@ -26,8 +26,8 @@ export class StartPage extends BasicComponent {
         new BasicComponent({
           tag: 'div',
           className: 'start_description',
-          text: `Here you can emprove your English language skills!
-          \nCollect sentensies, and check your results.`,
+          text: `Here you can improve your English language skills!
+          \nCollect sentencies, and check your results.`,
         }),
         new Button('Start', 'start_button', () => {
           state.setCurrentPage(mainPage);

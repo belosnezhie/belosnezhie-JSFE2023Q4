@@ -1,10 +1,10 @@
 import { data } from '../../services/dataServices/Data';
-import { Button } from '../Buttons/Button';
+import { MoveCardEvent } from '../mainPage/MoveCardEvent';
+import { ResultField } from '../mainPage/ResultField';
+import { ResultSentence } from '../mainPage/ResultSentence';
+import { WordCardsField } from '../mainPage/WordCardsField';
 
-import { MoveCardEvent } from './MoveCardEvent';
-import { ResultField } from './ResultField';
-import { ResultSentence } from './ResultSentence';
-import { WordCardsField } from './WordCardsField';
+import { Button } from './Button';
 
 export class ContinueButton extends Button {
   constructor(

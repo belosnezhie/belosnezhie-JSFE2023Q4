@@ -78,5 +78,6 @@ button {
 }
 
 body {
+  font-family: "Overlock", sans-serif;
   background-color: var(--main-background-color);
 }

@@ -1,7 +1,7 @@
-import { Button } from '../Buttons/Button';
+import { MoveCardEvent } from '../mainPage/MoveCardEvent';
+import { ResultSentence } from '../mainPage/ResultSentence';
 
-import { MoveCardEvent } from './MoveCardEvent';
-import { ResultSentence } from './ResultSentence';
+import { Button } from './Button';
 
 export class CheckButton extends Button {
   current: string[] = [];

@@ -1,10 +1,10 @@
 import { checkSentence } from '../../logic/SentenceCheck';
 import { data } from '../../services/dataServices/Data';
 import { BasicComponent } from '../BasicComponent';
+import { AutoCompleteButton } from '../Buttons/AutoCompleteButton';
+import { CheckButton } from '../Buttons/CheckButton';
+import { ContinueButton } from '../Buttons/ContinueButton';
 
-import { AutoCompleteButton } from './AutoCompleteButton';
-import { CheckButton } from './CheckButton';
-import { ContinueButton } from './ContinueButton';
 import { currentMoveCardEvent } from './MoveCardEvent';
 import { ResultField } from './ResultField';
 import { ResultSentence } from './ResultSentence';

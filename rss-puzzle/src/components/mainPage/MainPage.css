@@ -57,6 +57,7 @@
 }
 
 .word_card {
+    min-width: 40px;
     min-height: 40px;
     display: flex;
     align-items: center;

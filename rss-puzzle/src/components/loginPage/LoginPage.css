@@ -52,6 +52,12 @@
 }
 
 .submit_input {
+    font-weight: 800;
+    color: var(--containers-background-color);
     border: none;
     background-color: var(--button-background-color);
+}
+
+.submit_input:hover {
+    background-color: var(--button-hover-color);
 }

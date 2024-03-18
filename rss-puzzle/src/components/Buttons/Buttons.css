@@ -9,6 +9,8 @@
     background-color: var(--button-background-color);
     border-radius: 10px;
     transition: 0.5s;
+    font-weight: 800;
+    color: var(--containers-background-color);
 }
 
 .button:hover {
