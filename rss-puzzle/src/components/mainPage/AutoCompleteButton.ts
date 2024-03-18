@@ -42,6 +42,7 @@ export class AutoCompleteButton extends Button {
           correctChild.component.innerHTML = '';
         }
       });
+      this.component.classList.add('disabled');
     });
     this.resultSentence = resultSentence;
     this.currentMoveCardEvent = currentMoveCardEvent;
