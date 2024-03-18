@@ -1,7 +1,9 @@
 @import '../../style.css';
+@import '../header/Header.css';
+/* @import 'assets/[logout].svg'; */
 
 .button {
-    min-width: 180px;
+    width: 180px;
     margin: 0 auto;
     padding: 20px 0px;
     background-color: var(--button-background-color);
@@ -15,4 +17,14 @@
 
 .button.disabled {
     background-color: var(--button-disabled-color);
+}
+
+.logOut_button {
+    width: 30px;
+    height: 20px;
+    background-color: inherit;
+    background-image: url(../../assets/icons/user-logout.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

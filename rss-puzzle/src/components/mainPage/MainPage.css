@@ -6,11 +6,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    animation: appear ease-in 0.2s;
 }
 
 .game_field {
     min-width: 95%;
-    padding: 10px 40px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;

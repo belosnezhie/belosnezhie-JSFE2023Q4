@@ -4,6 +4,7 @@ import { state } from '../..';
 import { loginStatus } from '../../services/LocalStorage';
 import { BasicComponent } from '../BasicComponent';
 import { Button } from '../Buttons/Button';
+import { header } from '../header/Header';
 import { Headline } from '../Headline';
 import { mainPage } from '../mainPage/MainPage';
 
@@ -14,6 +15,7 @@ export class StartPage extends BasicComponent {
         tag: 'div',
         className: 'start_page',
       },
+      header,
       new BasicComponent(
         {
           tag: 'div',
@@ -25,9 +27,7 @@ export class StartPage extends BasicComponent {
           tag: 'div',
           className: 'start_description',
           text: `Here you can emprove your English language skills!
-          \nDrag and drop words to collect sentensies, 
-          choose nessessary hints in the menu, 
-          check your results.`,
+          \nCollect sentensies, and check your results.`,
         }),
         new Button('Start', 'start_button', () => {
           state.setCurrentPage(mainPage);
@@ -38,7 +38,7 @@ export class StartPage extends BasicComponent {
 
   public render() {
     if (this.children) {
-      const firstChild = this.children[0];
+      const firstChild = this.children[1];
 
       if (firstChild.children) {
         firstChild.children[1].addText(`Hello, ${loginStatus.getName()}!`);

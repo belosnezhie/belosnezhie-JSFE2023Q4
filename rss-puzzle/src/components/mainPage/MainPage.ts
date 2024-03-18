@@ -1,6 +1,7 @@
 import './MainPage.css';
 
 import { BasicComponent } from '../BasicComponent';
+import { header } from '../header/Header';
 
 import { GameField } from './GameField';
 
@@ -11,6 +12,7 @@ class MainPage extends BasicComponent {
         tag: 'div',
         className: 'main_page',
       },
+      header,
       new GameField(),
     );
   }
