@@ -22,6 +22,8 @@ export class WordCardsField extends BasicComponent {
       const text: string | null =
         resultCard.component.getAttribute('data_value');
       const style: string | null = resultCard.component.getAttribute('style');
+      const position: string | null =
+        resultCard.component.getAttribute('data_position');
 
       setTimeout(() => {
         resultCard.removeComponent();
@@ -39,6 +41,10 @@ export class WordCardsField extends BasicComponent {
           if (style) {
             firstPlaceholder.component.setAttribute('style', style);
           }
+          if (position) {
+            firstPlaceholder.component.classList.add(position);
+            firstPlaceholder.component.setAttribute('data_position', position);
+          }
         }
       }
       this.moveCardEvent.emit('resultSentenceChanged', resultCard);
@@ -48,20 +54,18 @@ export class WordCardsField extends BasicComponent {
   public render(): void {
     super.render();
     this.children?.forEach((child: BasicComponent, index: number) => {
-      // const wordWidth: number = child.component.innerHTML.length;
-      // const cardWidth: number = (wordWidth / 10) * 100;
-
-      // child.component.setAttribute('style', `width:${cardWidth}%`);
-
       this.setStyles(child, index);
+      this.setCardsOrder(child);
 
       child.component.addEventListener('click', () => {
         child.component.classList.add('disappear');
         setTimeout(() => {
           this.moveCardEvent.emit('move', child);
-          child.component.classList.remove('word_card');
+          // child.component.classList.remove('word_card');
+          child.component.removeAttribute('class');
           child.component.classList.add('placeholder');
           child.component.removeAttribute('data_value');
+          child.component.removeAttribute('data_position');
           child.component.removeAttribute('slyle');
           child.component.innerHTML = '';
         }, 400);
@@ -93,16 +97,34 @@ export class WordCardsField extends BasicComponent {
     });
   }
 
-  private setStyles(child: BasicComponent, index: number) {
-    // const sentenceLength: number = data.currentSentence.join('').length;
+  private setCardsOrder(child: BasicComponent) {
+    const firstWord: string = data.currentSentence[0];
+    const lastWord: string =
+      data.currentSentence[data.currentSentence.length - 1];
 
-    // const wordWidth: number = child.component.innerHTML.length;
-    // const cardWidth: number = (wordWidth * 100) / sentenceLength;
+    const word = child.component.innerHTML;
+
+    if (word === firstWord) {
+      child.component.classList.add('first');
+      child.addClass('first');
+      child.component.setAttribute('data_position', 'first');
+      child.addAttribute('data_position', 'first');
+    } else if (word === lastWord) {
+      child.component.classList.add('last');
+      child.addClass('last');
+      child.component.setAttribute('data_position', 'last');
+      child.addAttribute('data_position', 'last');
+    } else {
+      child.component.classList.add('middle');
+      child.addClass('middle');
+      child.component.setAttribute('data_position', 'middle');
+      child.addAttribute('data_position', 'middle');
+    }
+  }
+
+  private setStyles(child: BasicComponent, index: number) {
     let cardWidth: string = '';
     let backgroundX: number = 0;
-
-    // const correctOrder = data.currentSentence;
-    // const randomOrder = data.currentRandomSentence;
 
     const widthArr = data.currentWidth;
     const background: number[] = data.currentBackground;
@@ -113,7 +135,6 @@ export class WordCardsField extends BasicComponent {
     const indexOfCorrectCard = data.currentSentence.indexOf(word);
 
     for (let i = 0; i < indexOfCorrectCard; i += 1) {
-      // тут ошибка, он в первую итерацию всегда равен currentWidth
       backgroundX += background[i];
     }
 

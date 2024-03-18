@@ -47,6 +47,11 @@ export class ResultSentence extends BasicComponent {
 
     const styles: string | null = card.component.getAttribute('style');
 
+    const position: string | null =
+      card.component.getAttribute('data_position');
+
+    card.classNames.forEach((className) => copyCard.addClass(className));
+
     copyCard.addClass('appear');
 
     copyCard.render();
@@ -54,6 +59,10 @@ export class ResultSentence extends BasicComponent {
     if (styles) {
       copyCard.component.setAttribute('style', styles);
       copyCard.addAttribute('style', styles);
+    }
+    if (position) {
+      copyCard.component.setAttribute('data_position', position);
+      copyCard.addAttribute('data_position', position);
     }
 
     copyCard.component.addEventListener('click', () => {

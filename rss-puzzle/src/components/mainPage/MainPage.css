@@ -29,22 +29,17 @@
   min-height: 600px;
   display: flex;
   flex-direction: column;
-  /* gap: 5px; */
-  /* padding: 5px; */
   background-color: var(--game-field-background-color);
   border-radius: inherit;
   border: 4px solid var(--button-background-color);
-  background-image: url('https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/level1/cut/9th_wave.jpg');
-  background-size: cover;
+  /* background-image: url('https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/level1/cut/9th_wave.jpg'); */
+  /* background-size: cover; */
 }
 
 .result_sentense {
   width: 100%;
   height: 60px;
   display: flex;
-  /* justify-content: center; */
-  /* gap: 5px;
-  padding: 5px; */
   background-color: var(--containers-background-color);
   border-radius: inherit;
 }
@@ -56,31 +51,81 @@
 .word_cards_field {
     width: 100%;
     min-height: 60px;
-    /* padding: 5px; */
     display: flex;
     justify-content: center;
-    /* gap: 5px; */
-    background-color: var(--game-field-background-color);
     border-radius: inherit;
 }
 
 .word_card {
-    /* flex-grow: 1; */
     min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    padding: 8px;
     background-color: var(--cells-background-color);
-    /* border-radius: inherit; */
+    border-radius: inherit;
     cursor: pointer;
     transition: 0.2s;
     position: relative;
     border: 1px solid var(--button-hover-color);
     position: relative;
-    background-image: url('https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/level1/cut/9th_wave.jpg');
-    background-repeat: no-repeat;
+    /* background-image: url('https://raw.githubusercontent.com/rolling-scopes-school/rss-puzzle-data/main/images/level1/cut/9th_wave.jpg'); */
+    /* background-repeat: no-repeat; */
     /* background-size: cover; */
+}
+
+.first::after {
+  content: '';
+  width: 10px;
+  height: 20px;
+  right: -10px;
+  position: absolute;
+  background-color: inherit;
+  z-index: 20;
+  border-radius: 0 50% 50% 0;
+  border-bottom: 1px solid var(--button-hover-color);
+  border-right: 1px solid var(--button-hover-color);
+  box-shadow: 2px 0px 2px 0px rgba(255,255,255,1);
+}
+
+.last::before{
+  content: '';
+  width: 10px;
+  height: 20px;
+  left: -1px;
+  position: absolute;
+  border-bottom: 1px solid var(--button-hover-color);
+  border-right: 1px solid var(--button-hover-color);
+  background-color: var(--containers-background-color);
+  z-index: 10;
+  border-radius: 0 50% 50% 0;
+}
+
+.middle::after {
+  content: '';
+  width: 10px;
+  height: 20px;
+  right: -10px;
+  position: absolute;
+  background-color: inherit;
+  z-index: 20;
+  border-radius: 0 50% 50% 0;
+  border-bottom: 1px solid var(--button-hover-color);
+  border-right: 1px solid var(--button-hover-color);
+  box-shadow: 2px 0px 2px 0px rgba(255,255,255,1);
+}
+
+.middle::before {
+  content: '';
+  width: 10px;
+  height: 20px;
+  left: -1px;
+  position: absolute;
+  border-bottom: 1px solid var(--button-hover-color);
+  border-right: 1px solid var(--button-hover-color);
+  background-color: var(--containers-background-color);
+  z-index: 10;
+  border-radius: 0 50% 50% 0;
 }
 
 .word_card:hover {
@@ -98,7 +143,7 @@
 }
 
 .word_card.mistake {
-  background-color: aqua;
+  background-color: palegoldenrod;
 }
 
 @keyframes disappear {

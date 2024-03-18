@@ -103,7 +103,8 @@ class Data {
     });
 
     const currentBg = tempCurrentBg.map((wordWidth) => {
-      return (wordWidth * 100) / sentenceLength;
+      // return Number(((wordWidth * 100) / sentenceLength).toFixed(2));
+      return Math.floor((wordWidth * 100) / sentenceLength);
     });
 
     return currentBg;
@@ -118,7 +119,7 @@ class Data {
     });
 
     const currentWidth = tempCurrentWidth.map((wordWidth) => {
-      return (wordWidth * 100) / sentenceLength;
+      return Number(((wordWidth * 100) / sentenceLength).toFixed(2));
     });
 
     return currentWidth;

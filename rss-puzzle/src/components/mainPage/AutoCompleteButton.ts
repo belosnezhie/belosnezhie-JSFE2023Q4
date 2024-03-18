@@ -36,7 +36,7 @@ export class AutoCompleteButton extends Button {
 
         if (correctChild) {
           this.currentMoveCardEvent.emit('move', correctChild);
-          correctChild.component.classList.remove('word_card');
+          correctChild.component.removeAttribute('class');
           correctChild.component.classList.add('placeholder');
           correctChild.component.removeAttribute('data_value');
           correctChild.component.innerHTML = '';
