@@ -45,14 +45,15 @@ export class ResultSentence extends BasicComponent {
       copyCard.addText(value);
     }
 
-    const cardWidth: string | null = card.component.getAttribute('style');
+    const styles: string | null = card.component.getAttribute('style');
 
     copyCard.addClass('appear');
 
     copyCard.render();
     this.append(copyCard);
-    if (cardWidth) {
-      copyCard.component.setAttribute('style', cardWidth);
+    if (styles) {
+      copyCard.component.setAttribute('style', styles);
+      copyCard.addAttribute('style', styles);
     }
 
     copyCard.component.addEventListener('click', () => {

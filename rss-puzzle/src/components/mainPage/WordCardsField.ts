@@ -21,8 +21,7 @@ export class WordCardsField extends BasicComponent {
       resultCard.component.classList.add('disappear');
       const text: string | null =
         resultCard.component.getAttribute('data_value');
-      const cardWidth: string | null =
-        resultCard.component.getAttribute('style');
+      const style: string | null = resultCard.component.getAttribute('style');
 
       setTimeout(() => {
         resultCard.removeComponent();
@@ -37,8 +36,8 @@ export class WordCardsField extends BasicComponent {
           firstPlaceholder.component.classList.add('word_card');
           firstPlaceholder.component.textContent = text;
           firstPlaceholder.component.setAttribute('data_value', text);
-          if (cardWidth) {
-            firstPlaceholder.component.setAttribute('style', cardWidth);
+          if (style) {
+            firstPlaceholder.component.setAttribute('style', style);
           }
         }
       }
@@ -48,13 +47,13 @@ export class WordCardsField extends BasicComponent {
 
   public render(): void {
     super.render();
-    this.children?.forEach((child: BasicComponent) => {
+    this.children?.forEach((child: BasicComponent, index: number) => {
       // const wordWidth: number = child.component.innerHTML.length;
       // const cardWidth: number = (wordWidth / 10) * 100;
 
       // child.component.setAttribute('style', `width:${cardWidth}%`);
 
-      this.countWidth(child);
+      this.setStyles(child, index);
 
       child.component.addEventListener('click', () => {
         child.component.classList.add('disappear');
@@ -79,7 +78,7 @@ export class WordCardsField extends BasicComponent {
   }
 
   public updateWord() {
-    const sentence: string[] = data.setRandomSentenceOrder();
+    const sentence: string[] = data.currentRandomSentence;
 
     this.children = sentence.map((word: string) => {
       const card = new BasicComponent({
@@ -94,20 +93,48 @@ export class WordCardsField extends BasicComponent {
     });
   }
 
-  private countWidth(child: BasicComponent) {
-    const sentenceLength: number = data.currentSentence.join('').length;
+  private setStyles(child: BasicComponent, index: number) {
+    // const sentenceLength: number = data.currentSentence.join('').length;
 
-    const wordWidth: number = child.component.innerHTML.length;
-    const cardWidth: number = Math.floor((wordWidth * 100) / sentenceLength);
+    // const wordWidth: number = child.component.innerHTML.length;
+    // const cardWidth: number = (wordWidth * 100) / sentenceLength;
+    let cardWidth: string = '';
+    let backgroundX: number = 0;
 
-    child.component.setAttribute('style', `width:${cardWidth}%`);
+    // const correctOrder = data.currentSentence;
+    // const randomOrder = data.currentRandomSentence;
+
+    const widthArr = data.currentWidth;
+    const background: number[] = data.currentBackground;
+
+    cardWidth = widthArr[index].toString();
+
+    const word = child.component.innerHTML;
+    const indexOfCorrectCard = data.currentSentence.indexOf(word);
+
+    for (let i = 0; i < indexOfCorrectCard; i += 1) {
+      // тут ошибка, он в первую итерацию всегда равен currentWidth
+      backgroundX += background[i];
+    }
+
+    const sentenceIndex: number = data.sentenceIndex;
+
+    const backgroundY = 65 * sentenceIndex;
+
+    child.component.setAttribute(
+      'style',
+      `width:${cardWidth}%;
+      background-position-x:${backgroundX}%;
+      background-position-y: -${backgroundY}px`,
+    );
+    child.addAttribute(
+      'style',
+      `width:${cardWidth}%;
+      background-position-x:${backgroundX}%;
+      background-position-y: -${backgroundY}px`,
+    );
     child.component.setAttribute('data_width', `width:${cardWidth}%`);
-  }
-
-  private setDataWidth(child: BasicComponent) {
-    const cardWidthPx: number = child.component.clientWidth;
-
-    child.component.setAttribute('data_width', `width:${cardWidthPx}px`);
+    child.addAttribute('data_width', `width:${cardWidth}%`);
   }
 }
 

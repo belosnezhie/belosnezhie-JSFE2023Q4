@@ -7,12 +7,17 @@ import firstLevel from '../../data/wordCollectionLevel1.json';
 import { AllRounds, Round, SentenceData } from './DataInterfaces';
 
 class Data {
+  public currentBackground: number[];
+  // Текущее предложение в случайном порядке
+  public currentRandomSentence: string[];
   // Индекс текущей картинки
   public currentRoundIndex: number = 0;
   // Текущее предложение
   public currentSentence: string[] = [];
+  // Ширина
+  public currentWidth: number[];
   // Индекс текущего предложения
-  public sentenceIndex: number = 2;
+  public sentenceIndex: number = 0;
   // Инддекс количество уровней в картинке
   public sentenceLevelsCount: number = 0;
   // Все раунды этого уровня (сколько всего картинок)
@@ -22,6 +27,9 @@ class Data {
 
   constructor() {
     this.currentSentence = this.getCurrentSentence();
+    this.currentRandomSentence = this.setRandomSentenceOrder();
+    this.currentWidth = this.setWidth();
+    this.currentBackground = this.setBackground();
     this.sentenceLevelsCount = this.getCurrentRoundsCount();
   }
 
@@ -30,6 +38,9 @@ class Data {
       this.setCurrentRound();
       this.sentenceIndex = 0;
       this.currentSentence = this.getCurrentSentence();
+      this.currentRandomSentence = this.setRandomSentenceOrder();
+      this.currentWidth = this.setWidth();
+      this.currentBackground = this.setBackground();
 
       return true;
     }
@@ -50,7 +61,7 @@ class Data {
     this.currentRound = this.allRounds.rounds[this.currentRoundIndex];
   }
 
-  public setRandomSentenceOrder() {
+  public setRandomSentenceOrder(): string[] {
     const randomCurrentSentence: string[] = [];
     const temp: string[] = this.currentSentence.map((item) => item);
 
@@ -67,6 +78,9 @@ class Data {
   public setSentenceIndex() {
     this.sentenceIndex += 1;
     this.currentSentence = this.getCurrentSentence();
+    this.currentRandomSentence = this.setRandomSentenceOrder();
+    this.currentWidth = this.setWidth();
+    this.currentBackground = this.setBackground();
   }
 
   private getCurrentSentence(): string[] {
@@ -78,6 +92,36 @@ class Data {
 
   private getRandomInt(max: number): number {
     return Math.floor(Math.random() * max);
+  }
+
+  private setBackground(): number[] {
+    const tempCurrentBg: number[] = [];
+    const sentenceLength: number = this.currentSentence.join('').length;
+
+    this.currentSentence.forEach((word) => {
+      tempCurrentBg.push(word.length);
+    });
+
+    const currentBg = tempCurrentBg.map((wordWidth) => {
+      return (wordWidth * 100) / sentenceLength;
+    });
+
+    return currentBg;
+  }
+
+  private setWidth(): number[] {
+    const tempCurrentWidth: number[] = [];
+    const sentenceLength: number = this.currentSentence.join('').length;
+
+    this.currentRandomSentence.forEach((word) => {
+      tempCurrentWidth.push(word.length);
+    });
+
+    const currentWidth = tempCurrentWidth.map((wordWidth) => {
+      return (wordWidth * 100) / sentenceLength;
+    });
+
+    return currentWidth;
   }
 }
 
