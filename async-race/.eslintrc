@@ -29,7 +29,7 @@
       "no-console": "error",
       "no-restricted-syntax": ["off", "ForOfStatement"],
       "lines-between-class-members": "off",
-      "class-methods-use-this": "error",
+      // "class-methods-use-this": "error",
       "quotes": ["error", "single"],
       "semi": ["error", "always"],
       "object-curly-spacing": ["error", "always"],
@@ -72,68 +72,6 @@
       ],
       "@typescript-eslint/no-unsafe-member-access": "error",
       "@typescript-eslint/no-unsafe-call": "error",
-      "@typescript-eslint/member-ordering": [
-        "error",
-        {
-          "default": {
-            "memberTypes": [
-              // Index signature
-              "signature",
-  
-              // Fields
-              "public-instance-field",
-              "protected-instance-field",
-              "private-instance-field",
-              "public-static-field",
-              "protected-static-field",
-              "private-static-field",
-              "public-abstract-field",
-              "protected-abstract-field",
-              "field",
-  
-              // Constructors
-              "public-constructor",
-              "protected-constructor",
-              "private-constructor",
-              "constructor",
-  
-              // Getters
-              "public-instance-get",
-              "protected-instance-get",
-              "private-instance-get",
-              "public-static-get",
-              "protected-static-get",
-              "private-static-get",
-              "public-abstract-get",
-              "protected-abstract-get",
-              "get",
-  
-              // Setters
-              "public-instance-set",
-              "protected-instance-set",
-              "private-instance-set",
-              "public-static-set",
-              "protected-static-set",
-              "private-static-set",
-              "public-abstract-set",
-              "protected-abstract-set",
-              "set",
-  
-              // Methods
-              "public-instance-method",
-              "protected-instance-method",
-              "private-instance-method",
-              "public-static-method",
-              "protected-static-method",
-              "private-static-method",
-              "public-abstract-method",
-              "protected-abstract-method",
-              "method"
-            ],
-            "order": "alphabetically"
-          }
-        }
-      ],
       "@typescript-eslint/lines-between-class-members": [
         "error",
         "always",

@@ -1,0 +1,41 @@
+@import '../index.css';
+
+.garage_page {
+    width: 100vw;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    background-color: azure;
+}
+
+.controllers_container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.car_field {
+    width: 100%;
+    padding: 5px;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    align-items: self-start;
+    gap: 5px;
+    background-color: beige;
+}
+
+.car {
+    width: 80px;
+    height: 40px;
+    background-color: blueviolet;
+    border-radius: 80%;
+    text-align: center;
+}
+
+.button {
+    border: 1px solid blueviolet;
+    font-size: 15px;
+}
