@@ -1,9 +1,9 @@
 import './index.css';
-import { state } from './services/CarsState';
+import { carsController } from './services/CarsController';
 
 class App {
   async render() {
-    await state.renderPage();
+    await carsController.renderPage();
   }
 }
 
