@@ -22,7 +22,7 @@ export class GaragePage extends BaseComponent {
     const resetButton = new Button('Reset', 'reset_button', () => {});
 
     const carFields = garageCars.map((car) => {
-      return new CarField(car.name);
+      return new CarField(car.name, car.color);
     });
 
     super(

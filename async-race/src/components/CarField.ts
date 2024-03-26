@@ -3,15 +3,19 @@ import { Car } from './Car';
 import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
-  constructor(carModel: string) {
+  constructor(carModel: string, carColor: string) {
     const carControllersContainer = new BaseComponent({
       tag: 'div',
       className: 'car_controllers_container',
     });
-    const raceControllersContainer = new BaseComponent({
-      tag: 'div',
-      className: 'rase_controllers_container',
-    });
+
+    const carContainer = new BaseComponent(
+      {
+        tag: 'div',
+        className: 'car_container',
+      },
+      new Car(carColor),
+    );
 
     const selectButton = new Button('Select', 'select_button', () => {});
     const removeButton = new Button('Remove', 'remove_button', () => {});
@@ -29,16 +33,14 @@ export class CarField extends BaseComponent {
 
     carControllersContainer.append(selectButton);
     carControllersContainer.append(removeButton);
+    carControllersContainer.append(startEngineButton);
+    carControllersContainer.append(stopEngineButton);
     carControllersContainer.append(carModelTitle);
-
-    raceControllersContainer.append(startEngineButton);
-    raceControllersContainer.append(stopEngineButton);
 
     super(
       { tag: 'div', className: 'car_field' },
       carControllersContainer,
-      raceControllersContainer,
-      new Car(),
+      carContainer,
     );
   }
 }
