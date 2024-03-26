@@ -3,6 +3,7 @@ import './GaragePage.css';
 import { Button } from '../components/Button';
 import { CarField } from '../components/CarField';
 import { BaseComponent } from '../components/Component';
+import { CreateCarForm } from '../components/CreateCarForm';
 import { Select } from '../components/Select';
 import { GarageCar } from '../services/DataTypes';
 
@@ -19,7 +20,7 @@ export class GaragePage extends BaseComponent {
       'generate_cars',
       () => {},
     );
-    const raceButton = new Button('Reset', 'rase_button', () => {});
+    const raceButton = new Button('Rase', 'rase_button', () => {});
     const resetButton = new Button('Reset', 'reset_button', () => {});
 
     const carFields = garageCars.map((car) => {
@@ -28,6 +29,7 @@ export class GaragePage extends BaseComponent {
 
     super(
       { tag: 'div', className: 'garage_page' },
+      new CreateCarForm(),
       buttonsContainer,
       ...carFields,
     );

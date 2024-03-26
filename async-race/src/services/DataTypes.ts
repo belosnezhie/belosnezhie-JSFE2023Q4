@@ -7,3 +7,12 @@ export interface GarageCar {
   color: string;
   id: number;
 }
+
+export interface CarsTypes {
+  carTypes: CarType[];
+}
+
+export interface CarType {
+  name: string;
+  models: string[];
+}
