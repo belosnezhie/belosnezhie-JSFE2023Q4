@@ -52,3 +52,13 @@
     cursor: default;
     background-color: red;
   }
+
+  :root {
+    --border-color: #8a2be2;
+    --button-background-color: rgba(215, 206, 211, 90%)
+  }
+
+  body {
+    font-family: "Pangolin", cursive;
+    font-style: normal;
+  }

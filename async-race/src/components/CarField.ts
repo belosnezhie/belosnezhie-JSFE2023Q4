@@ -4,6 +4,15 @@ import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
   constructor(carModel: string) {
+    const carControllersContainer = new BaseComponent({
+      tag: 'div',
+      className: 'car_controllers_container',
+    });
+    const raceControllersContainer = new BaseComponent({
+      tag: 'div',
+      className: 'rase_controllers_container',
+    });
+
     const selectButton = new Button('Select', 'select_button', () => {});
     const removeButton = new Button('Remove', 'remove_button', () => {});
     const carModelTitle = new BaseComponent({
@@ -18,13 +27,17 @@ export class CarField extends BaseComponent {
     );
     const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {});
 
+    carControllersContainer.append(selectButton);
+    carControllersContainer.append(removeButton);
+    carControllersContainer.append(carModelTitle);
+
+    raceControllersContainer.append(startEngineButton);
+    raceControllersContainer.append(stopEngineButton);
+
     super(
       { tag: 'div', className: 'car_field' },
-      selectButton,
-      removeButton,
-      carModelTitle,
-      startEngineButton,
-      stopEngineButton,
+      carControllersContainer,
+      raceControllersContainer,
       new Car(),
     );
   }

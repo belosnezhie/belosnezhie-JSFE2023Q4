@@ -1,7 +1,7 @@
 import carTypes from '../data/Cars.json';
 import { CarType } from '../services/DataTypes';
 
-import { CreateCarModelInput } from './ColorInput';
+import { CreateCarModelInput } from './CreateCarModelInput';
 import { Form } from './Form';
 import { Input } from './Input';
 
@@ -12,7 +12,7 @@ export class CreateCarForm extends Form {
       'submit',
       'createCar',
       'submit-input',
-      'submit',
+      'Submit',
     );
     const options: CarType[] = carTypes;
     const optionsInput = new CreateCarModelInput(options, 'carTypes');

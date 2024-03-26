@@ -4,7 +4,7 @@ import { Button } from '../components/Button';
 import { CarField } from '../components/CarField';
 import { BaseComponent } from '../components/Component';
 import { CreateCarForm } from '../components/CreateCarForm';
-import { Select } from '../components/Select';
+import { UpdateCarForm } from '../components/UpdateCarForm';
 import { GarageCar } from '../services/DataTypes';
 
 export class GaragePage extends BaseComponent {
@@ -13,8 +13,6 @@ export class GaragePage extends BaseComponent {
       tag: 'div',
       className: 'controllers_container',
     });
-    const carSelect = new Select('tesla', 'car_select', garageCars);
-    const colorSelect = new Select('green', 'color_select');
     const generateCarsButton = new Button(
       'Generate cars',
       'generate_cars',
@@ -30,12 +28,11 @@ export class GaragePage extends BaseComponent {
     super(
       { tag: 'div', className: 'garage_page' },
       new CreateCarForm(),
+      new UpdateCarForm(garageCars),
       buttonsContainer,
       ...carFields,
     );
 
-    buttonsContainer.append(carSelect);
-    buttonsContainer.append(colorSelect);
     buttonsContainer.append(raceButton);
     buttonsContainer.append(resetButton);
     buttonsContainer.append(generateCarsButton);

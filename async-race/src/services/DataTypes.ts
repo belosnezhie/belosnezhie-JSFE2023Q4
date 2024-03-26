@@ -1,4 +1,4 @@
-export interface GarareCars {
+export interface GarageCars {
   garageCars: GarageCar[];
 }
 

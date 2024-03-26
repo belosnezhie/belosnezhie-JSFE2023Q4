@@ -5,15 +5,53 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    background-color: azure;
+    gap: 20px;
+    background-image: url('../../public/backgound.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
 }
 
 .controllers_container {
-    width: 50%;
     display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
     gap: 10px;
+}
+
+.button {
+    max-width: 140px;
+    padding: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.button:hover {
+    background-color: var(--button-background-color);
+}
+
+.input {
+    min-height: 40px;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+
+.submit-input {
+    background-color: var(--button-background-color);
+}
+
+
+.controllers_container .button {
+    padding: 15px;
 }
 
 .car_field {
@@ -27,15 +65,23 @@
     background-color: beige;
 }
 
+.car_controllers_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+}
+
+.rase_controllers_container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .car {
     width: 80px;
     height: 40px;
     background-color: blueviolet;
     border-radius: 80%;
     text-align: center;
-}
-
-.button {
-    border: 1px solid blueviolet;
-    font-size: 15px;
 }
