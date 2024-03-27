@@ -35,5 +35,6 @@ export class CreateCarModelInput extends Input {
     super('', 'createCarModel', 'create_car_input');
     this.setAttribute('list', listId);
     this.append(datalist);
+    this.setAttribute('required', '');
   }
 }

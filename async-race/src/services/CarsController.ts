@@ -1,6 +1,7 @@
 import { GaragePage } from '../pages/GaragePage';
 
 import { carService } from './CarService';
+import { currentCarEvent } from './EventEmmiter';
 
 export class CarsController {
   private root: HTMLElement;
@@ -9,6 +10,11 @@ export class CarsController {
   constructor(root: HTMLElement) {
     this.root = root;
     this.garagePage = undefined;
+
+    currentCarEvent.subscribe('carWasCreated', async () => {
+      this.garagePage?.removeElement();
+      await this.renderPage();
+    });
   }
 
   public async renderPage(): Promise<void> {
