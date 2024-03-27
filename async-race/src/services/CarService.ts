@@ -55,7 +55,7 @@ class CarService {
   }
 
   hasMoreCars(): boolean {
-    if ((this.currentPage + 1) * this.limit < this.maxCount) {
+    if (this.currentPage < Math.ceil(this.maxCount / 7)) {
       return true;
     }
 
