@@ -15,8 +15,16 @@ export class CarsController {
     const cars = await carService.getGarageCars();
     const hasMoreCars: boolean = carService.hasMoreCars();
     const hasLessCars: boolean = carService.hasLessCars();
+    const carsCount: number = carService.shareMaxCount();
+    const page: number = carService.shareCurrentPage();
 
-    this.garagePage = new GaragePage(cars, hasMoreCars, hasLessCars);
+    this.garagePage = new GaragePage(
+      cars,
+      hasMoreCars,
+      hasLessCars,
+      page,
+      carsCount,
+    );
 
     this.root.append(this.garagePage.getElement());
   }
@@ -25,9 +33,10 @@ export class CarsController {
     const cars = await carService.getNextCars();
     const hasMoreCars: boolean = carService.hasMoreCars();
     const hasLessCars: boolean = carService.hasLessCars();
+    const page: number = carService.shareCurrentPage();
 
     if (this.garagePage instanceof GaragePage) {
-      this.garagePage.reRender(cars, hasMoreCars, hasLessCars);
+      this.garagePage.reRender(cars, hasMoreCars, hasLessCars, page);
     }
   }
 
@@ -35,9 +44,10 @@ export class CarsController {
     const cars = await carService.getPrevCars();
     const hasMoreCars: boolean = carService.hasMoreCars();
     const hasLessCars: boolean = carService.hasLessCars();
+    const page: number = carService.shareCurrentPage();
 
     if (this.garagePage instanceof GaragePage) {
-      this.garagePage.reRender(cars, hasMoreCars, hasLessCars);
+      this.garagePage.reRender(cars, hasMoreCars, hasLessCars, page);
     }
   }
 }

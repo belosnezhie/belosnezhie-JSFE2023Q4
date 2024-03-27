@@ -12,11 +12,14 @@ export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
   private nextButton: Button;
   private prevButton: Button;
+  private pageCount: BaseComponent;
 
   constructor(
     garageCars: GarageCar[],
     hasMoreCars: boolean,
     hasLessCars: boolean,
+    pageNumber: number,
+    cars: number,
   ) {
     // создала все контейнеры
     const controllersContainer = new BaseComponent({
@@ -42,12 +45,23 @@ export class GaragePage extends BaseComponent {
     );
     const raceButton = new Button('Rase', 'rase_button', () => {});
     const resetButton = new Button('Reset', 'reset_button', () => {});
+    const carsCount = new BaseComponent({
+      tag: 'p',
+      className: 'page_counter',
+      text: `Cars total: ${cars}`,
+    });
+
     const nextButton = new Button('Next', 'next_page_button', async () =>
       carsController.loadNextCars(),
     );
     const prevButton = new Button('Prev', 'prev_page_button', async () =>
       carsController.loadPrevCars(),
     );
+    const pageCount = new BaseComponent({
+      tag: 'p',
+      className: 'page_counter',
+      text: `Current page: ${pageNumber}`,
+    });
 
     // контроль кнопок страницы
     if (!hasMoreCars) {
@@ -71,12 +85,15 @@ export class GaragePage extends BaseComponent {
     this.carPage = carPage;
     this.nextButton = nextButton;
     this.prevButton = prevButton;
+    this.pageCount = pageCount;
 
     // присоединяю кнопки к контейнерам
+    carsWidgets.append(carsCount);
     carsWidgets.append(raceButton);
     carsWidgets.append(resetButton);
     carsWidgets.append(generateCarsButton);
 
+    pageWidgets.append(this.pageCount);
     pageWidgets.append(this.prevButton);
     pageWidgets.append(this.nextButton);
 
@@ -89,6 +106,7 @@ export class GaragePage extends BaseComponent {
     garageCars: GarageCar[],
     hasMoreCars: boolean,
     hasLessCars: boolean,
+    pageNumber: number,
   ): void {
     this.carPage.removeElement();
 
@@ -102,6 +120,8 @@ export class GaragePage extends BaseComponent {
     if (!hasLessCars) {
       this.prevButton.addClass('disabled');
     }
+
+    this.pageCount.setTextContent(`Current page: ${pageNumber}`);
 
     this.append(this.carPage);
   }

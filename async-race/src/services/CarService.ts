@@ -69,6 +69,14 @@ class CarService {
 
     return true;
   }
+
+  shareMaxCount(): number {
+    return this.maxCount;
+  }
+
+  shareCurrentPage(): number {
+    return this.currentPage;
+  }
 }
 
 export const carService = new CarService();

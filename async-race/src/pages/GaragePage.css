@@ -68,7 +68,8 @@
 .page_widgets_container,
 .cars_widgets_container {
     display: flex;
-    gap: 5px;
+    align-items: center;
+    gap: 10px;
 }
 
 .page_widgets_container .button,

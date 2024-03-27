@@ -36,6 +36,8 @@ export class CarField extends BaseComponent {
     );
     const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {});
 
+    carModelTitle.setAttribute('style', `color: ${carColor}`);
+
     carControllersContainer.append(selectButton);
     carControllersContainer.append(removeButton);
     carControllersContainer.append(startEngineButton);
