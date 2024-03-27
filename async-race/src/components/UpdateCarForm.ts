@@ -13,7 +13,7 @@ export class UpdateCarForm extends Form {
       'submit',
       'updateCar',
       'submit-input',
-      'Submit',
+      'Update car',
     );
     const options: GarageCar[] = garageCars;
     const optionsInput = new UpdateCarModelInput(options, 'GarageCarTypes');

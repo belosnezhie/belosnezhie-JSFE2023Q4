@@ -65,7 +65,11 @@ export class BaseComponent {
     this.element.classList.remove(className);
   }
 
-  addListener(event: string, listener: () => void, options = false) {
+  addListener(
+    event: string,
+    listener: (event: Event) => void,
+    options = false,
+  ) {
     this.element.addEventListener(event, listener, options);
   }
 

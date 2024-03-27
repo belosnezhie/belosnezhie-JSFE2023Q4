@@ -24,11 +24,6 @@ const baseConfig = {
         test: /\.(?:ico|gif|png|jpg|jpeg|svg)$/i,
         type: 'asset/resource',
       },
-      // SVG
-      {
-        test: /\.svg$/,
-        type: "asset/inline",
-      },
       // Fonts
       {
         test: /\.(woff(2)?|eot|ttf|otf)$/i,

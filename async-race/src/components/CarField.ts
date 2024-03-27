@@ -3,7 +3,7 @@ import { Car } from './Car';
 import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
-  constructor(carModel: string, carColor: string) {
+  constructor(carModel: string, carColor: string, carId: number) {
     const carControllersContainer = new BaseComponent({
       tag: 'div',
       className: 'car_controllers_container',
@@ -14,7 +14,7 @@ export class CarField extends BaseComponent {
         tag: 'div',
         className: 'car_container',
       },
-      new Car(carColor),
+      new Car(carColor, carId),
     );
 
     const finishContainer = new BaseComponent({
@@ -50,5 +50,7 @@ export class CarField extends BaseComponent {
       carContainer,
       finishContainer,
     );
+
+    this.setAttribute('data_id', `${carId}`);
   }
 }

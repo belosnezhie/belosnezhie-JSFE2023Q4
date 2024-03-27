@@ -6,7 +6,7 @@ import { BaseComponent } from './Component';
 export class CarsPage extends BaseComponent {
   constructor(garageCars: GarageCar[]) {
     const carFields = garageCars.map((car) => {
-      return new CarField(car.name, car.color);
+      return new CarField(car.name, car.color, car.id);
     });
 
     super(

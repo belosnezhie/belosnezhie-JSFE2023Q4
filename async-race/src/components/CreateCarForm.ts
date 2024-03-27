@@ -14,7 +14,7 @@ export class CreateCarForm extends Form {
       'submit',
       'createCar',
       'submit-input',
-      'Submit',
+      'Create',
     );
     const options: CarType[] = carTypes;
     const optionsInput = new CreateCarModelInput(options, 'carTypes');
@@ -24,5 +24,11 @@ export class CreateCarForm extends Form {
     this.append(optionsInput);
     this.append(colorInput);
     this.append(submitInput);
+
+    // this.addListener('submit', (event: Event) => {
+    //   const inputs = event.target;
+
+    //   console.log(inputs);
+    // });
   }
 }
