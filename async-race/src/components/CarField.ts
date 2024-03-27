@@ -17,6 +17,11 @@ export class CarField extends BaseComponent {
       new Car(carColor),
     );
 
+    const finishContainer = new BaseComponent({
+      tag: 'div',
+      className: 'finish_container',
+    });
+
     const selectButton = new Button('Select', 'select_button', () => {});
     const removeButton = new Button('Remove', 'remove_button', () => {});
     const carModelTitle = new BaseComponent({
@@ -41,6 +46,7 @@ export class CarField extends BaseComponent {
       { tag: 'div', className: 'car_field' },
       carControllersContainer,
       carContainer,
+      finishContainer,
     );
   }
 }

@@ -2,7 +2,7 @@
 
 .garage_page {
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     padding: 10px;
     display: flex;
     flex-direction: column;
@@ -32,18 +32,27 @@
     border: 1px solid var(--border-color);
     border-radius: 20px;
     font-size: 15px;
+    background-color: var(--button-background-color);
     transition: 0.2s;
 }
 
 .button:hover {
-    background-color: var(--button-background-color);
+    background-color: var(--button-hover-color);
+}
+
+.button.disabled {
+    background-color: var(--button-disabled-color);
 }
 
 .input {
-    min-height: 40px;
+    min-height: 20px;
     padding: 5px;
     border-radius: 10px;
     border: 1px solid var(--border-color);
+}
+
+.color_input {
+    padding: 2px;
 }
 
 .submit-input {
@@ -51,19 +60,36 @@
 }
 
 
-.controllers_container .button {
-    padding: 15px;
+.garage_controllers_container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page_widgets_container,
+.cars_widgets_container {
+    display: flex;
+    gap: 5px;
+}
+
+.page_widgets_container .button,
+.cars_widgets_container .button {
+    padding: 10px;
+}
+
+.cars_page {
+    width: 100%;
+    background-color: var(--car-page-background-color);
+    border-radius: 10px;
 }
 
 .car_field {
     width: 100%;
     padding: 5px;
-    background-color: beige;
     display: flex;
     flex-direction: column;
     align-items: self-start;
     gap: 5px;
-    background-color: beige;
+    position: relative;
 }
 
 .car_controllers_container {
@@ -81,7 +107,8 @@
 
 .car_container {
     width: 100%;
-    border-bottom: 4px dashed var(--border-color);
+    border-bottom: 2px dashed var(--border-color);
+    z-index: 4;
 }
 
 .car {
@@ -92,4 +119,17 @@
 .car_svg {
     width: 100%;
     height: 100%;
+}
+
+.finish_container {
+    width: 40px;
+    height: 40px;
+    background-image: url('../assets/flag.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    right: 80px;
+    bottom: 2px;
+    z-index: 0;
 }

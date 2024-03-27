@@ -54,8 +54,11 @@
   }
 
   :root {
-    --border-color: #8a2be2;
-    --button-background-color: rgba(215, 206, 211, 90%)
+    --car-page-background-color: rgba(196, 203, 219, 60%);
+    --border-color: #505d5f;
+    --button-background-color: rgba(215, 206, 211, 80%);
+    --button-hover-color: rgba(194, 149, 130, 90%);
+    --button-disabled-color: #505D5F;
   }
 
   body {

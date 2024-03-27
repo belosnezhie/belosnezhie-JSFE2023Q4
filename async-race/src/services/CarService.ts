@@ -24,7 +24,7 @@ import { GarageCar } from './DataTypes';
 
 class CarService {
   private maxCount: number = 0;
-  private currentPage: number = 0;
+  private currentPage: number = 1;
   private limit = 7;
 
   async getGarageCars(): Promise<GarageCar[]> {
@@ -48,12 +48,26 @@ class CarService {
     return this.getGarageCarsByPage(this.currentPage, this.limit);
   }
 
+  async getPrevCars(): Promise<GarageCar[]> {
+    this.currentPage -= 1;
+
+    return this.getGarageCarsByPage(this.currentPage, this.limit);
+  }
+
   hasMoreCars(): boolean {
     if ((this.currentPage + 1) * this.limit < this.maxCount) {
       return true;
     }
 
     return false;
+  }
+
+  hasLessCars(): boolean {
+    if (this.currentPage === 1) {
+      return false;
+    }
+
+    return true;
   }
 }
 

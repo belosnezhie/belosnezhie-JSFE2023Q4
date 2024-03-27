@@ -7,6 +7,8 @@ import { UpdateCarModelInput } from './UpdateCarModelInput';
 export class UpdateCarForm extends Form {
   constructor(garageCars: GarageCar[]) {
     const colorInput = new Input('color', 'colorInput', 'color_input');
+
+    colorInput.setAttribute('value', '#505d5f');
     const submitInput = new Input(
       'submit',
       'updateCar',

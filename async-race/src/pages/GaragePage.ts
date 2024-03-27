@@ -11,12 +11,30 @@ import { GarageCar } from '../services/DataTypes';
 export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
   private nextButton: Button;
+  private prevButton: Button;
 
-  constructor(garageCars: GarageCar[], hasMoreCars: boolean) {
-    const buttonsContainer = new BaseComponent({
+  constructor(
+    garageCars: GarageCar[],
+    hasMoreCars: boolean,
+    hasLessCars: boolean,
+  ) {
+    // создала все контейнеры
+    const controllersContainer = new BaseComponent({
       tag: 'div',
-      className: 'controllers_container',
+      className: 'garage_controllers_container',
     });
+
+    const carsWidgets = new BaseComponent({
+      tag: 'div',
+      className: 'cars_widgets_container',
+    });
+
+    const pageWidgets = new BaseComponent({
+      tag: 'div',
+      className: 'page_widgets_container',
+    });
+
+    // создала все кнопки
     const generateCarsButton = new Button(
       'Generate cars',
       'generate_cars',
@@ -27,9 +45,17 @@ export class GaragePage extends BaseComponent {
     const nextButton = new Button('Next', 'next_page_button', async () =>
       carsController.loadNextCars(),
     );
+    const prevButton = new Button('Prev', 'prev_page_button', async () =>
+      carsController.loadPrevCars(),
+    );
 
+    // контроль кнопок страницы
     if (!hasMoreCars) {
       nextButton.addClass('disabled');
+    }
+
+    if (!hasLessCars) {
+      prevButton.addClass('disabled');
     }
 
     const carPage = new CarsPage(garageCars);
@@ -38,33 +64,45 @@ export class GaragePage extends BaseComponent {
       { tag: 'div', className: 'garage_page' },
       new CreateCarForm(),
       new UpdateCarForm(garageCars),
-      buttonsContainer,
+      controllersContainer,
       carPage,
-      nextButton,
     );
 
     this.carPage = carPage;
     this.nextButton = nextButton;
+    this.prevButton = prevButton;
 
-    buttonsContainer.append(raceButton);
-    buttonsContainer.append(resetButton);
-    buttonsContainer.append(generateCarsButton);
+    // присоединяю кнопки к контейнерам
+    carsWidgets.append(raceButton);
+    carsWidgets.append(resetButton);
+    carsWidgets.append(generateCarsButton);
+
+    pageWidgets.append(this.prevButton);
+    pageWidgets.append(this.nextButton);
+
+    // присоединяю виджеты к контейнеру
+    controllersContainer.append(carsWidgets);
+    controllersContainer.append(pageWidgets);
   }
 
-  public reRender(garageCars: GarageCar[], hasMoreCars: boolean): void {
+  public reRender(
+    garageCars: GarageCar[],
+    hasMoreCars: boolean,
+    hasLessCars: boolean,
+  ): void {
     this.carPage.removeElement();
-    this.nextButton.removeElement();
 
     this.carPage = new CarsPage(garageCars);
-    this.nextButton = new Button('Next', 'next_page_button', async () =>
-      carsController.loadNextCars(),
-    );
 
+    this.nextButton.removeClass('disabled');
+    this.prevButton.removeClass('disabled');
     if (!hasMoreCars) {
       this.nextButton.addClass('disabled');
     }
+    if (!hasLessCars) {
+      this.prevButton.addClass('disabled');
+    }
 
     this.append(this.carPage);
-    this.append(this.nextButton);
   }
 }

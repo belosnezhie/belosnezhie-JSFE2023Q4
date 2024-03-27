@@ -61,6 +61,10 @@ export class BaseComponent {
     this.element.classList.toggle(className);
   }
 
+  removeClass(className: string) {
+    this.element.classList.remove(className);
+  }
+
   addListener(event: string, listener: () => void, options = false) {
     this.element.addEventListener(event, listener, options);
   }

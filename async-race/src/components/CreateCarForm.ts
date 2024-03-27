@@ -8,6 +8,8 @@ import { Input } from './Input';
 export class CreateCarForm extends Form {
   constructor() {
     const colorInput = new Input('color', 'colorInput', 'color_input');
+
+    colorInput.setAttribute('value', '#ea7619');
     const submitInput = new Input(
       'submit',
       'createCar',
