@@ -49,6 +49,10 @@ export class BaseComponent {
     this.element.setAttribute(attribute, value);
   }
 
+  getAttribute(attribute: string): string | null {
+    return this.element.getAttribute(attribute);
+  }
+
   removeAttribute(attribute: string) {
     this.element.removeAttribute(attribute);
   }

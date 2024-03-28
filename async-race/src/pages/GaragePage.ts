@@ -6,7 +6,7 @@ import { BaseComponent } from '../components/Component';
 import { CreateCarForm } from '../components/CreateCarForm';
 import { UpdateCarForm } from '../components/UpdateCarForm';
 import { carsController } from '../services/CarsController';
-import { GarageCar } from '../services/DataTypes';
+import { GarageCar, TrafficParam } from '../services/DataTypes';
 
 export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
@@ -124,5 +124,11 @@ export class GaragePage extends BaseComponent {
     this.pageCount.setTextContent(`Current page: ${pageNumber}`);
 
     this.append(this.carPage);
+  }
+
+  public driveCar(driveParam: TrafficParam, carIndex: number) {
+    if (this.carPage) {
+      this.carPage.driveCar(driveParam, carIndex);
+    }
   }
 }

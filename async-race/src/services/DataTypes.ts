@@ -16,3 +16,8 @@ export interface CarType {
   name: string;
   models: string[];
 }
+
+export interface TrafficParam {
+  velocity: number;
+  distance: number;
+}

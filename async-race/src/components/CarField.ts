@@ -1,3 +1,4 @@
+import { TrafficParam } from '../services/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 import { Button } from './Button';
@@ -5,6 +6,7 @@ import { Car } from './Car';
 import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
+  private car: Car;
   private carIndex: number = 0;
 
   constructor(carModel: string, carColor: string, carId: number) {
@@ -13,12 +15,14 @@ export class CarField extends BaseComponent {
       className: 'car_controllers_container',
     });
 
+    const car = new Car(carColor, carId);
+
     const carContainer = new BaseComponent(
       {
         tag: 'div',
         className: 'car_container',
       },
-      new Car(carColor, carId),
+      car,
     );
 
     const finishContainer = new BaseComponent({
@@ -37,11 +41,9 @@ export class CarField extends BaseComponent {
       className: 'car_model',
       text: carModel,
     });
-    const startEngineButton = new Button(
-      'Start',
-      'start_engine_button',
-      () => {},
-    );
+    const startEngineButton = new Button('Start', 'start_engine_button', () => {
+      currentCarEvent.emit('carWasStarted', this.carIndex);
+    });
     const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {});
 
     carModelTitle.setAttribute('style', `color: ${carColor}`);
@@ -59,7 +61,22 @@ export class CarField extends BaseComponent {
       finishContainer,
     );
 
+    this.car = car;
     this.carIndex = carId;
     this.setAttribute('data_id', `${carId}`);
+  }
+
+  public driveCar(driveParam: TrafficParam) {
+    const parentWidth = this.getWidth();
+
+    if (this.car) {
+      this.car.drive(driveParam, parentWidth);
+    }
+  }
+
+  private getWidth(): number {
+    const element = this.getElement();
+
+    return element.clientWidth;
   }
 }

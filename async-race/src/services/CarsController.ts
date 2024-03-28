@@ -22,6 +22,17 @@ export class CarsController {
 
       await this.reRenderGaragePage();
     });
+
+    currentCarEvent.subscribeAsync('carWasStarted', async (carIndex) => {
+      if (typeof carIndex !== 'number') {
+        throw new Error('Index is not defind');
+      }
+      const driveParam = await carService.startEngine(carIndex);
+
+      if (this.garagePage) {
+        this.garagePage.driveCar(driveParam, carIndex);
+      }
+    });
   }
 
   public async renderPage(): Promise<void> {

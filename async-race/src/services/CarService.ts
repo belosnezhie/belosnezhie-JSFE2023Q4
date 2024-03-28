@@ -1,4 +1,4 @@
-import { GarageCar } from './DataTypes';
+import { GarageCar, TrafficParam } from './DataTypes';
 
 // export async function getGarageCars(): Promise<GarageCar[]> {
 //   const url = 'http://127.0.0.1:3000/garage';
@@ -57,33 +57,42 @@ class CarService {
   async removeCar(carId: number) {
     const url = `http://127.0.0.1:3000/garage/${carId}`;
 
-    // try {
-    //   const res = await fetch(url, {
-    //     method: 'DELETE',
-    //   });
+    try {
+      const res = await fetch(url, {
+        method: 'DELETE',
+      });
 
-    //   const result = res.ok;
+      if (!res.ok && res.status === 404) {
+        console.log(`${res.status}: ${res.statusText}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+    // const res = await fetch(url, {
+    //   method: 'DELETE',
+    // });
 
-    //   if (result) {
-    //     console.log(`${res.status}: ${res.ok}`);
-    //   } else {
-    //     console.log(`${res.status}: ${res.statusText}`);
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    //   throw new Error(err);
+    // const result = res.ok;
+
+    // if (result) {
+    //   console.log(`${res.status}: ${res.ok}`);
+    // } else {
+    //   console.log(`${res.status}: ${res.statusText}`);
     // }
+  }
+
+  async startEngine(id: number): Promise<TrafficParam> {
+    const url = `http://127.0.0.1:3000/engine?id=${id}&status=started`;
+
     const res = await fetch(url, {
-      method: 'DELETE',
+      method: 'PATCH',
     });
 
-    const result = res.ok;
+    const data: TrafficParam = <TrafficParam>await res.json();
 
-    if (result) {
-      console.log(`${res.status}: ${res.ok}`);
-    } else {
-      console.log(`${res.status}: ${res.statusText}`);
-    }
+    return data;
   }
 
   hasMoreCars(): boolean {

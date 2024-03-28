@@ -1,3 +1,5 @@
+import { TrafficParam } from '../services/DataTypes';
+
 import { BaseComponent } from './Component';
 
 export class Car extends BaseComponent {
@@ -25,5 +27,39 @@ export class Car extends BaseComponent {
     const carElement = this.getElement();
 
     carElement.append(sprite);
+  }
+
+  public drive(driveParam: TrafficParam, parentWidth: number) {
+    const element = this.getElement();
+    const duration = driveParam.distance / driveParam.velocity;
+
+    let start: number;
+    let previousTimeStamp: number;
+    let done = false;
+    const distance = parentWidth - 80 - 10;
+    const velocity = parentWidth / duration;
+
+    function step(timeStamp: number) {
+      if (start === undefined) {
+        start = timeStamp;
+      }
+      const elapsed = timeStamp - start;
+
+      if (previousTimeStamp !== timeStamp) {
+        const count = Math.min(velocity * elapsed, distance);
+
+        element.style.transform = `translateX(${count}px)`;
+        if (count === distance) done = true;
+      }
+
+      if (elapsed < duration) {
+        previousTimeStamp = timeStamp;
+        if (!done) {
+          window.requestAnimationFrame(step);
+        }
+      }
+    }
+
+    window.requestAnimationFrame(step);
   }
 }
