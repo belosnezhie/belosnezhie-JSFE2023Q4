@@ -1,8 +1,12 @@
 import { TrafficParam } from '../services/DataTypes';
+import { currentCarEvent } from '../services/EventEmitter';
 
 import { BaseComponent } from './Component';
 
 export class Car extends BaseComponent {
+  private carId: number;
+  private cancelAnimationID: number = 0;
+
   constructor(carColor: string, carId: number) {
     const sprite = document.createElementNS(
       'http://www.w3.org/2000/svg',
@@ -27,39 +31,76 @@ export class Car extends BaseComponent {
     const carElement = this.getElement();
 
     carElement.append(sprite);
+
+    this.carId = carId;
   }
 
   public drive(driveParam: TrafficParam, parentWidth: number) {
-    const element = this.getElement();
     const duration = driveParam.distance / driveParam.velocity;
 
     let start: number;
     let previousTimeStamp: number;
-    let done = false;
+    const done = false;
     const distance = parentWidth - 80 - 10;
     const velocity = parentWidth / duration;
 
-    function step(timeStamp: number) {
-      if (start === undefined) {
-        start = timeStamp;
-      }
-      const elapsed = timeStamp - start;
+    this.cancelAnimationID = window.requestAnimationFrame((timeStamp: number) =>
+      this.animate(
+        timeStamp,
+        start,
+        previousTimeStamp,
+        velocity,
+        distance,
+        duration,
+        done,
+      ),
+    );
 
-      if (previousTimeStamp !== timeStamp) {
-        const count = Math.min(velocity * elapsed, distance);
+    currentCarEvent.emit('carIsDriving', this.carId);
+  }
 
-        element.style.transform = `translateX(${count}px)`;
-        if (count === distance) done = true;
-      }
+  public broke() {
+    window.cancelAnimationFrame(this.cancelAnimationID);
+    console.log('Car is broken!');
+  }
 
-      if (elapsed < duration) {
-        previousTimeStamp = timeStamp;
-        if (!done) {
-          window.requestAnimationFrame(step);
-        }
-      }
+  private animate(
+    timeStamp: number,
+    start: number,
+    previousTimeStamp: number,
+    velocity: number,
+    distance: number,
+    duration: number,
+    done: boolean,
+  ) {
+    if (start === undefined) {
+      start = timeStamp;
+    }
+    const elapsed = timeStamp - start;
+
+    if (previousTimeStamp !== timeStamp) {
+      const count = Math.min(velocity * elapsed, distance);
+
+      this.getElement().style.transform = `translateX(${count}px)`;
+      if (count === distance) done = true;
     }
 
-    window.requestAnimationFrame(step);
+    if (elapsed < duration) {
+      previousTimeStamp = timeStamp;
+      if (!done) {
+        this.cancelAnimationID = window.requestAnimationFrame(
+          (timestamp: number) =>
+            this.animate(
+              timestamp,
+              start,
+              previousTimeStamp,
+              velocity,
+              distance,
+              duration,
+              done,
+            ),
+        );
+      }
+    }
   }
 }

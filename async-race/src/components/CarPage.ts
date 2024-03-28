@@ -29,6 +29,14 @@ export class CarsPage extends BaseComponent {
     }
   }
 
+  public brokeCar(carIndex: number) {
+    const carField: CarField | undefined = this.findCarField(carIndex);
+
+    if (carField !== undefined) {
+      carField.brokeCar();
+    }
+  }
+
   private findCarField(carIndex: number): CarField | undefined {
     return this.carFields.find((carField) => {
       return Number(carField.getAttribute('data_id')) === carIndex;

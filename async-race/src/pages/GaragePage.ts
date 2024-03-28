@@ -131,4 +131,10 @@ export class GaragePage extends BaseComponent {
       this.carPage.driveCar(driveParam, carIndex);
     }
   }
+
+  public brokeCar(carIndex: number) {
+    if (this.carPage) {
+      this.carPage.brokeCar(carIndex);
+    }
+  }
 }

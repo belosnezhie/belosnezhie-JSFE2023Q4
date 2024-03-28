@@ -95,6 +95,20 @@ class CarService {
     return data;
   }
 
+  async isEngineBroken(id: number): Promise<boolean> {
+    const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
+
+    const res = await fetch(url, {
+      method: 'PATCH',
+    });
+
+    if (!res.ok && res.status === 500) {
+      return true;
+    }
+
+    return false;
+  }
+
   hasMoreCars(): boolean {
     if (this.currentPage < Math.ceil(this.maxCount / 7)) {
       return true;

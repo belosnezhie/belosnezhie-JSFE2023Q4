@@ -32,7 +32,22 @@ export class CarsController {
       if (this.garagePage) {
         this.garagePage.driveCar(driveParam, carIndex);
       }
+
+      const isBroken = await carService.isEngineBroken(carIndex);
+
+      if (isBroken) {
+        if (this.garagePage) {
+          this.garagePage.brokeCar(carIndex);
+        }
+      }
     });
+
+    // currentCarEvent.subscribeAsync('carIsDriving', async (carIndex) => {
+    //   if (typeof carIndex !== 'number') {
+    //     throw new Error('Index is not defind');
+    //   }
+    //   const brokeParam = await carService.startEngine(carIndex);
+    // });
   }
 
   public async renderPage(): Promise<void> {

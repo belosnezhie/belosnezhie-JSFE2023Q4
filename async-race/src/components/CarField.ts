@@ -74,6 +74,12 @@ export class CarField extends BaseComponent {
     }
   }
 
+  public brokeCar() {
+    if (this.car) {
+      this.car.broke();
+    }
+  }
+
   private getWidth(): number {
     const element = this.getElement();
 
