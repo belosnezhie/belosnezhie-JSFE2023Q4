@@ -1,8 +1,12 @@
+import { currentCarEvent } from '../services/EventEmitter';
+
 import { Button } from './Button';
 import { Car } from './Car';
 import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
+  private carIndex: number = 0;
+
   constructor(carModel: string, carColor: string, carId: number) {
     const carControllersContainer = new BaseComponent({
       tag: 'div',
@@ -23,7 +27,11 @@ export class CarField extends BaseComponent {
     });
 
     const selectButton = new Button('Select', 'select_button', () => {});
-    const removeButton = new Button('Remove', 'remove_button', () => {});
+
+    const removeButton = new Button('Remove', 'remove_button', () => {
+      currentCarEvent.emit('carWasRemoved', this.carIndex);
+    });
+
     const carModelTitle = new BaseComponent({
       tag: 'p',
       className: 'car_model',
@@ -51,6 +59,7 @@ export class CarField extends BaseComponent {
       finishContainer,
     );
 
+    this.carIndex = carId;
     this.setAttribute('data_id', `${carId}`);
   }
 }

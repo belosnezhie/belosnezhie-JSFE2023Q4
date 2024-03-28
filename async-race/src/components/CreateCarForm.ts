@@ -1,6 +1,6 @@
 import carTypes from '../data/Cars.json';
 import { CarType } from '../services/DataTypes';
-import { currentCarEvent } from '../services/EventEmmiter';
+import { currentCarEvent } from '../services/EventEmitter';
 
 import { CreateCarModelInput } from './CreateCarModelInput';
 import { Form } from './Form';

@@ -54,6 +54,38 @@ class CarService {
     return this.getGarageCarsByPage(this.currentPage, this.limit);
   }
 
+  async removeCar(carId: number) {
+    const url = `http://127.0.0.1:3000/garage/${carId}`;
+
+    // try {
+    //   const res = await fetch(url, {
+    //     method: 'DELETE',
+    //   });
+
+    //   const result = res.ok;
+
+    //   if (result) {
+    //     console.log(`${res.status}: ${res.ok}`);
+    //   } else {
+    //     console.log(`${res.status}: ${res.statusText}`);
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    //   throw new Error(err);
+    // }
+    const res = await fetch(url, {
+      method: 'DELETE',
+    });
+
+    const result = res.ok;
+
+    if (result) {
+      console.log(`${res.status}: ${res.ok}`);
+    } else {
+      console.log(`${res.status}: ${res.statusText}`);
+    }
+  }
+
   hasMoreCars(): boolean {
     if (this.currentPage < Math.ceil(this.maxCount / 7)) {
       return true;

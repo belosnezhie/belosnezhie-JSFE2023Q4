@@ -26,7 +26,7 @@
       "no-return-await": "error",
       "no-var": "error",
       "no-debugger": "error",
-      "no-console": "error",
+      "no-console": "warn",
       "no-restricted-syntax": ["off", "ForOfStatement"],
       "lines-between-class-members": "off",
       // "class-methods-use-this": "error",

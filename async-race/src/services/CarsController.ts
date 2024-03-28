@@ -1,7 +1,7 @@
 import { GaragePage } from '../pages/GaragePage';
 
 import { carService } from './CarService';
-import { currentCarEvent } from './EventEmmiter';
+import { currentCarEvent } from './EventEmitter';
 
 export class CarsController {
   private root: HTMLElement;
@@ -11,9 +11,16 @@ export class CarsController {
     this.root = root;
     this.garagePage = undefined;
 
-    currentCarEvent.subscribe('carWasCreated', async () => {
-      this.garagePage?.removeElement();
-      await this.renderPage();
+    currentCarEvent.subscribeAsync('carWasCreated', async () => {
+      await this.reRenderGaragePage();
+    });
+
+    currentCarEvent.subscribeAsync('carWasRemoved', async (carIndex) => {
+      if (typeof carIndex === 'number') {
+        await carService.removeCar(carIndex);
+      }
+
+      await this.reRenderGaragePage();
     });
   }
 
@@ -55,6 +62,13 @@ export class CarsController {
     if (this.garagePage instanceof GaragePage) {
       this.garagePage.reRender(cars, hasMoreCars, hasLessCars, page);
     }
+  }
+
+  private async reRenderGaragePage() {
+    if (this.garagePage instanceof GaragePage) {
+      this.garagePage.removeElement();
+    }
+    await this.renderPage();
   }
 }
 
