@@ -55,10 +55,11 @@
 
   :root {
     --car-page-background-color: rgba(196, 203, 219, 60%);
+    --headers-color: #1A2C36;
     --border-color: #505d5f;
     --button-background-color: rgba(215, 206, 211, 80%);
     --button-hover-color: rgba(194, 149, 130, 90%);
-    --button-disabled-color: #505D5F;
+    --button-disabled-color: rgba(80, 93, 95, 60%);
   }
 
   body {

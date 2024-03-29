@@ -4,6 +4,7 @@ import { Button } from '../components/Button';
 import { CarsPage } from '../components/CarPage';
 import { BaseComponent } from '../components/Component';
 import { CreateCarForm } from '../components/CreateCarForm';
+import { Header } from '../components/Header';
 import { UpdateCarForm } from '../components/UpdateCarForm';
 import { carsController } from '../services/CarsController';
 import { GarageCar, TrafficParam } from '../services/DataTypes';
@@ -21,6 +22,8 @@ export class GaragePage extends BaseComponent {
     pageNumber: number,
     cars: number,
   ) {
+    const header = new Header('Garage page');
+
     // создала все контейнеры
     const controllersContainer = new BaseComponent({
       tag: 'div',
@@ -76,6 +79,7 @@ export class GaragePage extends BaseComponent {
 
     super(
       { tag: 'div', className: 'garage_page' },
+      header,
       new CreateCarForm(),
       new UpdateCarForm(garageCars),
       controllersContainer,

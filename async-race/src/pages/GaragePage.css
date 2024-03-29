@@ -1,12 +1,29 @@
 @import '../index.css';
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.header_buttons_container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.page_title {
+    text-transform: uppercase;
+    color: var(--headers-color);
+}
+
 .garage_page {
     width: 100vw;
     min-height: 100vh;
     padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     background-image: url('../../public/backgound.jpg');
     background-position: center center;
     background-repeat: no-repeat;
