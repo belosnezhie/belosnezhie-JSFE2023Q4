@@ -95,6 +95,14 @@ class CarService {
     return data;
   }
 
+  async stopEngine(id: number): Promise<void> {
+    const url = `http://127.0.0.1:3000/engine?id=${id}&status=stopped`;
+
+    await fetch(url, {
+      method: 'PATCH',
+    });
+  }
+
   async isEngineBroken(id: number): Promise<boolean> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
 

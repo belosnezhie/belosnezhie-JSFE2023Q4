@@ -44,7 +44,11 @@ export class CarField extends BaseComponent {
     const startEngineButton = new Button('Start', 'start_engine_button', () => {
       currentCarEvent.emit('carWasStarted', this.carIndex);
     });
-    const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {});
+    const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {
+      currentCarEvent.emit('carWasStoped', this.carIndex);
+
+      this.car.stop();
+    });
 
     carModelTitle.setAttribute('style', `color: ${carColor}`);
 

@@ -27,19 +27,26 @@ export class CarsController {
       if (typeof carIndex !== 'number') {
         throw new Error('Index is not defind');
       }
+      if (!this.garagePage) {
+        throw new Error('GaragePage is not defind');
+      }
+
       const driveParam = await carService.startEngine(carIndex);
 
-      if (this.garagePage) {
-        this.garagePage.driveCar(driveParam, carIndex);
-      }
+      this.garagePage.driveCar(driveParam, carIndex);
 
       const isBroken = await carService.isEngineBroken(carIndex);
 
       if (isBroken) {
-        if (this.garagePage) {
-          this.garagePage.brokeCar(carIndex);
-        }
+        this.garagePage.brokeCar(carIndex);
       }
+    });
+
+    currentCarEvent.subscribeAsync('carWasStoped', async (carIndex) => {
+      if (typeof carIndex !== 'number') {
+        throw new Error('Index is not defind');
+      }
+      await carService.stopEngine(carIndex);
     });
 
     // currentCarEvent.subscribeAsync('carIsDriving', async (carIndex) => {

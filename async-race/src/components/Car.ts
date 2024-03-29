@@ -64,6 +64,12 @@ export class Car extends BaseComponent {
     console.log('Car is broken!');
   }
 
+  public stop() {
+    window.cancelAnimationFrame(this.cancelAnimationID);
+    this.getElement().style.transform = 'translateX(0px)';
+    console.log('Car was stopped!');
+  }
+
   private animate(
     timeStamp: number,
     start: number,
