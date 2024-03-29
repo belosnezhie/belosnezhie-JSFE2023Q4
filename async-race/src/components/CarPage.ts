@@ -21,6 +21,18 @@ export class CarsPage extends BaseComponent {
     this.carFields = carFields;
   }
 
+  public getAllCarsID(): number[] {
+    const currentCarsID: number[] = [];
+
+    this.carFields.forEach((carField) => {
+      const id = carField.getAttribute('data_id');
+
+      currentCarsID.push(Number(id));
+    });
+
+    return currentCarsID;
+  }
+
   public driveCar(driveParam: TrafficParam, carIndex: number) {
     const carField: CarField | undefined = this.findCarField(carIndex);
 

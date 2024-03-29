@@ -8,6 +8,7 @@ import { Header } from '../components/Header';
 import { UpdateCarForm } from '../components/UpdateCarForm';
 import { carsController } from '../services/CarsController';
 import { GarageCar, TrafficParam } from '../services/DataTypes';
+import { currentCarEvent } from '../services/EventEmitter';
 
 export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
@@ -22,7 +23,7 @@ export class GaragePage extends BaseComponent {
     pageNumber: number,
     cars: number,
   ) {
-    const header = new Header('Garage page');
+    const header = new Header('garage', 'Garage page');
 
     // создала все контейнеры
     const controllersContainer = new BaseComponent({
@@ -46,7 +47,14 @@ export class GaragePage extends BaseComponent {
       'generate_cars',
       () => {},
     );
-    const raceButton = new Button('Rase', 'rase_button', () => {});
+    const raceButton = new Button('Rase', 'rase_button', () => {
+      const currentCarsID = this.carPage.getAllCarsID();
+
+      currentCarsID.forEach((id) => {
+        currentCarEvent.emit('carWasStarted', id);
+      });
+    });
+
     const resetButton = new Button('Reset', 'reset_button', () => {});
     const carsCount = new BaseComponent({
       tag: 'p',
