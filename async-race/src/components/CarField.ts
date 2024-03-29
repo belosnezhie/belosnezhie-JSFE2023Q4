@@ -50,7 +50,7 @@ export class CarField extends BaseComponent {
     });
 
     const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {
-      currentCarEvent.emit('carWasStoped', this.carIndex);
+      currentCarEvent.emit('carWasStopped', this.carIndex);
 
       this.car.stop();
 
@@ -94,6 +94,10 @@ export class CarField extends BaseComponent {
     if (this.car) {
       this.car.broke();
     }
+  }
+
+  public stopCar() {
+    this.car.stop();
   }
 
   private getWidth(): number {

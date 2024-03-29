@@ -42,7 +42,7 @@ export class CarsController {
       }
     });
 
-    currentCarEvent.subscribeAsync('carWasStoped', async (carIndex) => {
+    currentCarEvent.subscribeAsync('carWasStopped', async (carIndex) => {
       if (typeof carIndex !== 'number') {
         throw new Error('Index is not defind');
       }

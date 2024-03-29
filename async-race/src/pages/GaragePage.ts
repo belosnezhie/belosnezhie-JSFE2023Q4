@@ -14,6 +14,8 @@ export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
   private nextButton: Button;
   private prevButton: Button;
+  private raseButton: Button;
+  private resetButton: Button;
   private pageCount: BaseComponent;
 
   constructor(
@@ -48,14 +50,29 @@ export class GaragePage extends BaseComponent {
       () => {},
     );
     const raceButton = new Button('Rase', 'rase_button', () => {
+      this.raseButton.addClass('disabled');
+
       const currentCarsID = this.carPage.getAllCarsID();
 
       currentCarsID.forEach((id) => {
         currentCarEvent.emit('carWasStarted', id);
       });
+
+      this.resetButton.removeClass('disabled');
     });
 
-    const resetButton = new Button('Reset', 'reset_button', () => {});
+    const resetButton = new Button('Reset', 'reset_button', () => {
+      this.resetButton.addClass('disabled');
+      const currentCarsID = this.carPage.getAllCarsID();
+
+      currentCarsID.forEach((id) => {
+        currentCarEvent.emit('carWasStopped', id);
+        this.carPage.stopCars();
+      });
+
+      this.raseButton.removeClass('disabled');
+    });
+
     const carsCount = new BaseComponent({
       tag: 'p',
       className: 'page_counter',
@@ -97,6 +114,8 @@ export class GaragePage extends BaseComponent {
     this.carPage = carPage;
     this.nextButton = nextButton;
     this.prevButton = prevButton;
+    this.raseButton = raceButton;
+    this.resetButton = resetButton;
     this.pageCount = pageCount;
 
     // присоединяю кнопки к контейнерам
@@ -112,6 +131,8 @@ export class GaragePage extends BaseComponent {
     // присоединяю виджеты к контейнеру
     controllersContainer.append(carsWidgets);
     controllersContainer.append(pageWidgets);
+
+    this.resetButton.addClass('disabled');
   }
 
   public reRender(

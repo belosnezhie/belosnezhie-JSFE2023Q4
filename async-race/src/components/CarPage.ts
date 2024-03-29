@@ -49,6 +49,12 @@ export class CarsPage extends BaseComponent {
     }
   }
 
+  public stopCars() {
+    this.carFields.forEach((carField) => {
+      carField.stopCar();
+    });
+  }
+
   private findCarField(carIndex: number): CarField | undefined {
     return this.carFields.find((carField) => {
       return Number(carField.getAttribute('data_id')) === carIndex;
