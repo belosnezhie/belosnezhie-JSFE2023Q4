@@ -7,6 +7,8 @@ import { BaseComponent } from './Component';
 
 export class CarField extends BaseComponent {
   private car: Car;
+  private startButton: Button;
+  private stopButton: Button;
   private carIndex: number = 0;
 
   constructor(carModel: string, carColor: string, carId: number) {
@@ -41,13 +43,19 @@ export class CarField extends BaseComponent {
       className: 'car_model',
       text: carModel,
     });
+
     const startEngineButton = new Button('Start', 'start_engine_button', () => {
       currentCarEvent.emit('carWasStarted', this.carIndex);
+      this.startButton.addClass('disabled');
     });
+
     const stopEngineButton = new Button('Stop', 'stop_engine_button', () => {
       currentCarEvent.emit('carWasStoped', this.carIndex);
 
       this.car.stop();
+
+      this.stopButton.addClass('disabled');
+      this.startButton.removeClass('disabled');
     });
 
     carModelTitle.setAttribute('style', `color: ${carColor}`);
@@ -67,7 +75,10 @@ export class CarField extends BaseComponent {
 
     this.car = car;
     this.carIndex = carId;
+    this.startButton = startEngineButton;
+    this.stopButton = stopEngineButton;
     this.setAttribute('data_id', `${carId}`);
+    this.stopButton.addClass('disabled');
   }
 
   public driveCar(driveParam: TrafficParam) {
@@ -76,6 +87,7 @@ export class CarField extends BaseComponent {
     if (this.car) {
       this.car.drive(driveParam, parentWidth);
     }
+    this.stopButton.removeClass('disabled');
   }
 
   public brokeCar() {
