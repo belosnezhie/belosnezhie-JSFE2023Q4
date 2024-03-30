@@ -1,27 +1,5 @@
 import { GarageCar, TrafficParam } from './DataTypes';
 
-// export async function getGarageCars(): Promise<GarageCar[]> {
-//   const url = 'http://127.0.0.1:3000/garage';
-
-//   const res = await fetch(url);
-//   const data: GarageCar[] = <GarageCar[]>await res.json();
-
-//   return data;
-// }
-
-// export async function getGarageCarsByPage(
-//   page: number,
-//   limit: number,
-// ): Promise<GarageCar[]> {
-//   const url = `http://127.0.0.1:3000/garage?_page=${page}&_limit=${limit}`;
-
-//   const res = await fetch(url);
-//   const carsCount: number = Number(res.headers.get('X-Total-Count'));
-//   const data: GarageCar[] = <GarageCar[]>await res.json();
-
-//   return data;
-// }
-
 class CarService {
   private maxCount: number = 0;
   private currentPage: number = 1;

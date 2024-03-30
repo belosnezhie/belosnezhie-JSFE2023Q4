@@ -32,7 +32,9 @@ export class CarField extends BaseComponent {
       className: 'finish_container',
     });
 
-    const selectButton = new Button('Select', 'select_button', () => {});
+    const selectButton = new Button('Select', 'select_button', () => {
+      currentCarEvent.emit('carWasSelected', this.carIndex);
+    });
 
     const removeButton = new Button('Remove', 'remove_button', () => {
       currentCarEvent.emit('carWasRemoved', this.carIndex);

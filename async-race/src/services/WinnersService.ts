@@ -32,7 +32,7 @@ class WinnersService {
     return this.getWinnersByPage(this.currentPage, this.limit);
   }
 
-  hasMoreCars(): boolean {
+  hasMoreWinners(): boolean {
     if (this.currentPage < Math.ceil(this.maxCount / 10)) {
       return true;
     }
@@ -40,7 +40,7 @@ class WinnersService {
     return false;
   }
 
-  hasLessCars(): boolean {
+  hasLessWinners(): boolean {
     if (this.currentPage === 1) {
       return false;
     }

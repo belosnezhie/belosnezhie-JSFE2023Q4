@@ -1,5 +1,6 @@
 export class CarEvent {
   listeners: Map<string, ((carIndex?: number) => void)[]>;
+
   constructor() {
     this.listeners = new Map();
   }

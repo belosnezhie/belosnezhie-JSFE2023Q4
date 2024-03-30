@@ -106,7 +106,8 @@ export class GaragePage extends BaseComponent {
       { tag: 'div', className: 'garage_page' },
       header,
       new CreateCarForm(),
-      new UpdateCarForm(garageCars),
+      // new UpdateCarForm(garageCars),
+      new UpdateCarForm(),
       controllersContainer,
       carPage,
     );

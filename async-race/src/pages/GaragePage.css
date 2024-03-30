@@ -66,6 +66,7 @@
     padding: 5px;
     border-radius: 10px;
     border: 1px solid var(--border-color);
+    transition: 0.2s;
 }
 
 .color_input {
@@ -76,6 +77,9 @@
     background-color: var(--button-background-color);
 }
 
+.update_car_form.disabled * {
+    background-color: var(--button-disabled-color);
+}
 
 .garage_controllers_container {
     display: flex;

@@ -3,10 +3,6 @@ import { CarType } from '../services/DataTypes';
 import { BaseComponent } from './Component';
 import { Input } from './Input';
 
-// Этот инпут должен уметь отдавать звое значение форме
-// Можно попробовать написать у него отдельный метод, который будет это делать
-// Или можно этому научить основной инпут
-
 export class CreateCarModelInput extends Input {
   constructor(options: CarType[], listId: string) {
     const dataListOptions: BaseComponent[] = options.map((option) => {
