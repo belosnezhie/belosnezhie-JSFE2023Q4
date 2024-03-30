@@ -14,8 +14,6 @@ export class Car extends BaseComponent {
     );
 
     sprite.classList.add('car_svg');
-    sprite.setAttribute('width', '80');
-    sprite.setAttribute('height', '40');
     sprite.setAttribute('fill', carColor);
     const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 

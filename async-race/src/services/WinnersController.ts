@@ -27,6 +27,18 @@ class WinnersController {
       this.winnersPage.removeElement();
     }
   }
+
+  public hidePage() {
+    if (this.winnersPage instanceof WinnersPage) {
+      this.winnersPage.setAttribute('style', 'display: none');
+    }
+  }
+
+  public showPage() {
+    if (this.winnersPage instanceof WinnersPage) {
+      this.winnersPage.setAttribute('style', 'display: block');
+    }
+  }
 }
 
 export const winnersController = new WinnersController(document.body);

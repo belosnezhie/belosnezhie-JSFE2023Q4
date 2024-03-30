@@ -8,12 +8,16 @@ class StateService {
   //   private currentPage: GaragePage | WinnersPage;
 
   async renderGaragePage() {
-    winnersController.removePage();
     await carsController.renderPage();
   }
 
-  async renderWinnersPage() {
-    carsController.removePage();
+  public showGaragePage() {
+    winnersController.removePage();
+    carsController.showPage();
+  }
+
+  async showWinnersPage() {
+    carsController.hidePage();
     await winnersController.renderPage();
   }
 }

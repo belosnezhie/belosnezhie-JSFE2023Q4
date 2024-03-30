@@ -18,16 +18,16 @@ export class Header extends BaseComponent {
     const garagePageButton = new Button(
       'Garage Page',
       'garage_page_button',
-      async () => {
-        await stateService.renderGaragePage();
+      () => {
+        stateService.showGaragePage();
       },
     );
 
     const winnersPageButton = new Button(
       'Winners Page',
       'winners_page_button',
-      () => {
-        stateService.renderWinnersPage();
+      async () => {
+        await stateService.showWinnersPage();
       },
     );
 

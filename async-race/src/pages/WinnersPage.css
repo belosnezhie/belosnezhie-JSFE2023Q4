@@ -12,3 +12,23 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.table {
+    min-width: 80%;
+    margin: 0 auto;
+    background-color: var(--car-page-background-color);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.thead {
+    background-color: var(--button-background-color);
+}
+
+.th_wins.button,
+.th_time.button {
+    cursor: pointer;
+    border: inherit;
+    border-radius: 0%;
+}
+

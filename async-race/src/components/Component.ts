@@ -92,4 +92,22 @@ export class BaseComponent {
     this.removeChildren();
     this.element.remove();
   }
+
+  reRenderComponent() {
+    const prevElement = this.getElement();
+
+    this.removeElement();
+
+    const newElement = document.createElement(prevElement.tagName);
+
+    newElement.className = prevElement.className;
+    if (prevElement.textContent) {
+      newElement.textContent = prevElement.textContent;
+    }
+    this.element = newElement;
+
+    // if (children) {
+    //   this.appendChildren(children);
+    // }
+  }
 }

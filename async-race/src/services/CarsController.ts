@@ -104,6 +104,24 @@ export class CarsController {
     }
   }
 
+  public reRender() {
+    if (this.garagePage instanceof GaragePage) {
+      this.garagePage.reRenderComponent();
+    }
+  }
+
+  public hidePage() {
+    if (this.garagePage instanceof GaragePage) {
+      this.garagePage.setAttribute('style', 'display: none');
+    }
+  }
+
+  public showPage() {
+    if (this.garagePage instanceof GaragePage) {
+      this.garagePage.setAttribute('style', 'display: flex');
+    }
+  }
+
   private async reRenderGaragePage() {
     if (this.garagePage instanceof GaragePage) {
       this.garagePage.removeElement();
