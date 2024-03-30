@@ -26,7 +26,7 @@ class CarService {
   private maxCount: number = 0;
   private currentPage: number = 1;
   private limit = 7;
-  private abortController = new AbortController();
+  private abortController: AbortController | undefined = undefined;
 
   async getGarageCars(): Promise<GarageCar[]> {
     return this.getGarageCarsByPage(this.currentPage, 7);
@@ -107,6 +107,8 @@ class CarService {
   async isEngineBroken(id: number): Promise<boolean> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
 
+    this.abortController = new AbortController();
+
     try {
       const res = await fetch(url, {
         method: 'PATCH',
@@ -124,7 +126,9 @@ class CarService {
   }
 
   abortRequest() {
-    this.abortController.abort();
+    if (this.abortController instanceof AbortController) {
+      this.abortController.abort();
+    }
   }
 
   hasMoreCars(): boolean {

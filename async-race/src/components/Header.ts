@@ -1,3 +1,5 @@
+import { stateService } from '../services/StateService';
+
 import { Button } from './Button';
 import { BaseComponent } from './Component';
 
@@ -16,13 +18,17 @@ export class Header extends BaseComponent {
     const garagePageButton = new Button(
       'Garage Page',
       'garage_page_button',
-      () => {},
+      async () => {
+        await stateService.renderGaragePage();
+      },
     );
 
     const winnersPageButton = new Button(
       'Winners Page',
       'winners_page_button',
-      () => {},
+      () => {
+        stateService.renderWinnersPage();
+      },
     );
 
     super(

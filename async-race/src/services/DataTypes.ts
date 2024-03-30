@@ -21,3 +21,13 @@ export interface TrafficParam {
   velocity: number;
   distance: number;
 }
+
+export interface Winners {
+  winners: Winner[];
+}
+
+export interface Winner {
+  id: number;
+  wins: number;
+  time: number;
+}

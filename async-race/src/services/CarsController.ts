@@ -98,6 +98,12 @@ export class CarsController {
     }
   }
 
+  public removePage() {
+    if (this.garagePage instanceof GaragePage) {
+      this.garagePage.removeElement();
+    }
+  }
+
   private async reRenderGaragePage() {
     if (this.garagePage instanceof GaragePage) {
       this.garagePage.removeElement();

@@ -170,4 +170,15 @@ export class GaragePage extends BaseComponent {
       this.carPage.brokeCar(carIndex);
     }
   }
+
+  public showWinner(carModel: string, time: string) {
+    const winMessage = new BaseComponent({
+      tag: 'h2',
+      className: 'win_message',
+      text: `${carModel} went first in ${time} seconds!`,
+    });
+
+    winMessage.addClass('appear');
+    this.append(winMessage);
+  }
 }

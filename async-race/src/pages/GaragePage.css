@@ -151,3 +151,29 @@
     bottom: 2px;
     z-index: 0;
 }
+
+.win_message {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    z-index: 30;
+    text-transform: uppercase;
+    color: var(--win-text-color);
+    text-shadow: #C29582 1px 0 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.win_message.appear {
+    opacity: 1;
+    animation: appear ease-in 0.4s;
+}
+
+@keyframes appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
