@@ -1,4 +1,4 @@
-import { Winner } from './DataTypes';
+import { GarageCar, Winner } from './DataTypes';
 
 class WinnersService {
   private maxCount: number = 0;
@@ -17,6 +17,8 @@ class WinnersService {
     this.maxCount = Number(res.headers.get('X-Total-Count'));
     const data: Winner[] = <Winner[]>await res.json();
 
+    // this.winners = data;
+
     return data;
   }
 
@@ -30,6 +32,32 @@ class WinnersService {
     this.currentPage -= 1;
 
     return this.getWinnersByPage(this.currentPage, this.limit);
+  }
+
+  async getGarageData(winners: Winner[]): Promise<GarageCar[]> {
+    const carsId: number[] = winners.map((winner) => {
+      return winner.id;
+    });
+
+    const winnersInGarage: GarageCar[] = await Promise.all(
+      carsId.map(async (id) => {
+        const car = this.getWinnerFromGarage(id);
+
+        return car;
+      }),
+    );
+
+    return winnersInGarage;
+  }
+
+  async getWinnerFromGarage(id: number): Promise<GarageCar> {
+    const url = `http://127.0.0.1:3000/garage?id=${id}`;
+
+    const res = await fetch(url);
+
+    const cars: GarageCar[] = <GarageCar[]>await res.json();
+
+    return cars[0];
   }
 
   hasMoreWinners(): boolean {

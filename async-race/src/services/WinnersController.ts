@@ -1,6 +1,6 @@
 import { WinnersPage } from '../pages/WinnersPage';
 
-import { Winner } from './DataTypes';
+import { GarageCar, Winner } from './DataTypes';
 import { winnersService } from './WinnersService';
 
 class WinnersController {
@@ -14,6 +14,7 @@ class WinnersController {
 
   public async renderPage(): Promise<void> {
     const winners: Winner[] = await winnersService.getWinners();
+    const garageData: GarageCar[] = await winnersService.getGarageData(winners);
     const hasMoreWinners: boolean = winnersService.hasMoreWinners();
     const hasLessWinners: boolean = winnersService.hasLessWinners();
     const winnersCount: number = winnersService.shareMaxCount();
@@ -21,6 +22,7 @@ class WinnersController {
 
     this.winnersPage = new WinnersPage(
       winners,
+      garageData,
       hasMoreWinners,
       hasLessWinners,
       winnersCount,
@@ -50,23 +52,37 @@ class WinnersController {
 
   public async loadNextWinners(): Promise<void> {
     const winners = await winnersService.getNextWinners();
+    const garageData: GarageCar[] = await winnersService.getGarageData(winners);
     const hasMoreWinners: boolean = winnersService.hasMoreWinners();
     const hasLessWinners: boolean = winnersService.hasLessWinners();
     const page: number = winnersService.shareCurrentPage();
 
     if (this.winnersPage instanceof WinnersPage) {
-      this.winnersPage.reRender(winners, hasMoreWinners, hasLessWinners, page);
+      this.winnersPage.reRender(
+        winners,
+        garageData,
+        hasMoreWinners,
+        hasLessWinners,
+        page,
+      );
     }
   }
 
   public async loadPrevWinners(): Promise<void> {
     const winners = await winnersService.getPrevWinners();
+    const garageData: GarageCar[] = await winnersService.getGarageData(winners);
     const hasMoreWinners: boolean = winnersService.hasMoreWinners();
     const hasLessWinners: boolean = winnersService.hasLessWinners();
     const page: number = winnersService.shareCurrentPage();
 
     if (this.winnersPage instanceof WinnersPage) {
-      this.winnersPage.reRender(winners, hasMoreWinners, hasLessWinners, page);
+      this.winnersPage.reRender(
+        winners,
+        garageData,
+        hasMoreWinners,
+        hasLessWinners,
+        page,
+      );
     }
   }
 }

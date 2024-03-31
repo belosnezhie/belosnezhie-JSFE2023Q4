@@ -54,9 +54,6 @@ export class CreateCarForm extends Form {
       });
 
       currentCarEvent.emit('carWasCreated');
-
-      // как показать в консоли что пришел успешный ответ?
-      // const result: GarageCar[] = <GarageCar[]>await res.json();
     });
   }
 }

@@ -4,7 +4,7 @@ import { Button } from '../components/Button';
 import { BaseComponent } from '../components/Component';
 import { Header } from '../components/Header';
 import { Table } from '../components/Table';
-import { Winner } from '../services/DataTypes';
+import { GarageCar, Winner } from '../services/DataTypes';
 import { winnersController } from '../services/WinnersController';
 
 export class WinnersPage extends BaseComponent {
@@ -15,13 +15,14 @@ export class WinnersPage extends BaseComponent {
 
   constructor(
     winners: Winner[],
+    garageData: GarageCar[],
     hasMoreWinners: boolean,
     hasLessWinners: boolean,
     winnersCount: number,
     pageNumber: number,
   ) {
     const header = new Header('winners', 'Winners page');
-    const winTable = new Table(winners);
+    const winTable = new Table(winners, garageData);
 
     const winnersCountTitle = new BaseComponent({
       tag: 'h2',
@@ -78,13 +79,14 @@ export class WinnersPage extends BaseComponent {
 
   public reRender(
     winners: Winner[],
+    garageData: GarageCar[],
     hasMoreWinners: boolean,
     hasLessWinners: boolean,
     pageNumber: number,
   ): void {
     this.winTable.removeElement();
 
-    this.winTable = new Table(winners);
+    this.winTable = new Table(winners, garageData);
 
     this.nextButton.removeClass('disabled');
     this.prevButton.removeClass('disabled');

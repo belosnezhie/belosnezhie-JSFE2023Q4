@@ -161,7 +161,7 @@ class CarService {
 
   async updateWinner(winner: Winner, currentTime: number) {
     const id = winner.id;
-    const wins = winner.wins;
+    const wins = winner.wins + 1;
     const prevTime = winner.time;
 
     let winTime = 0;
