@@ -16,6 +16,10 @@ export class CarsController {
       await this.reRenderGaragePage();
     });
 
+    currentCarEvent.subscribeAsync('carWasUpdated', async () => {
+      await this.reRenderGaragePage();
+    });
+
     currentCarEvent.subscribeAsync('carWasRemoved', async (carIndex) => {
       if (typeof carIndex === 'number') {
         await carService.removeCar(carIndex);
@@ -79,6 +83,19 @@ export class CarsController {
     //   }
     //   const brokeParam = await carService.startEngine(carIndex);
     // });
+
+    currentCarEvent.subscribe('carWasSelected', async (carId) => {
+      if (typeof carId !== 'number') {
+        throw new Error('Index is not defind');
+      }
+      if (!this.garagePage) {
+        throw new Error('GaragePage is not defind');
+      }
+
+      const car = await carService.getCar(carId);
+
+      this.garagePage.updateCar(car);
+    });
   }
 
   public async renderPage(): Promise<void> {

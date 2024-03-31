@@ -18,6 +18,7 @@ export class GaragePage extends BaseComponent {
   private resetButton: Button;
   private pageCount: BaseComponent;
   private winMessage: BaseComponent | undefined = undefined;
+  private updateCarForm: UpdateCarForm;
 
   constructor(
     garageCars: GarageCar[],
@@ -104,16 +105,19 @@ export class GaragePage extends BaseComponent {
 
     const carPage = new CarsPage(garageCars);
 
+    const updateCarForm = new UpdateCarForm();
+
     super(
       { tag: 'div', className: 'garage_page' },
       header,
       new CreateCarForm(),
       // new UpdateCarForm(garageCars),
-      new UpdateCarForm(),
+      updateCarForm,
       controllersContainer,
       carPage,
     );
 
+    this.updateCarForm = updateCarForm;
     this.carPage = carPage;
     this.nextButton = nextButton;
     this.prevButton = prevButton;
@@ -190,5 +194,9 @@ export class GaragePage extends BaseComponent {
     winMessage.addClass('appear');
     this.winMessage = winMessage;
     this.append(winMessage);
+  }
+
+  public updateCar(car: GarageCar) {
+    this.updateCarForm.updateCar(car);
   }
 }

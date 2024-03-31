@@ -110,8 +110,21 @@ export class Table extends BaseComponent {
     );
 
     const winnerFields = winners.map((winner, index) => {
-      const color = garageData[index].color;
-      const model = garageData[index].name;
+      let color: string;
+
+      if (garageData[index] !== undefined) {
+        color = garageData[index].color;
+      } else {
+        color = '';
+      }
+
+      let model: string;
+
+      if (garageData[index] !== undefined) {
+        model = garageData[index].name;
+      } else {
+        model = '';
+      }
 
       return new WinnerCar(
         index + 1,
