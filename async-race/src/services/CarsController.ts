@@ -1,6 +1,7 @@
 import { GaragePage } from '../pages/GaragePage';
 
 import { carService } from './CarService';
+import { GarageCar, TrafficParam, Winner } from './DataTypes';
 import { currentCarEvent } from './EventEmitter';
 
 export class CarsController {
@@ -31,11 +32,12 @@ export class CarsController {
         throw new Error('GaragePage is not defind');
       }
 
-      const driveParam = await carService.startEngine(carIndex);
+      const driveParam: TrafficParam = await carService.startEngine(carIndex);
+      const time: number = driveParam.distance / driveParam.velocity;
 
       this.garagePage.driveCar(driveParam, carIndex);
 
-      const isBroken = await carService.isEngineBroken(carIndex);
+      const isBroken = await carService.isEngineBroken(carIndex, time);
 
       if (isBroken) {
         this.garagePage.brokeCar(carIndex);
@@ -48,6 +50,27 @@ export class CarsController {
       }
       carService.abortRequest();
       await carService.stopEngine(carIndex);
+    });
+
+    currentCarEvent.subscribe('startRace', () => {
+      return carService.startRace();
+    });
+
+    currentCarEvent.subscribe('winnerWasDifined', async (carId) => {
+      if (typeof carId !== 'number') {
+        throw new Error('Index is not defind');
+      }
+      if (!this.garagePage) {
+        throw new Error('GaragePage is not defind');
+      }
+
+      const car: GarageCar = await carService.getCar(carId);
+      const model: string = car.name;
+
+      const winner: Winner = await carService.getWinner(carId);
+      const time: number = winner.time;
+
+      this.garagePage?.showWinner(model, time);
     });
 
     // currentCarEvent.subscribeAsync('carIsDriving', async (carIndex) => {

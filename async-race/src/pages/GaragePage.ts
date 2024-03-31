@@ -17,6 +17,7 @@ export class GaragePage extends BaseComponent {
   private raseButton: Button;
   private resetButton: Button;
   private pageCount: BaseComponent;
+  private winMessage: BaseComponent | undefined = undefined;
 
   constructor(
     garageCars: GarageCar[],
@@ -51,6 +52,7 @@ export class GaragePage extends BaseComponent {
     );
     const raceButton = new Button('Rase', 'rase_button', () => {
       this.raseButton.addClass('disabled');
+      currentCarEvent.emit('startRace');
 
       const currentCarsID = this.carPage.getAllCarsID();
 
@@ -134,6 +136,12 @@ export class GaragePage extends BaseComponent {
     controllersContainer.append(pageWidgets);
 
     this.resetButton.addClass('disabled');
+
+    this.addListener('click', () => {
+      if (this.winMessage) {
+        this.winMessage.removeElement();
+      }
+    });
   }
 
   public reRender(
@@ -172,14 +180,15 @@ export class GaragePage extends BaseComponent {
     }
   }
 
-  public showWinner(carModel: string, time: string) {
+  public showWinner(carModel: string, time: number) {
     const winMessage = new BaseComponent({
       tag: 'h2',
       className: 'win_message',
-      text: `${carModel} went first in ${time} seconds!`,
+      text: `${carModel} went first in ${(time / 1000).toFixed(3)} seconds!`,
     });
 
     winMessage.addClass('appear');
+    this.winMessage = winMessage;
     this.append(winMessage);
   }
 }

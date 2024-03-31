@@ -1,17 +1,17 @@
 export class CarEvent {
-  listeners: Map<string, ((carIndex?: number) => void)[]>;
+  listeners: Map<string, ((carId?: number) => void)[]>;
 
   constructor() {
     this.listeners = new Map();
   }
 
-  public emit(eventName: string, carIndex?: number): void {
+  public emit(eventName: string, carId?: number): void {
     const current = this.listeners.get(eventName);
 
     if (current !== undefined) {
       current.forEach((listener) => {
-        if (carIndex) {
-          listener.call(null, carIndex);
+        if (carId) {
+          listener.call(null, carId);
         } else {
           listener.call(null);
         }
@@ -19,11 +19,11 @@ export class CarEvent {
     }
   }
 
-  public subscribe(eventName: string, func: (carIndex?: number) => void): void {
+  public subscribe(eventName: string, func: (carId?: number) => void): void {
     const current = this.listeners.get(eventName);
 
     if (current === undefined) {
-      const arr: ((carIndex?: number) => void)[] = [];
+      const arr: ((carId?: number) => void)[] = [];
 
       arr.push(func);
       this.listeners.set(eventName, arr);
@@ -35,12 +35,12 @@ export class CarEvent {
 
   public subscribeAsync(
     eventName: string,
-    func: (carIndex?: number) => Promise<void>,
+    func: (carId?: number) => Promise<void>,
   ): void {
     const current = this.listeners.get(eventName);
 
     if (current === undefined) {
-      const arr: ((carIndex?: number) => void)[] = [];
+      const arr: ((carId?: number) => void)[] = [];
 
       arr.push(func);
       this.listeners.set(eventName, arr);
@@ -50,7 +50,7 @@ export class CarEvent {
     }
   }
 
-  public unsubscribe(eventName: string, func: (carIndex?: number) => void) {
+  public unsubscribe(eventName: string, func: (carId?: number) => void) {
     const current = this.listeners.get(eventName);
 
     if (current !== undefined) {

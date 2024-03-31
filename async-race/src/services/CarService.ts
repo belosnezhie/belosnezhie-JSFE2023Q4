@@ -1,10 +1,12 @@
-import { GarageCar, TrafficParam } from './DataTypes';
+import { GarageCar, TrafficParam, Winner } from './DataTypes';
+import { currentCarEvent } from './EventEmitter';
 
 class CarService {
   private maxCount: number = 0;
   private currentPage: number = 1;
   private limit = 7;
   private abortController: AbortController | undefined = undefined;
+  private winner: number | undefined = 0;
 
   async getGarageCars(): Promise<GarageCar[]> {
     return this.getGarageCarsByPage(this.currentPage, 7);
@@ -31,6 +33,16 @@ class CarService {
     this.currentPage -= 1;
 
     return this.getGarageCarsByPage(this.currentPage, this.limit);
+  }
+
+  async getCar(carId: number): Promise<GarageCar> {
+    const url = `http://127.0.0.1:3000/garage?id=${carId}`;
+
+    const res = await fetch(url);
+
+    const cars: GarageCar[] = <GarageCar[]>await res.json();
+
+    return cars[0];
   }
 
   async removeCar(carId: number) {
@@ -82,7 +94,7 @@ class CarService {
     });
   }
 
-  async isEngineBroken(id: number): Promise<boolean> {
+  async isEngineBroken(id: number, time: number): Promise<boolean> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
 
     this.abortController = new AbortController();
@@ -97,9 +109,84 @@ class CarService {
         return true;
       }
 
+      if (this.winner === undefined) {
+        this.winner = id;
+
+        const currentWinner: Winner = await this.getWinner(id);
+
+        if (Object.keys(currentWinner).length === 0) {
+          await this.createWinner(id, time);
+        } else {
+          await this.updateWinner(currentWinner, time);
+        }
+
+        currentCarEvent.emit('winnerWasDifined', id);
+      }
+
       return false;
     } catch (error) {
       return true;
+    }
+  }
+
+  async getWinner(id: number): Promise<Winner> {
+    const url = `http://127.0.0.1:3000/winners?id=${id}`;
+
+    const res = await fetch(url);
+
+    const data: Winner[] = <Winner[]>await res.json();
+
+    return data[0];
+  }
+
+  async createWinner(id: number, time: number) {
+    const data = {
+      id: id,
+      wins: 1,
+      time: time,
+    };
+
+    const res = await fetch('http://127.0.0.1:3000/winners', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok && res.status === 201) {
+      console.log('Winner was created');
+    }
+  }
+
+  async updateWinner(winner: Winner, currentTime: number) {
+    const id = winner.id;
+    const wins = winner.wins;
+    const prevTime = winner.time;
+
+    let winTime = 0;
+
+    if (prevTime >= currentTime) {
+      winTime = currentTime;
+    } else {
+      winTime = prevTime;
+    }
+
+    const data = {
+      wins: wins,
+      time: winTime,
+    };
+
+    const res = await fetch(`http://127.0.0.1:3000/winners/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (res.ok && res.status === 200) {
+      console.log('Winner was updated');
     }
   }
 
@@ -131,6 +218,10 @@ class CarService {
 
   shareCurrentPage(): number {
     return this.currentPage;
+  }
+
+  startRace(): void {
+    this.winner = undefined;
   }
 }
 
