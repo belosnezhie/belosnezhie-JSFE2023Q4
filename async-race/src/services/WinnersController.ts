@@ -73,6 +73,7 @@ class WinnersController {
 
     currentCarEvent.subscribeAsync('winnerWasDifined', async () => {
       await this.reRenderWinnersPage();
+      stateService.showGaragePage();
     });
 
     currentCarEvent.subscribeAsync('winnerWasRemoved', async () => {

@@ -59,19 +59,17 @@ export class Car extends BaseComponent {
 
   public broke() {
     window.cancelAnimationFrame(this.cancelAnimationID);
-    console.log('Car is broken!');
   }
 
   public stop() {
     window.cancelAnimationFrame(this.cancelAnimationID);
     this.getElement().style.transform = 'translateX(0px)';
-    console.log('Car was stopped!');
   }
 
   private animate(
     timeStamp: number,
     start: number,
-    previousTimeStamp: number,
+    prevTimeStamp: number,
     velocity: number,
     distance: number,
     duration: number,
@@ -80,24 +78,26 @@ export class Car extends BaseComponent {
     if (start === undefined) {
       start = timeStamp;
     }
-    const elapsed = timeStamp - start;
+    const passedTime = timeStamp - start;
 
-    if (previousTimeStamp !== timeStamp) {
-      const count = Math.min(velocity * elapsed, distance);
+    if (prevTimeStamp !== timeStamp) {
+      const count = Math.min(velocity * passedTime, distance);
 
       this.getElement().style.transform = `translateX(${count}px)`;
-      if (count === distance) done = true;
+      if (count === distance) {
+        done = true;
+      }
     }
 
-    if (elapsed < duration) {
-      previousTimeStamp = timeStamp;
+    if (passedTime < duration) {
+      prevTimeStamp = timeStamp;
       if (!done) {
         this.cancelAnimationID = window.requestAnimationFrame(
           (timestamp: number) =>
             this.animate(
               timestamp,
               start,
-              previousTimeStamp,
+              prevTimeStamp,
               velocity,
               distance,
               duration,

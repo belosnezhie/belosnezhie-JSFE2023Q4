@@ -29,7 +29,6 @@ export class GaragePage extends BaseComponent {
   ) {
     const header = new Header('garage', 'Garage page');
 
-    // создала все контейнеры
     const controllersContainer = new BaseComponent({
       tag: 'div',
       className: 'garage_controllers_container',
@@ -45,7 +44,6 @@ export class GaragePage extends BaseComponent {
       className: 'page_widgets_container',
     });
 
-    // создала все кнопки
     const generateCarsButton = new Button(
       'Generate cars',
       'generate_cars',
@@ -96,7 +94,6 @@ export class GaragePage extends BaseComponent {
       text: `Current page: ${pageNumber}`,
     });
 
-    // контроль кнопок страницы
     if (!hasMoreCars) {
       nextButton.addClass('disabled');
     }
@@ -113,7 +110,6 @@ export class GaragePage extends BaseComponent {
       { tag: 'div', className: 'garage_page' },
       header,
       new CreateCarForm(),
-      // new UpdateCarForm(garageCars),
       updateCarForm,
       controllersContainer,
       carPage,
@@ -127,7 +123,6 @@ export class GaragePage extends BaseComponent {
     this.resetButton = resetButton;
     this.pageCount = pageCount;
 
-    // присоединяю кнопки к контейнерам
     carsWidgets.append(carsCount);
     carsWidgets.append(raceButton);
     carsWidgets.append(resetButton);
@@ -137,7 +132,6 @@ export class GaragePage extends BaseComponent {
     pageWidgets.append(this.prevButton);
     pageWidgets.append(this.nextButton);
 
-    // присоединяю виджеты к контейнеру
     controllersContainer.append(carsWidgets);
     controllersContainer.append(pageWidgets);
 

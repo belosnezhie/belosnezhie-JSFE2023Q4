@@ -77,6 +77,10 @@
     background-color: var(--button-background-color);
 }
 
+.submit-input:hover {
+    background-color: var(--button-hover-color);
+}
+
 .update_car_form.disabled * {
     background-color: var(--button-disabled-color);
 }
