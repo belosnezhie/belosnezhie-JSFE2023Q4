@@ -27,6 +27,8 @@ export class CarsController {
       }
 
       await this.reRenderGaragePage();
+
+      currentCarEvent.emit('winnerWasRemoved');
     });
 
     currentCarEvent.subscribeAsync('carWasStarted', async (carIndex) => {
@@ -75,7 +77,7 @@ export class CarsController {
       const winner: Winner = await carService.getWinner(carId);
       const time: number = winner.time;
 
-      this.garagePage?.showWinner(model, time);
+      this.garagePage.showWinner(model, time);
     });
 
     currentCarEvent.subscribe('carWasSelected', async (carId) => {
@@ -106,7 +108,7 @@ export class CarsController {
     });
   }
 
-  public async renderPage(): Promise<void> {
+  public async renderPage(): Promise<GaragePage> {
     const cars = await carService.getGarageCars();
     const hasMoreCars: boolean = carService.hasMoreCars();
     const hasLessCars: boolean = carService.hasLessCars();
@@ -122,6 +124,8 @@ export class CarsController {
     );
 
     this.root.append(this.garagePage.getElement());
+
+    return this.garagePage;
   }
 
   public async loadNextCars(): Promise<void> {

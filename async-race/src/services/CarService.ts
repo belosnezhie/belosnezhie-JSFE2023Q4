@@ -70,25 +70,20 @@ class CarService {
       if (!res.ok && res.status === 404) {
         console.log(`${res.status}: ${res.statusText}`);
       }
+
+      try {
+        await this.getWinner(carId);
+
+        await this.removeWinner(carId);
+      } catch (error) {}
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message);
       }
     }
-    // const res = await fetch(url, {
-    //   method: 'DELETE',
-    // });
-
-    // const result = res.ok;
-
-    // if (result) {
-    //   console.log(`${res.status}: ${res.ok}`);
-    // } else {
-    //   console.log(`${res.status}: ${res.statusText}`);
-    // }
   }
 
-  async startEngine(id: number): Promise<TrafficParam> {
+  public async startEngine(id: number): Promise<TrafficParam> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=started`;
 
     const res = await fetch(url, {
@@ -100,7 +95,7 @@ class CarService {
     return data;
   }
 
-  async stopEngine(id: number): Promise<void> {
+  public async stopEngine(id: number): Promise<void> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=stopped`;
 
     await fetch(url, {
@@ -108,7 +103,7 @@ class CarService {
     });
   }
 
-  async isEngineBroken(id: number, time: number): Promise<boolean> {
+  public async isEngineBroken(id: number, time: number): Promise<boolean> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
 
     this.abortController = new AbortController();
@@ -120,6 +115,8 @@ class CarService {
       });
 
       if (!res.ok && res.status === 500) {
+        console.log(`${id} car was suddenly broken!`);
+
         return true;
       }
 
@@ -143,7 +140,7 @@ class CarService {
     }
   }
 
-  async getWinner(id: number): Promise<Winner> {
+  public async getWinner(id: number): Promise<Winner> {
     const url = `http://127.0.0.1:3000/winners?id=${id}`;
 
     const res = await fetch(url);
@@ -157,7 +154,7 @@ class CarService {
     return data[0];
   }
 
-  async createWinner(id: number, time: number) {
+  public async createWinner(id: number, time: number) {
     const data = {
       id: id,
       wins: 1,
@@ -177,22 +174,40 @@ class CarService {
     }
   }
 
-  async updateWinner(winner: Winner, currentTime: number) {
+  async removeWinner(carId: number) {
+    const url = `http://127.0.0.1:3000/winners/${carId}`;
+
+    try {
+      const res = await fetch(url, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok && res.status === 404) {
+        console.log(`${res.status}: ${res.statusText}`);
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new Error(error.message);
+      }
+    }
+  }
+
+  public async updateWinner(winner: Winner, currentTime: number) {
     const id = winner.id;
     const wins = winner.wins + 1;
     const prevTime = winner.time;
 
-    let winTime = 0;
+    let bestTime = 0;
 
     if (prevTime >= currentTime) {
-      winTime = currentTime;
+      bestTime = currentTime;
     } else {
-      winTime = prevTime;
+      bestTime = prevTime;
     }
 
     const data = {
       wins: wins,
-      time: winTime,
+      time: bestTime,
     };
 
     const res = await fetch(`http://127.0.0.1:3000/winners/${id}`, {
@@ -208,13 +223,13 @@ class CarService {
     }
   }
 
-  abortRequest() {
+  public abortRequest() {
     if (this.abortController instanceof AbortController) {
       this.abortController.abort();
     }
   }
 
-  hasMoreCars(): boolean {
+  public hasMoreCars(): boolean {
     if (this.currentPage < Math.ceil(this.maxCount / 7)) {
       return true;
     }
@@ -222,7 +237,7 @@ class CarService {
     return false;
   }
 
-  hasLessCars(): boolean {
+  public hasLessCars(): boolean {
     if (this.currentPage === 1) {
       return false;
     }
@@ -230,15 +245,15 @@ class CarService {
     return true;
   }
 
-  shareMaxCount(): number {
+  public shareMaxCount(): number {
     return this.maxCount;
   }
 
-  shareCurrentPage(): number {
+  public shareCurrentPage(): number {
     return this.currentPage;
   }
 
-  startRace(): void {
+  public startRace(): void {
     this.winner = undefined;
   }
 }

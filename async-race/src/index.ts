@@ -3,7 +3,7 @@ import { stateService } from './services/StateService';
 
 class App {
   async render() {
-    await stateService.renderGaragePage();
+    await stateService.renderApp();
   }
 }
 

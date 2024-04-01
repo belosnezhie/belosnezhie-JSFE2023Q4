@@ -2,6 +2,7 @@ import { WinnersPage } from '../pages/WinnersPage';
 
 import { GarageCar, Winner } from './DataTypes';
 import { currentCarEvent } from './EventEmitter';
+import { stateService } from './StateService';
 import { winnersService } from './WinnersService';
 
 class WinnersController {
@@ -69,9 +70,18 @@ class WinnersController {
         this.sortByTimeOrder = 'ASC';
       }
     });
+
+    currentCarEvent.subscribeAsync('winnerWasDifined', async () => {
+      await this.reRenderWinnersPage();
+    });
+
+    currentCarEvent.subscribeAsync('winnerWasRemoved', async () => {
+      await this.reRenderWinnersPage();
+      stateService.showGaragePage();
+    });
   }
 
-  public async renderPage(): Promise<void> {
+  public async renderPage(): Promise<WinnersPage> {
     const winners: Winner[] = await winnersService.getWinners();
     const garageData: GarageCar[] = await winnersService.getGarageData(winners);
     const hasMoreWinners: boolean = winnersService.hasMoreWinners();
@@ -89,6 +99,8 @@ class WinnersController {
     );
 
     this.root.append(this.winnersPage.getElement());
+
+    return this.winnersPage;
   }
 
   public removePage() {
@@ -105,8 +117,15 @@ class WinnersController {
 
   public showPage() {
     if (this.winnersPage instanceof WinnersPage) {
-      this.winnersPage.setAttribute('style', 'display: block');
+      this.winnersPage.setAttribute('style', 'display: flex');
     }
+  }
+
+  private async reRenderWinnersPage() {
+    if (this.winnersPage instanceof WinnersPage) {
+      this.winnersPage.removeElement();
+    }
+    await this.renderPage();
   }
 
   public async loadNextWinners(): Promise<void> {

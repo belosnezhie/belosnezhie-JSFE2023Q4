@@ -14,7 +14,7 @@ export class GaragePage extends BaseComponent {
   private carPage: CarsPage;
   private nextButton: Button;
   private prevButton: Button;
-  private raseButton: Button;
+  private raceButton: Button;
   private resetButton: Button;
   private pageCount: BaseComponent;
   private winMessage: BaseComponent | undefined = undefined;
@@ -53,8 +53,8 @@ export class GaragePage extends BaseComponent {
         currentCarEvent.emit('generateCars');
       },
     );
-    const raceButton = new Button('Rase', 'rase_button', () => {
-      this.raseButton.addClass('disabled');
+    const raceButton = new Button('Race', 'race_button', () => {
+      this.raceButton.addClass('disabled');
       currentCarEvent.emit('startRace');
 
       const currentCarsID = this.carPage.getAllCarsID();
@@ -75,7 +75,7 @@ export class GaragePage extends BaseComponent {
         this.carPage.stopCars();
       });
 
-      this.raseButton.removeClass('disabled');
+      this.raceButton.removeClass('disabled');
     });
 
     const carsCount = new BaseComponent({
@@ -123,7 +123,7 @@ export class GaragePage extends BaseComponent {
     this.carPage = carPage;
     this.nextButton = nextButton;
     this.prevButton = prevButton;
-    this.raseButton = raceButton;
+    this.raceButton = raceButton;
     this.resetButton = resetButton;
     this.pageCount = pageCount;
 
@@ -190,7 +190,7 @@ export class GaragePage extends BaseComponent {
     const winMessage = new BaseComponent({
       tag: 'h2',
       className: 'win_message',
-      text: `${carModel} went first in ${time.toFixed(3)} seconds!`,
+      text: `${carModel} went first in ${(time / 1000).toFixed(3)} seconds!`,
     });
 
     winMessage.addClass('appear');

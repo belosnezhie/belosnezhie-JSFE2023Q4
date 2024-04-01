@@ -62,7 +62,7 @@ class WinnerCar extends BaseComponent {
     const time = new BaseComponent({
       tag: 'td',
       className: 'td',
-      text: winTime.toFixed(3),
+      text: (winTime / 1000).toFixed(3),
     });
 
     super(

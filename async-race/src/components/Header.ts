@@ -26,8 +26,8 @@ export class Header extends BaseComponent {
     const winnersPageButton = new Button(
       'Winners Page',
       'winners_page_button',
-      async () => {
-        await stateService.showWinnersPage();
+      () => {
+        stateService.showWinnersPage();
       },
     );
 

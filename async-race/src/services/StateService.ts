@@ -1,24 +1,28 @@
-// import { GaragePage } from '../pages/GaragePage';
-// import { WinnersPage } from '../pages/WinnersPage';
+import { GaragePage } from '../pages/GaragePage';
+import { WinnersPage } from '../pages/WinnersPage';
 
 import { carsController } from './CarsController';
 import { winnersController } from './WinnersController';
 
 class StateService {
-  //   private currentPage: GaragePage | WinnersPage;
+  private garagePage: GaragePage | undefined = undefined;
+  private winnersPage: WinnersPage | undefined = undefined;
 
-  async renderGaragePage() {
-    await carsController.renderPage();
+  async renderApp() {
+    this.garagePage = await carsController.renderPage();
+    this.winnersPage = await winnersController.renderPage();
+
+    this.showGaragePage();
   }
 
   public showGaragePage() {
-    winnersController.removePage();
+    winnersController.hidePage();
     carsController.showPage();
   }
 
-  async showWinnersPage() {
+  public showWinnersPage() {
     carsController.hidePage();
-    await winnersController.renderPage();
+    winnersController.showPage();
   }
 }
 
