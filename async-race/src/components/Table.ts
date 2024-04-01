@@ -1,4 +1,5 @@
 import { GarageCar, Winner } from '../services/DataTypes';
+import { currentCarEvent } from '../services/EventEmitter';
 
 import { Car } from './Car';
 import { BaseComponent } from './Component';
@@ -79,12 +80,19 @@ class WinnerCar extends BaseComponent {
 }
 
 export class Table extends BaseComponent {
+  private sortWinsButton: Th;
+  private sortTimeButton: Th;
+
   constructor(winners: Winner[], garageData: GarageCar[]) {
     const winNumber = new Th('#', 'th_number');
     const winCarImage = new Th('Car', 'th_image');
     const winCarName = new Th('Model', 'th_name');
-    const winAmmount = new Th('Wins', 'th_wins', () => {});
-    const winTime = new Th('Time', 'th_time', () => {});
+    const winAmmount = new Th('Wins', 'th_wins', () => {
+      currentCarEvent.emit('sortWinnersByWins');
+    });
+    const winTime = new Th('Time', 'th_time', () => {
+      currentCarEvent.emit('sortWinnersByTime');
+    });
 
     winAmmount.addClass('button');
     winTime.addClass('button');
@@ -144,5 +152,28 @@ export class Table extends BaseComponent {
       tableHeaders,
       ...winnerFields,
     );
+
+    this.sortWinsButton = winAmmount;
+    this.sortTimeButton = winTime;
+  }
+
+  public showWinsSort(sortByWinsOrder: string) {
+    this.sortWinsButton.addClass('sort_wins');
+
+    if (sortByWinsOrder === 'ASC') {
+      this.sortWinsButton.removeClass('up');
+    } else {
+      this.sortWinsButton.addClass('up');
+    }
+  }
+
+  public showTimeSort(sortByTimeOrder: string) {
+    this.sortTimeButton.addClass('sort_wins');
+
+    if (sortByTimeOrder === 'ASC') {
+      this.sortTimeButton.removeClass('up');
+    } else {
+      this.sortTimeButton.addClass('up');
+    }
   }
 }

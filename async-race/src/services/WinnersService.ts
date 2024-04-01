@@ -60,6 +60,18 @@ class WinnersService {
     return cars[0];
   }
 
+  async sortWinners(sortOrder: string, direction: string): Promise<Winner[]> {
+    // const url = `http://127.0.0.1:3000/winners?_page=${this.currentPage}&_limit=${this.limit}&_sort${sortOrder}&_order=${direction}`;
+    const url = `http://127.0.0.1:3000/winners?_sort=${sortOrder}&_order=${direction}`;
+
+    const res = await fetch(url);
+
+    this.maxCount = Number(res.headers.get('X-Total-Count'));
+    const data: Winner[] = <Winner[]>await res.json();
+
+    return data;
+  }
+
   hasMoreWinners(): boolean {
     if (this.currentPage < Math.ceil(this.maxCount / 10)) {
       return true;

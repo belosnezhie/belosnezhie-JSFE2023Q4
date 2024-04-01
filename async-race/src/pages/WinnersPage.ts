@@ -101,4 +101,25 @@ export class WinnersPage extends BaseComponent {
 
     this.append(this.winTable);
   }
+
+  public reRenderTable(
+    sortedWinners: Winner[],
+    garageData: GarageCar[],
+    sortValue: string,
+    sortByWinsOrder: string,
+  ) {
+    this.winTable.removeElement();
+
+    const newSortedTable = new Table(sortedWinners, garageData);
+
+    this.winTable = newSortedTable;
+
+    if (sortValue === 'wins') {
+      this.winTable.showWinsSort(sortByWinsOrder);
+    } else {
+      this.winTable.showTimeSort(sortByWinsOrder);
+    }
+
+    this.append(newSortedTable);
+  }
 }
