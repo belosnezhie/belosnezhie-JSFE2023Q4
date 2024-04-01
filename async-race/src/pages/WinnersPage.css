@@ -35,26 +35,10 @@
 
 .th_wins.button,
 .th_time.button {
-
     position: relative;
 }
 
-/* .th_wins::before,
-.th_time::before {
-    display: block;
-    content: '';
-    width: 20px;
-    height: 40px;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    background-image: url('../assets/arrow.png');
-    background-position: center center;
-    background-size: contain;
-    background-repeat: no-repeat;
-} */
-
-.sort_wins::before {
+.sort::before {
     display: block;
     content: '';
     width: 20px;
@@ -68,6 +52,6 @@
     background-repeat: no-repeat;
 }
 
-.sort_wins.up::before {
+.sort.up::before {
     transform: rotate(180deg);
 }

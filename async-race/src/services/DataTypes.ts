@@ -31,3 +31,8 @@ export interface Winner {
   wins: number;
   time: number;
 }
+
+export interface CreateCarData {
+  name: string;
+  color: string;
+}

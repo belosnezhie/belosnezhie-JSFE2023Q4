@@ -1,4 +1,4 @@
-import { GarageCar, TrafficParam, Winner } from './DataTypes';
+import { CreateCarData, GarageCar, TrafficParam, Winner } from './DataTypes';
 import { currentCarEvent } from './EventEmitter';
 
 class CarService {
@@ -43,6 +43,20 @@ class CarService {
     const cars: GarageCar[] = <GarageCar[]>await res.json();
 
     return cars[0];
+  }
+
+  async createCar(carData: CreateCarData) {
+    try {
+      await fetch('http://127.0.0.1:3000/garage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(carData),
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async removeCar(carId: number) {

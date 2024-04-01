@@ -49,7 +49,9 @@ export class GaragePage extends BaseComponent {
     const generateCarsButton = new Button(
       'Generate cars',
       'generate_cars',
-      () => {},
+      () => {
+        currentCarEvent.emit('generateCars');
+      },
     );
     const raceButton = new Button('Rase', 'rase_button', () => {
       this.raseButton.addClass('disabled');

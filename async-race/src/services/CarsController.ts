@@ -1,7 +1,8 @@
 import { GaragePage } from '../pages/GaragePage';
 
+import { createRandomCarData } from './CarGeneratorService';
 import { carService } from './CarService';
-import { GarageCar, TrafficParam, Winner } from './DataTypes';
+import { CreateCarData, GarageCar, TrafficParam, Winner } from './DataTypes';
 import { currentCarEvent } from './EventEmitter';
 
 export class CarsController {
@@ -95,6 +96,20 @@ export class CarsController {
       const car = await carService.getCar(carId);
 
       this.garagePage.updateCar(car);
+    });
+
+    currentCarEvent.subscribeAsync('generateCars', async () => {
+      let counter: number = 100;
+
+      while (counter > 0) {
+        const carData: CreateCarData = createRandomCarData();
+
+        await carService.createCar(carData);
+
+        counter -= 1;
+      }
+
+      await this.reRenderGaragePage();
     });
   }
 

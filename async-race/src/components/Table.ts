@@ -158,7 +158,7 @@ export class Table extends BaseComponent {
   }
 
   public showWinsSort(sortByWinsOrder: string) {
-    this.sortWinsButton.addClass('sort_wins');
+    this.sortWinsButton.addClass('sort');
 
     if (sortByWinsOrder === 'ASC') {
       this.sortWinsButton.removeClass('up');
@@ -168,7 +168,7 @@ export class Table extends BaseComponent {
   }
 
   public showTimeSort(sortByTimeOrder: string) {
-    this.sortTimeButton.addClass('sort_wins');
+    this.sortTimeButton.addClass('sort');
 
     if (sortByTimeOrder === 'ASC') {
       this.sortTimeButton.removeClass('up');
