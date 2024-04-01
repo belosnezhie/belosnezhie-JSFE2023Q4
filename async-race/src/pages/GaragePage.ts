@@ -190,7 +190,7 @@ export class GaragePage extends BaseComponent {
     const winMessage = new BaseComponent({
       tag: 'h2',
       className: 'win_message',
-      text: `${carModel} went first in ${(time / 1000).toFixed(3)} seconds!`,
+      text: `${carModel} went first in ${time.toFixed(3)} seconds!`,
     });
 
     winMessage.addClass('appear');

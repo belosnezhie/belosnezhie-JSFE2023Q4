@@ -1,24 +1,5 @@
 
-     [{
-        "name":"Seat",
-        "models":[
-           "Alhambra",
-           "Altea",
-           "Altea XL",
-           "Arosa",
-           "Cordoba",
-           "Cordoba Vario",
-           "Exeo",
-           "Ibiza",
-           "Ibiza ST",
-           "Exeo ST",
-           "Leon",
-           "Leon ST",
-           "Inca",
-           "Mii",
-           "Toledo"
-        ]
-     },
+     [
      {
         "name":"Renault",
         "models":[
@@ -109,7 +90,7 @@
         ]
      },
      {
-        "name":"Citroën",
+        "name":"Citroen",
         "models":[
            "Berlingo",
            "C-Crosser",
@@ -884,18 +865,6 @@
            "XK8 Convertible",
            "XKR",
            "XKR Convertible"
-        ]
-     },
-     {
-        "name":"Jeep",
-        "models":[
-           "Cherokee",
-           "Commander",
-           "Compass",
-           "Grand Cherokee",
-           "Patriot",
-           "Renegade",
-           "Wrangler"
         ]
      },
      {

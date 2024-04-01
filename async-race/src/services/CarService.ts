@@ -126,12 +126,12 @@ class CarService {
       if (this.winner === undefined) {
         this.winner = id;
 
-        const currentWinner: Winner = await this.getWinner(id);
+        try {
+          const currentWinner: Winner = await this.getWinner(id);
 
-        if (Object.keys(currentWinner).length === 0) {
-          await this.createWinner(id, time);
-        } else {
           await this.updateWinner(currentWinner, time);
+        } catch (error) {
+          await this.createWinner(id, time);
         }
 
         currentCarEvent.emit('winnerWasDifined', id);
@@ -149,6 +149,10 @@ class CarService {
     const res = await fetch(url);
 
     const data: Winner[] = <Winner[]>await res.json();
+
+    if (data.length === 0) {
+      throw new Error('There is no such winner');
+    }
 
     return data[0];
   }

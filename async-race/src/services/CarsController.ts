@@ -78,13 +78,6 @@ export class CarsController {
       this.garagePage?.showWinner(model, time);
     });
 
-    // currentCarEvent.subscribeAsync('carIsDriving', async (carIndex) => {
-    //   if (typeof carIndex !== 'number') {
-    //     throw new Error('Index is not defind');
-    //   }
-    //   const brokeParam = await carService.startEngine(carIndex);
-    // });
-
     currentCarEvent.subscribe('carWasSelected', async (carId) => {
       if (typeof carId !== 'number') {
         throw new Error('Index is not defind');
