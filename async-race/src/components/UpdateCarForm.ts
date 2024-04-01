@@ -8,9 +8,9 @@ import { Input } from './Input';
 // import { UpdateCarModelInput } from './UpdateCarModelInput';
 
 export class UpdateCarForm extends Form {
+  private carID: number | undefined = undefined;
   private carModelInput: Input;
   private colorInput: Input;
-  private carID: number | undefined = undefined;
 
   constructor() {
     const colorInput = new Input('color', 'colorInput', 'color_input');

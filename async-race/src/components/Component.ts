@@ -1,6 +1,6 @@
 export interface ComponentProperties {
-  tag: string;
   className: string;
+  tag: string;
   text?: string;
 }
 
@@ -22,6 +22,18 @@ export class BaseComponent {
     }
   }
 
+  addClass(className: string) {
+    this.element.classList.add(className);
+  }
+
+  addListener(
+    event: string,
+    listener: (event: Event) => void,
+    options = false,
+  ) {
+    this.element.addEventListener(event, listener, options);
+  }
+
   append(child: BaseComponent) {
     this.children.push(child);
     this.element.append(child.getElement());
@@ -33,64 +45,16 @@ export class BaseComponent {
     });
   }
 
-  getElement() {
-    return this.element;
+  getAttribute(attribute: string): string | null {
+    return this.element.getAttribute(attribute);
   }
 
   getChildren() {
     return this.children;
   }
 
-  setTextContent(content: string) {
-    this.element.textContent = content;
-  }
-
-  setAttribute(attribute: string, value: string) {
-    this.element.setAttribute(attribute, value);
-  }
-
-  getAttribute(attribute: string): string | null {
-    return this.element.getAttribute(attribute);
-  }
-
-  removeAttribute(attribute: string) {
-    this.element.removeAttribute(attribute);
-  }
-
-  addClass(className: string) {
-    this.element.classList.add(className);
-  }
-
-  toggleClass(className: string) {
-    this.element.classList.toggle(className);
-  }
-
-  removeClass(className: string) {
-    this.element.classList.remove(className);
-  }
-
-  addListener(
-    event: string,
-    listener: (event: Event) => void,
-    options = false,
-  ) {
-    this.element.addEventListener(event, listener, options);
-  }
-
-  removeListener(event: string, listener: () => void, options = false) {
-    this.element.removeEventListener(event, listener, options);
-  }
-
-  removeChildren() {
-    this.children.forEach((child) => {
-      child.removeElement();
-    });
-    this.children.length = 0;
-  }
-
-  removeElement() {
-    this.removeChildren();
-    this.element.remove();
+  getElement() {
+    return this.element;
   }
 
   reRenderComponent() {
@@ -105,9 +69,41 @@ export class BaseComponent {
       newElement.textContent = prevElement.textContent;
     }
     this.element = newElement;
+  }
 
-    // if (children) {
-    //   this.appendChildren(children);
-    // }
+  removeAttribute(attribute: string) {
+    this.element.removeAttribute(attribute);
+  }
+
+  removeChildren() {
+    this.children.forEach((child) => {
+      child.removeElement();
+    });
+    this.children.length = 0;
+  }
+
+  removeClass(className: string) {
+    this.element.classList.remove(className);
+  }
+
+  removeElement() {
+    this.removeChildren();
+    this.element.remove();
+  }
+
+  removeListener(event: string, listener: () => void, options = false) {
+    this.element.removeEventListener(event, listener, options);
+  }
+
+  setAttribute(attribute: string, value: string) {
+    this.element.setAttribute(attribute, value);
+  }
+
+  setTextContent(content: string) {
+    this.element.textContent = content;
+  }
+
+  toggleClass(className: string) {
+    this.element.classList.toggle(className);
   }
 }

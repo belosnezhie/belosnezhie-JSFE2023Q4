@@ -80,8 +80,8 @@ class WinnerCar extends BaseComponent {
 }
 
 export class Table extends BaseComponent {
-  private sortWinsButton: Th;
   private sortTimeButton: Th;
+  private sortWinsButton: Th;
 
   constructor(winners: Winner[], garageData: GarageCar[]) {
     const winNumber = new Th('#', 'th_number');
@@ -157,16 +157,6 @@ export class Table extends BaseComponent {
     this.sortTimeButton = winTime;
   }
 
-  public showWinsSort(sortByWinsOrder: string) {
-    this.sortWinsButton.addClass('sort');
-
-    if (sortByWinsOrder === 'ASC') {
-      this.sortWinsButton.removeClass('up');
-    } else {
-      this.sortWinsButton.addClass('up');
-    }
-  }
-
   public showTimeSort(sortByTimeOrder: string) {
     this.sortTimeButton.addClass('sort');
 
@@ -174,6 +164,16 @@ export class Table extends BaseComponent {
       this.sortTimeButton.removeClass('up');
     } else {
       this.sortTimeButton.addClass('up');
+    }
+  }
+
+  public showWinsSort(sortByWinsOrder: string) {
+    this.sortWinsButton.addClass('sort');
+
+    if (sortByWinsOrder === 'ASC') {
+      this.sortWinsButton.removeClass('up');
+    } else {
+      this.sortWinsButton.addClass('up');
     }
   }
 }
