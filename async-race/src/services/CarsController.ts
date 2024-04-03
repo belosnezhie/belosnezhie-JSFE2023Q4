@@ -2,7 +2,7 @@ import { GaragePage } from '../pages/GaragePage';
 
 import { createRandomCarData } from './CarGeneratorService';
 import { carService } from './CarService';
-import { CreateCarData, GarageCar, TrafficParam, Winner } from './DataTypes';
+import { CreateCarData, GarageCar, TrafficParam } from './DataTypes';
 import { currentCarEvent } from './EventEmitter';
 
 export class CarsController {
@@ -19,6 +19,8 @@ export class CarsController {
 
     currentCarEvent.subscribeAsync('carWasUpdated', async () => {
       await this.reRenderGaragePage();
+
+      currentCarEvent.emit('winnerWasUpdated');
     });
 
     currentCarEvent.subscribeAsync('carWasRemoved', async (carIndex) => {
@@ -40,7 +42,7 @@ export class CarsController {
       }
 
       const driveParam: TrafficParam = await carService.startEngine(carIndex);
-      const time: number = driveParam.distance / driveParam.velocity;
+      const time: number = driveParam.distance / driveParam.velocity / 1000;
 
       this.garagePage.driveCar(driveParam, carIndex);
 
@@ -63,22 +65,22 @@ export class CarsController {
       return carService.startRace();
     });
 
-    currentCarEvent.subscribe('winnerWasDifined', async (carId) => {
-      if (typeof carId !== 'number') {
-        throw new Error('Index is not defind');
-      }
-      if (!this.garagePage) {
-        throw new Error('GaragePage is not defind');
-      }
+    currentCarEvent.subscribeAsyncWithTime(
+      'winnerWasDifined',
+      async (carId, time) => {
+        if (typeof carId !== 'number') {
+          throw new Error('Index is not defind');
+        }
+        if (!this.garagePage) {
+          throw new Error('GaragePage is not defind');
+        }
 
-      const car: GarageCar = await carService.getCar(carId);
-      const model: string = car.name;
+        const car: GarageCar = await carService.getCar(carId);
+        const model: string = car.name;
 
-      const winner: Winner = await carService.getWinner(carId);
-      const time: number = winner.time;
-
-      this.garagePage.showWinner(model, time);
-    });
+        this.garagePage.showWinner(model, time);
+      },
+    );
 
     currentCarEvent.subscribe('carWasSelected', async (carId) => {
       if (typeof carId !== 'number') {

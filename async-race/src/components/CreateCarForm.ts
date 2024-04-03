@@ -2,15 +2,32 @@ import carTypes from '../data/Cars.json';
 import { CarType } from '../services/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
+import { Car } from './Car';
 import { CreateCarModelInput } from './CreateCarModelInput';
 import { Form } from './Form';
 import { Input } from './Input';
 
 export class CreateCarForm extends Form {
-  constructor() {
-    const colorInput = new Input('color', 'colorInput', 'color_input');
+  private carModelInput: Input;
+  private colorInput: Input;
+  private car: Car;
+  private color: string = '#ea7619';
 
-    colorInput.setAttribute('value', '#ea7619');
+  constructor() {
+    const colorInput = new Input(
+      'color',
+      'colorInput',
+      'color_input',
+      '#ea7619',
+      (event: Event) => {
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+        const colorValue: string = target.value;
+
+        this.color = colorValue;
+        this.updatePreviewCarColor();
+      },
+    );
+
     colorInput.setAttribute('form', 'createCar');
     const submitInput = new Input(
       'submit',
@@ -21,6 +38,8 @@ export class CreateCarForm extends Form {
     const options: CarType[] = carTypes;
     const optionsInput = new CreateCarModelInput(options, 'carTypes');
 
+    const car = new Car('#ea7619', 0);
+
     optionsInput.setAttribute('form', 'createCar');
 
     super('createCarForm');
@@ -28,10 +47,18 @@ export class CreateCarForm extends Form {
     this.append(optionsInput);
     this.append(colorInput);
     this.append(submitInput);
+    this.append(car);
 
     this.setAttribute('id', 'createCar');
     this.setAttribute('action', 'http://127.0.0.1:3000/garage');
     this.setAttribute('method', 'POST');
+
+    this.carModelInput = optionsInput;
+    this.colorInput = colorInput;
+    this.car = car;
+
+    this.addClass('create_car_form');
+    this.car.addClass('test_color_car');
 
     this.addListener('submit', async (event: Event) => {
       event.preventDefault();
@@ -55,5 +82,10 @@ export class CreateCarForm extends Form {
 
       currentCarEvent.emit('carWasCreated');
     });
+  }
+
+  private updatePreviewCarColor(): void {
+    this.car.previewColor(this.color);
+    this.carModelInput.setAttribute('style', `color: ${this.color}`);
   }
 }

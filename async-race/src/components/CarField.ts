@@ -9,6 +9,8 @@ export class CarField extends BaseComponent {
   private car: Car;
   private startButton: Button;
   private stopButton: Button;
+  private selectButton: Button;
+  private removeButton: Button;
   private carIndex: number = 0;
 
   constructor(carModel: string, carColor: string, carId: number) {
@@ -79,6 +81,8 @@ export class CarField extends BaseComponent {
     this.carIndex = carId;
     this.startButton = startEngineButton;
     this.stopButton = stopEngineButton;
+    this.selectButton = selectButton;
+    this.removeButton = removeButton;
     this.setAttribute('data_id', `${carId}`);
     this.stopButton.addClass('disabled');
   }
@@ -100,6 +104,19 @@ export class CarField extends BaseComponent {
 
   public stopCar() {
     this.car.stop();
+    this.stopButton.addClass('disabled');
+  }
+
+  public enableButtons() {
+    this.startButton.removeClass('disabled');
+    this.selectButton.removeClass('disabled');
+    this.removeButton.removeClass('disabled');
+  }
+
+  public disableButtons() {
+    this.startButton.addClass('disabled');
+    this.selectButton.addClass('disabled');
+    this.removeButton.addClass('disabled');
   }
 
   private getWidth(): number {

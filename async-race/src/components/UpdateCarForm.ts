@@ -1,46 +1,61 @@
-// import { GarageCar } from '../services/DataTypes';
-
 import { GarageCar } from '../services/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
+import { Car } from './Car';
 import { Form } from './Form';
 import { Input } from './Input';
-// import { UpdateCarModelInput } from './UpdateCarModelInput';
 
 export class UpdateCarForm extends Form {
   private carID: number | undefined = undefined;
   private carModelInput: Input;
   private colorInput: Input;
+  private car: Car;
+  private color: string = '#505d5f99';
 
   constructor() {
-    const colorInput = new Input('color', 'colorInput', 'color_input');
+    const colorInput = new Input(
+      'color',
+      'colorInput',
+      'color_input',
+      '#505d5f',
+      (event: Event) => {
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+        const colorValue: string = target.value;
 
-    colorInput.setAttribute('value', '#505d5f');
+        this.color = colorValue;
+        this.updatePreviewCarColor();
+      },
+    );
+
     const submitInput = new Input(
       'submit',
       'updateCar',
       'submit-input',
       'Update car',
     );
-    // const options: GarageCar[] = garageCars;
-    // const optionsInput = new UpdateCarModelInput(options, 'GarageCarTypes');
+
     const carModelInput = new Input(
       'text',
       'update_car_input',
       'update_car_input',
     );
 
+    const car = new Car('#505d5f99', 0);
+
     super('updateCarForm');
 
     this.append(carModelInput);
     this.append(colorInput);
     this.append(submitInput);
+    this.append(car);
 
     this.carModelInput = carModelInput;
     this.colorInput = colorInput;
+    this.car = car;
 
     this.addClass('update_car_form');
     this.addClass('disabled');
+    this.car.addClass('test_color_car');
 
     this.addListener('submit', async (event: Event) => {
       event.preventDefault();
@@ -80,5 +95,10 @@ export class UpdateCarForm extends Form {
 
     this.carModelInput.setAttribute('value', model);
     this.colorInput.setAttribute('value', color);
+  }
+
+  private updatePreviewCarColor(): void {
+    this.car.previewColor(this.color);
+    this.carModelInput.setAttribute('style', `color: ${this.color}`);
   }
 }

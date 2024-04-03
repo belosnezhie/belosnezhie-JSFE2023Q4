@@ -33,7 +33,7 @@
 .form {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: end;
     gap: 10px;
 }
 
@@ -81,8 +81,19 @@
     background-color: var(--button-hover-color);
 }
 
-.update_car_form.disabled * {
+.create_car_form.disabled .input {
     background-color: var(--button-disabled-color);
+    transition: 0.2s;
+}
+
+.update_car_form.disabled .input {
+    background-color: var(--button-disabled-color);
+    transition: 0.2s;
+}
+
+.car.test_color_car .car_svg {
+    width: 90%;
+    height: 100%;
 }
 
 .garage_controllers_container {
@@ -163,9 +174,10 @@
 .win_message {
     position: absolute;
     top: 50%;
-    left: 30%;
+    left: 20%;
     z-index: 30;
     text-transform: uppercase;
+    text-align: center;
     color: var(--win-text-color);
     text-shadow: #C29582 1px 0 10px;
     opacity: 0;

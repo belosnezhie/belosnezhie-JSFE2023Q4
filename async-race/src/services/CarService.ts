@@ -131,7 +131,7 @@ class CarService {
           await this.createWinner(id, time);
         }
 
-        currentCarEvent.emit('winnerWasDifined', id);
+        currentCarEvent.emitWithTime('winnerWasDifined', id, time);
       }
 
       return false;

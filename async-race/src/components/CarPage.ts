@@ -55,6 +55,18 @@ export class CarsPage extends BaseComponent {
     });
   }
 
+  public enableCarButtons() {
+    this.carFields.forEach((carField) => {
+      carField.enableButtons();
+    });
+  }
+
+  public disableCarButtons() {
+    this.carFields.forEach((carField) => {
+      carField.disableButtons();
+    });
+  }
+
   private findCarField(carIndex: number): CarField | undefined {
     return this.carFields.find((carField) => {
       return Number(carField.getAttribute('data_id')) === carIndex;

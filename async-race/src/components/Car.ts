@@ -6,6 +6,7 @@ import { BaseComponent } from './Component';
 export class Car extends BaseComponent {
   private carId: number;
   private cancelAnimationID: number = 0;
+  private sprite: Element;
 
   constructor(carColor: string, carId: number) {
     const sprite = document.createElementNS(
@@ -31,6 +32,7 @@ export class Car extends BaseComponent {
     carElement.append(sprite);
 
     this.carId = carId;
+    this.sprite = sprite;
   }
 
   public drive(driveParam: TrafficParam, parentWidth: number) {
@@ -64,6 +66,10 @@ export class Car extends BaseComponent {
   public stop() {
     window.cancelAnimationFrame(this.cancelAnimationID);
     this.getElement().style.transform = 'translateX(0px)';
+  }
+
+  public previewColor(color: string): void {
+    this.sprite.setAttribute('fill', color);
   }
 
   private animate(

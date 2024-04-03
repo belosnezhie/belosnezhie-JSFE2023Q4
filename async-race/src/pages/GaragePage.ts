@@ -16,9 +16,11 @@ export class GaragePage extends BaseComponent {
   private prevButton: Button;
   private raceButton: Button;
   private resetButton: Button;
+  private generateCarsButton: Button;
   private pageCount: BaseComponent;
   private winMessage: BaseComponent | undefined = undefined;
   private updateCarForm: UpdateCarForm;
+  private createCarForm: CreateCarForm;
 
   constructor(
     garageCars: GarageCar[],
@@ -53,6 +55,8 @@ export class GaragePage extends BaseComponent {
     );
     const raceButton = new Button('Race', 'race_button', () => {
       this.raceButton.addClass('disabled');
+      this.disableReRenderButtons();
+      this.carPage.disableCarButtons();
       currentCarEvent.emit('startRace');
 
       const currentCarsID = this.carPage.getAllCarsID();
@@ -70,10 +74,12 @@ export class GaragePage extends BaseComponent {
 
       currentCarsID.forEach((id) => {
         currentCarEvent.emit('carWasStopped', id);
-        this.carPage.stopCars();
       });
 
+      this.carPage.stopCars();
       this.raceButton.removeClass('disabled');
+      this.carPage.enableCarButtons();
+      this.enableReRenderButtons();
     });
 
     const carsCount = new BaseComponent({
@@ -105,22 +111,25 @@ export class GaragePage extends BaseComponent {
     const carPage = new CarsPage(garageCars);
 
     const updateCarForm = new UpdateCarForm();
+    const createCarForm = new CreateCarForm();
 
     super(
       { tag: 'div', className: 'garage_page' },
       header,
-      new CreateCarForm(),
+      createCarForm,
       updateCarForm,
       controllersContainer,
       carPage,
     );
 
     this.updateCarForm = updateCarForm;
+    this.createCarForm = createCarForm;
     this.carPage = carPage;
     this.nextButton = nextButton;
     this.prevButton = prevButton;
     this.raceButton = raceButton;
     this.resetButton = resetButton;
+    this.generateCarsButton = generateCarsButton;
     this.pageCount = pageCount;
 
     carsWidgets.append(carsCount);
@@ -184,7 +193,7 @@ export class GaragePage extends BaseComponent {
     const winMessage = new BaseComponent({
       tag: 'h2',
       className: 'win_message',
-      text: `${carModel} went first in ${(time / 1000).toFixed(3)} seconds!`,
+      text: `${carModel} went first in ${time.toFixed(3)} seconds!`,
     });
 
     winMessage.addClass('appear');
@@ -194,5 +203,15 @@ export class GaragePage extends BaseComponent {
 
   public updateCar(car: GarageCar) {
     this.updateCarForm.updateCar(car);
+  }
+
+  public enableReRenderButtons() {
+    this.createCarForm.removeClass('disabled');
+    this.generateCarsButton.removeClass('disabled');
+  }
+
+  private disableReRenderButtons() {
+    this.createCarForm.addClass('disabled');
+    this.generateCarsButton.addClass('disabled');
   }
 }

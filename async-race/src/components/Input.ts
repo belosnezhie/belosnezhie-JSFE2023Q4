@@ -1,9 +1,15 @@
 import { BaseComponent } from './Component';
 
 export class Input extends BaseComponent {
-  // public inputValue: string = '';
+  private onChange?: (event: Event) => void;
 
-  constructor(type: string, id: string, exstraClass: string, value?: string) {
+  constructor(
+    type: string,
+    id: string,
+    exstraClass: string,
+    value?: string,
+    onChange?: (event: Event) => void,
+  ) {
     super({
       tag: 'input',
       className: 'input',
@@ -15,12 +21,9 @@ export class Input extends BaseComponent {
       this.setAttribute('value', value);
     }
 
-    this.addListener('change', (event: Event) => {
-      const target: HTMLInputElement = <HTMLInputElement>event.target;
-      const inputValue: string = target.value;
-
-      // this.inputValue = inputValue;
-      this.setAttribute('value', inputValue);
-    });
+    if (onChange) {
+      this.onChange = onChange;
+      this.addListener('input', this.onChange);
+    }
   }
 }

@@ -1,8 +1,10 @@
 export class CarEvent {
   listeners: Map<string, ((carId?: number) => void)[]>;
+  listenersWithTime: Map<string, ((carId: number, time: number) => void)[]>;
 
   constructor() {
     this.listeners = new Map();
+    this.listenersWithTime = new Map();
   }
 
   public emit(eventName: string, carId?: number): void {
@@ -15,6 +17,16 @@ export class CarEvent {
         } else {
           listener.call(null);
         }
+      });
+    }
+  }
+
+  public emitWithTime(eventName: string, carId: number, time: number): void {
+    const current = this.listenersWithTime.get(eventName);
+
+    if (current !== undefined) {
+      current.forEach((listenersWithTime) => {
+        listenersWithTime.call(null, carId, time);
       });
     }
   }
@@ -47,6 +59,23 @@ export class CarEvent {
     } else {
       current.push(func);
       this.listeners.set(eventName, current);
+    }
+  }
+
+  public subscribeAsyncWithTime(
+    eventName: string,
+    func: (carId: number, time: number) => Promise<void>,
+  ): void {
+    const current = this.listenersWithTime.get(eventName);
+
+    if (current === undefined) {
+      const arr: ((carId: number, time: number) => void)[] = [];
+
+      arr.push(func);
+      this.listenersWithTime.set(eventName, arr);
+    } else {
+      current.push(func);
+      this.listenersWithTime.set(eventName, current);
     }
   }
 

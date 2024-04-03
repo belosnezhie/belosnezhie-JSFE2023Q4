@@ -71,12 +71,17 @@ class WinnersController {
       }
     });
 
-    currentCarEvent.subscribeAsync('winnerWasDifined', async () => {
+    currentCarEvent.subscribeAsyncWithTime('winnerWasDifined', async () => {
       await this.reRenderWinnersPage();
       stateService.showGaragePage();
     });
 
     currentCarEvent.subscribeAsync('winnerWasRemoved', async () => {
+      await this.reRenderWinnersPage();
+      stateService.showGaragePage();
+    });
+
+    currentCarEvent.subscribeAsync('winnerWasUpdated', async () => {
       await this.reRenderWinnersPage();
       stateService.showGaragePage();
     });
