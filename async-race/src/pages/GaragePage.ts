@@ -21,6 +21,7 @@ export class GaragePage extends BaseComponent {
   private winMessage: BaseComponent | undefined = undefined;
   private updateCarForm: UpdateCarForm;
   private createCarForm: CreateCarForm;
+  private pageWidgets: BaseComponent;
 
   constructor(
     garageCars: GarageCar[],
@@ -131,6 +132,7 @@ export class GaragePage extends BaseComponent {
     this.resetButton = resetButton;
     this.generateCarsButton = generateCarsButton;
     this.pageCount = pageCount;
+    this.pageWidgets = pageWidgets;
 
     carsWidgets.append(carsCount);
     carsWidgets.append(raceButton);
@@ -162,6 +164,9 @@ export class GaragePage extends BaseComponent {
     this.carPage.removeElement();
 
     this.carPage = new CarsPage(garageCars);
+
+    this.resetButton.addClass('disabled');
+    this.raceButton.removeClass('disabled');
 
     this.nextButton.removeClass('disabled');
     this.prevButton.removeClass('disabled');
@@ -208,10 +213,12 @@ export class GaragePage extends BaseComponent {
   public enableReRenderButtons() {
     this.createCarForm.removeClass('disabled');
     this.generateCarsButton.removeClass('disabled');
+    this.pageWidgets.removeClass('disabled');
   }
 
   private disableReRenderButtons() {
     this.createCarForm.addClass('disabled');
     this.generateCarsButton.addClass('disabled');
+    this.pageWidgets.addClass('disabled');
   }
 }

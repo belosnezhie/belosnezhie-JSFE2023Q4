@@ -113,6 +113,10 @@
     padding: 10px;
 }
 
+.page_widgets_container.disabled .button {
+    background-color: var(--button-disabled-color);
+}
+
 .cars_page {
     width: 100%;
     background-color: var(--car-page-background-color);
@@ -186,7 +190,7 @@
 
 .win_message.appear {
     opacity: 1;
-    animation: appear ease-in 0.4s;
+    animation: appear ease-in 0.2s;
 }
 
 @keyframes appear {

@@ -57,7 +57,7 @@ export class CarsController {
       if (typeof carIndex !== 'number') {
         throw new Error('Index is not defind');
       }
-      carService.abortRequest();
+      carService.abortRequest(carIndex);
       await carService.stopEngine(carIndex);
     });
 

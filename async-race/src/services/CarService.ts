@@ -6,6 +6,7 @@ class CarService {
   private currentPage: number = 1;
   private limit = 7;
   private abortController: AbortController | undefined = undefined;
+  private abortControllers: Map<number, AbortController> = new Map();
   private winner: number | undefined = 0;
 
   async getGarageCars(): Promise<GarageCar[]> {
@@ -106,12 +107,14 @@ class CarService {
   public async isEngineBroken(id: number, time: number): Promise<boolean> {
     const url = `http://127.0.0.1:3000/engine?id=${id}&status=drive`;
 
-    this.abortController = new AbortController();
+    const abortController = new AbortController();
+
+    this.abortControllers.set(id, abortController);
 
     try {
       const res = await fetch(url, {
         method: 'PATCH',
-        signal: this.abortController.signal,
+        signal: abortController.signal,
       });
 
       if (!res.ok && res.status === 500) {
@@ -120,18 +123,20 @@ class CarService {
         return true;
       }
 
-      if (this.winner === undefined) {
-        this.winner = id;
+      if (res && res.status === 200) {
+        if (this.winner === undefined) {
+          this.winner = id;
 
-        try {
-          const currentWinner: Winner = await this.getWinner(id);
+          try {
+            const currentWinner: Winner = await this.getWinner(id);
 
-          await this.updateWinner(currentWinner, time);
-        } catch (error) {
-          await this.createWinner(id, time);
+            await this.updateWinner(currentWinner, time);
+          } catch (error) {
+            await this.createWinner(id, time);
+          }
+
+          currentCarEvent.emitWithTime('winnerWasDifined', id, time);
         }
-
-        currentCarEvent.emitWithTime('winnerWasDifined', id, time);
       }
 
       return false;
@@ -223,10 +228,9 @@ class CarService {
     }
   }
 
-  public abortRequest() {
-    if (this.abortController instanceof AbortController) {
-      this.abortController.abort();
-    }
+  public abortRequest(carIndex: number) {
+    this.abortControllers.get(carIndex)?.abort();
+    this.abortControllers.delete(carIndex);
   }
 
   public hasMoreCars(): boolean {
