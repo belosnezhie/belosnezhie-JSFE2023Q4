@@ -1,5 +1,5 @@
 import { CarField } from '../components/CarField';
-import { GarageCar, TrafficParam } from '../services/DataTypes';
+import { GarageCar, TrafficParam } from '../data/DataTypes';
 
 import { BaseComponent } from './Component';
 

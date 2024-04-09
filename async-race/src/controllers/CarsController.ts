@@ -1,9 +1,8 @@
+import { CreateCarData, GarageCar, TrafficParam } from '../data/DataTypes';
 import { GaragePage } from '../pages/GaragePage';
-
-import { createRandomCarData } from './CarGeneratorService';
-import { carService } from './CarService';
-import { CreateCarData, GarageCar, TrafficParam } from './DataTypes';
-import { currentCarEvent } from './EventEmitter';
+import { createRandomCarData } from '../services/CarGeneratorService';
+import { carService } from '../services/CarService';
+import { currentCarEvent } from '../services/EventEmitter';
 
 export class CarsController {
   private root: HTMLElement;

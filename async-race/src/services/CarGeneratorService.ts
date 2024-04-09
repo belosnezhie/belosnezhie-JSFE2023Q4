@@ -1,6 +1,5 @@
 import carModels from '../data/Cars.json';
-
-import { CreateCarData } from './DataTypes';
+import { CreateCarData } from '../data/DataTypes';
 
 function getRandomDigit(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);

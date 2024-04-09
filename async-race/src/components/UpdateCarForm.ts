@@ -1,4 +1,4 @@
-import { GarageCar } from '../services/DataTypes';
+import { GarageCar } from '../data/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 import { Car } from './Car';

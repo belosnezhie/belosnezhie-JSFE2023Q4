@@ -1,5 +1,5 @@
 import carTypes from '../data/Cars.json';
-import { CarType } from '../services/DataTypes';
+import { CarType } from '../data/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 import { Car } from './Car';

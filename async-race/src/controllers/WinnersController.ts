@@ -1,9 +1,8 @@
+import { GarageCar, Winner } from '../data/DataTypes';
 import { WinnersPage } from '../pages/WinnersPage';
-
-import { GarageCar, Winner } from './DataTypes';
-import { currentCarEvent } from './EventEmitter';
-import { stateService } from './StateService';
-import { winnersService } from './WinnersService';
+import { currentCarEvent } from '../services/EventEmitter';
+import { stateService } from '../services/StateService';
+import { winnersService } from '../services/WinnersService';
 
 class WinnersController {
   private root: HTMLElement;

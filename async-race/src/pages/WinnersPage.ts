@@ -4,8 +4,8 @@ import { Button } from '../components/Button';
 import { BaseComponent } from '../components/Component';
 import { Header } from '../components/Header';
 import { Table } from '../components/Table';
-import { GarageCar, Winner } from '../services/DataTypes';
-import { winnersController } from '../services/WinnersController';
+import { winnersController } from '../controllers/WinnersController';
+import { GarageCar, Winner } from '../data/DataTypes';
 
 export class WinnersPage extends BaseComponent {
   private winTable: Table;

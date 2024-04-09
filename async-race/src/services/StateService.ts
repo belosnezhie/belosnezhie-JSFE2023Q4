@@ -1,8 +1,7 @@
+import { carsController } from '../controllers/CarsController';
+import { winnersController } from '../controllers/WinnersController';
 import { GaragePage } from '../pages/GaragePage';
 import { WinnersPage } from '../pages/WinnersPage';
-
-import { carsController } from './CarsController';
-import { winnersController } from './WinnersController';
 
 class StateService {
   private garagePage: GaragePage | undefined = undefined;

@@ -1,7 +1,9 @@
-import { TrafficParam } from '../services/DataTypes';
+import { TrafficParam } from '../data/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 import { BaseComponent } from './Component';
+
+const parentMargins: number = 90;
 
 export class Car extends BaseComponent {
   private carId: number;
@@ -41,7 +43,7 @@ export class Car extends BaseComponent {
     let start: number;
     let previousTimeStamp: number;
     const done = false;
-    const distance = parentWidth - 80 - 10;
+    const distance = parentWidth - parentMargins;
     const velocity = parentWidth / duration;
 
     this.cancelAnimationID = window.requestAnimationFrame((timeStamp: number) =>

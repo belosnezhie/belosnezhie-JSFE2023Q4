@@ -1,4 +1,4 @@
-import { CarType } from '../services/DataTypes';
+import { CarType } from '../data/DataTypes';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';

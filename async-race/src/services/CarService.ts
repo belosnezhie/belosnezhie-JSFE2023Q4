@@ -1,4 +1,10 @@
-import { CreateCarData, GarageCar, TrafficParam, Winner } from './DataTypes';
+import {
+  CreateCarData,
+  GarageCar,
+  TrafficParam,
+  Winner,
+} from '../data/DataTypes';
+
 import { currentCarEvent } from './EventEmitter';
 
 class CarService {

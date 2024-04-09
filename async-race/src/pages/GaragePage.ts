@@ -6,8 +6,8 @@ import { BaseComponent } from '../components/Component';
 import { CreateCarForm } from '../components/CreateCarForm';
 import { Header } from '../components/Header';
 import { UpdateCarForm } from '../components/UpdateCarForm';
-import { carsController } from '../services/CarsController';
-import { GarageCar, TrafficParam } from '../services/DataTypes';
+import { carsController } from '../controllers/CarsController';
+import { GarageCar, TrafficParam } from '../data/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 export class GaragePage extends BaseComponent {

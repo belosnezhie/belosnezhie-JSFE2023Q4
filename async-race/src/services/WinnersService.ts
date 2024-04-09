@@ -1,4 +1,4 @@
-import { GarageCar, Winner } from './DataTypes';
+import { GarageCar, Winner } from '../data/DataTypes';
 
 class WinnersService {
   private maxCount: number = 0;

@@ -1,4 +1,4 @@
-import { GarageCar } from '../services/DataTypes';
+import { GarageCar } from '../data/DataTypes';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';

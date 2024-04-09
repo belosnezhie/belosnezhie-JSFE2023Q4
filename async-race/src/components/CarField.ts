@@ -1,4 +1,4 @@
-import { TrafficParam } from '../services/DataTypes';
+import { TrafficParam } from '../data/DataTypes';
 import { currentCarEvent } from '../services/EventEmitter';
 
 import { Button } from './Button';
