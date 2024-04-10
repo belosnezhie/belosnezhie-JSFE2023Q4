@@ -1,0 +1,57 @@
+@import '../node_modules/modern-normalize/modern-normalize.css';
+
+/* Common */
+* {
+    margin: 0;
+    padding: 0;
+  }
+  
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  ul,
+  ol {
+    list-style: none;
+  }
+  
+  input {
+    cursor: pointer;
+  }
+  
+  h1 {
+    margin: 0px;
+  }
+  
+  button {
+    margin: 0px;
+    padding: 0px;
+    border: none;
+    font: inherit;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .hidden {
+    visibility: hidden;
+    opacity: 0;
+    display: none;
+  }
+  
+  .disabled {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .test {
+    background-color: aqua;
+  }
