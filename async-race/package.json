@@ -8,7 +8,9 @@
     "start": "webpack serve --config ./webpack.config.js --env mode=dev",
     "build": "webpack --config ./webpack.config.js --env mode=prod",
     "lint": "eslint \"src/**.ts\"",
-    "lint:fix": "eslint --fix \"src/**.ts\""
+    "lint:fix": "eslint --fix \"src/**.ts\"",
+    "ci:format": "prettier \"src/**.ts\" --check",
+    "format": "prettier \"src/**.ts\" --write"
   },
   "author": "",
   "license": "ISC",
