@@ -52,6 +52,20 @@
     cursor: default;
   }
 
-  .test {
-    background-color: aqua;
+  :root {
+    --page-background-color: #fAf8ee;
+    --headers-color: #5c8a60;
+    --border-color: #505d5f;
+    --button-background-color: #baceb8;
+    --button-hover-color: rgba(194, 149, 130, 90%);
+    --button-disabled-color: #f26749;
+    --win-text-color: #EA7619;
+
+    color: var(--headers-color);
   }
+
+
+  body {
+  font-family: "Mulish", sans-serif;
+  font-optical-sizing: auto;
+}

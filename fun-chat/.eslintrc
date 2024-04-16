@@ -17,6 +17,7 @@
       "project": "./tsconfig.json",
       "tsconfigRootDir": "./"
     },
+    "noInlineConfig": true,
     "root": true,
     "env": {
       "node": true,

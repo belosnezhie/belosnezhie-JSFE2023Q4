@@ -1,0 +1,47 @@
+@import '../index.css';
+
+.authentication_page {
+    min-width: 100%;
+    min-height: 100vh;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    background-color: var(--page-background-color);
+}
+
+.authentication_form {
+    width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.name_input, 
+.password_input {
+    width: 60%;
+    height: 40px;
+    padding: 5px;
+}
+
+.name_input:invalid, 
+.password_input:invalid {
+    background-color: white;
+    border-color: var(--button-disabled-color);
+} 
+
+.submit_input {
+    min-width: 100px;
+    padding: 10px;
+    background-color: var(--button-background-color);
+    border: none;
+}
+
+.error_message {
+    width: 60%;
+    text-align: center;
+}
