@@ -17,7 +17,7 @@ export function validateForm(
     return 'Password should contain at least 6 symbols.';
   }
   if (!passwordRegexp.test(passwordValue)) {
-    return 'Password should contain only English alphabet letters,  at least one uppercase letter, one lowercase letter, one number and one special character.';
+    return 'Password should contain only English alphabet letters, at least one uppercase letter, one lowercase letter, one number and one special character.';
   }
 
   return undefined;

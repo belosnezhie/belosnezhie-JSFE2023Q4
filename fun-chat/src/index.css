@@ -58,7 +58,7 @@
     --border-color: #505d5f;
     --button-background-color: #baceb8;
     --button-hover-color: rgba(194, 149, 130, 90%);
-    --button-disabled-color: #f26749;
+    --button-disabled-color: #f7b5b7;
     --win-text-color: #EA7619;
 
     color: var(--headers-color);
