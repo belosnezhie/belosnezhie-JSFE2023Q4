@@ -4,7 +4,10 @@ module.exports = {
     mode: 'development',
     devtool: 'inline-source-map', 
     devServer: {
-        static: path.resolve(__dirname, './dist'),
+        static: {
+            directory: path.join(__dirname, 'dist'),
+          },
+        historyApiFallback: true,
         hot: true,
         port: 8080,
     },

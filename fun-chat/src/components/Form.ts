@@ -1,7 +1,12 @@
-import { ValidationFieldsProps, validateForm } from '../logic/Validation';
+import { validateForm } from '../logic/Validation';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
+
+enum ValidationFieldsProps {
+  nameMinLength = '4',
+  passwordMinLength = '6',
+}
 
 export class Form extends BaseComponent {
   private nameInput: Input;

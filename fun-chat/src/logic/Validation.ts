@@ -1,3 +1,5 @@
+import { loginStatus } from './SessionStorage';
+
 const nameRegexp = new RegExp('^[A-Z][\\-a-zA-z]+$');
 const passwordRegexp = new RegExp(
   '^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z]).{6}$',
@@ -20,12 +22,7 @@ export function validateForm(
     return 'Password should contain only English alphabet letters, at least one uppercase letter, one lowercase letter, one number and one special character.';
   }
 
-  return undefined;
-}
+  loginStatus.setLoginStatus(nameValue, passwordValue);
 
-export enum ValidationFieldsProps {
-  nameMinLength = '4',
-  namePattern = '^[a-z ,.-]+$',
-  passwordMinLength = '6',
-  passwordPattern = '^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{6,}$',
+  return undefined;
 }

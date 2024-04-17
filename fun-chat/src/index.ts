@@ -1,27 +1,63 @@
-// import './index.css';
-// import { stateService } from './services/StateService';
+import { Router } from './controllers/Router';
+import './index.css';
+import { StateService } from './services/StateService';
+import { Route } from './types.ts/Types';
 
-// class App {
-//   render() {
-//     stateService.renderApp();
-//   }
-// }
+class App {
+  private router: Router;
+  private state: StateService;
 
-// const app = new App();
+  constructor() {
+    this.router = new Router(this.createRouts());
+    this.state = new StateService(document.body);
+  }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   app.render();
-// });
+  render() {
+    window.addEventListener('popstate', () => {
+      console.log('test');
+    });
+    window.history.pushState({}, 'authorization', '#authorization');
+    window.history.pushState({}, 'authorization', '#authorization');
+  }
 
-window.addEventListener('popstate', (event) => {
-  alert(
-    `location: ${String(document.location)}, state: ${JSON.stringify(event.state)}`,
-  );
+  private createRouts(): Route[] {
+    const routes = [
+      {
+        // default page
+        path: '',
+        callback: () => {
+          this.state.renderAuth();
+        },
+      },
+      {
+        // auth page
+        path: 'authorization',
+        callback: () => {
+          this.state.renderAuth();
+        },
+      },
+      {
+        // main page
+        path: 'main',
+        callback: () => {
+          this.state.renderMain();
+        },
+      },
+      {
+        // error page
+        path: 'not_found',
+        callback: () => {
+          this.state.renderNotFound();
+        },
+      },
+    ];
+
+    return routes;
+  }
+}
+
+const app = new App();
+
+document.addEventListener('DOMContentLoaded', () => {
+  app.render();
 });
-
-history.pushState({ page: 1 }, 'title 1', '?page=1');
-history.pushState({ page: 2 }, 'title 2', '?page=2');
-history.replaceState({ page: 3 }, 'title 3', '?page=3');
-history.back(); // alerts "location: http://example.com/example.html?page=1, state: {"page":1}"
-history.back(); // alerts "location: http://example.com/example.html, state: null"
-history.go(2); // alerts "location: http://example.com/example.html?page=3, state: {"page":3}"

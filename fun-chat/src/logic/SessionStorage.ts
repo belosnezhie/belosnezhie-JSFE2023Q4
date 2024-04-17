@@ -8,7 +8,7 @@ class LoginStatus {
   }
 
   public checkLoginStatus(): boolean {
-    if (!localStorage.getItem(this.key)) {
+    if (!sessionStorage.getItem(this.key)) {
       return false;
     }
 
@@ -16,11 +16,11 @@ class LoginStatus {
   }
 
   public clearLoginStatus(): void {
-    localStorage.removeItem(this.key);
+    sessionStorage.removeItem(this.key);
   }
 
   public getName(): string {
-    const name = localStorage.getItem(this.key);
+    const name = sessionStorage.getItem(this.key);
 
     if (!name) {
       throw new Error('Name is not defind');
@@ -29,8 +29,13 @@ class LoginStatus {
     return name;
   }
 
-  public setLoginStatus(value: string): void {
-    localStorage.setItem(this.key, value);
+  public setLoginStatus(name: string, password: string): void {
+    const userData = {
+      name: name,
+      password: password,
+    };
+
+    sessionStorage.setItem(this.key, JSON.stringify(userData));
   }
 }
 
