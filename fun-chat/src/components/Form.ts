@@ -1,4 +1,6 @@
+import { router } from '../controllers/Router';
 import { validateForm } from '../logic/Validation';
+import { Pages } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
@@ -70,7 +72,9 @@ export class Form extends BaseComponent {
 
       if (errorText !== undefined) {
         this.showError(errorText);
-      } else console.log('Sucsess!');
+      } else {
+        router.navigate(Pages.main);
+      }
     });
   }
 

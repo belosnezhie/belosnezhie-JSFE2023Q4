@@ -1,3 +1,4 @@
+import './NotFoundPage.css';
 import { BaseComponent } from '../components/Component';
 
 export class NotFoundPage extends BaseComponent {
