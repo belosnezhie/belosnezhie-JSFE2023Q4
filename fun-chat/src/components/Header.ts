@@ -2,11 +2,12 @@ import { Button } from './Button';
 import { BaseComponent } from './Component';
 
 export class Header extends BaseComponent {
-  constructor(userName: string) {
+  private user: BaseComponent;
+
+  constructor() {
     const user = new BaseComponent({
       tag: 'h2',
       className: 'user_title',
-      text: `User: ${userName}`,
     });
     const title = new BaseComponent({
       tag: 'h1',
@@ -32,5 +33,11 @@ export class Header extends BaseComponent {
       title,
       buttonsContainer,
     );
+
+    this.user = user;
+  }
+
+  public setUserName(name: string) {
+    this.user.setTextContent(`User: ${name}`);
   }
 }

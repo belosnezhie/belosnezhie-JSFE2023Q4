@@ -11,15 +11,19 @@ export enum Pages {
   not_found = 'not_found',
 }
 
-export interface ServereResponce {
+export interface ServerResponse {
   id: string;
+  payload: Payload;
   type: string;
-  payload: User | User[];
+}
+
+export interface Payload {
+  user: User;
 }
 
 export interface User {
-  login: string;
   isLogined: boolean;
+  login: string;
 }
 
 export interface UserData {

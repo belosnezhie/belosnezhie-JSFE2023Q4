@@ -1,13 +1,7 @@
 import { UserData } from '../types.ts/Types';
 
 class LoginStatus {
-  key: string;
-
-  constructor() {
-    const key = 'JSFE2023Q4LoginStatus';
-
-    this.key = key;
-  }
+  private key: string = 'JSFE2023Q4LoginStatus';
 
   public checkLoginStatus(): boolean {
     if (!sessionStorage.getItem(this.key)) {
@@ -21,12 +15,14 @@ class LoginStatus {
     sessionStorage.removeItem(this.key);
   }
 
-  public getName() {
-    const nameInJSON: string | null = sessionStorage.getItem(this.key);
+  public getUser(): UserData {
+    const nameInString: string | null = sessionStorage.getItem(this.key);
 
-    if (nameInJSON) {
-      throw new Error('Name is not defind');
+    if (!nameInString) {
+      throw new Error('Used data is not defined');
     }
+
+    const name: UserData = <UserData>JSON.parse(nameInString);
 
     return name;
   }

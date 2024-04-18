@@ -1,4 +1,4 @@
-import { ServereResponce, User, UserData } from '../types.ts/Types';
+import { ServerResponse, User, UserData } from '../types.ts/Types';
 
 export class WebSocketService {
   private webSocket: WebSocket | undefined;
@@ -26,12 +26,12 @@ export class WebSocketService {
 
     this.webSocket.addEventListener(
       'message',
-      (event: MessageEvent<ServereResponce>) => {
-        const responce: ServereResponce = event.data;
-        const responceType: string = responce.type;
+      (event: MessageEvent<string>) => {
+        const response: ServerResponse = <ServerResponse>JSON.parse(event.data);
+        const responceType: string = response.type;
 
         if (responceType === 'USER_LOGIN') {
-          const user: User = <User>responce.payload;
+          const user: User = response.payload.user;
 
           console.log(`Name of logined user: ${user.login}`);
         }
@@ -84,6 +84,6 @@ export class WebSocketService {
   }
 
   private createRequestId(): string {
-    return String(new Date());
+    return String(Date.now());
   }
 }

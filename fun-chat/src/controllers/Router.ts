@@ -1,7 +1,3 @@
-// к этому классу будут обращаться компоненты
-// чтобы делать навигацию
-// он глобальный для всего приложения
-
 import { BaseComponent } from '../components/Component';
 import { AuthenticationPage } from '../pages/AuthenticationPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
@@ -79,7 +75,7 @@ export class Router {
     this.root.append(this.authenticationPage.getElement());
   }
 
-  async renderMain(userData: UserData) {
+  async renderMain(userData?: UserData) {
     this.destroyPage(this.mainController.getPage());
     await this.mainController.renderPage(userData);
   }
@@ -109,7 +105,9 @@ export class Router {
       {
         // main page
         path: Pages.main,
-        callback: () => {},
+        callback: async () => {
+          await this.renderMain();
+        },
         asynkCallback: async (userData: UserData) => {
           await this.renderMain(userData);
         },
