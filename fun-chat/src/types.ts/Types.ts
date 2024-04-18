@@ -1,6 +1,7 @@
 export interface Route {
   path: string;
-  callback: () => void | ((userData?: UserData) => Promise<void>);
+  callback: () => void;
+  asynkCallback?: (userData: UserData) => Promise<void>;
 }
 
 export enum Pages {

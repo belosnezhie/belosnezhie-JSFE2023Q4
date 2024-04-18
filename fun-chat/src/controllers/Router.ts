@@ -22,36 +22,38 @@ export class Router {
     this.pages = [];
     this.mainController = new MainController(this.root);
 
-    window.addEventListener('popstate', () => {
-      this.changeURL();
+    window.addEventListener('popstate', async () => {
+      await this.changeURL();
     });
 
-    window.addEventListener('hashchange', () => {
-      this.changeURL();
+    window.addEventListener('hashchange', async () => {
+      await this.changeURL();
     });
   }
 
-  public navigate(url: string, userData?: UserData) {
+  public async navigate(url: string, userData?: UserData) {
     window.history.pushState({}, url, `#${url}`);
 
     const path = this.findRoute(url);
 
-    if (userData) {
+    if (!userData) {
       path.callback();
     } else {
-      path.callback();
+      if (path.asynkCallback) {
+        await path.asynkCallback(userData);
+      }
     }
   }
 
-  private changeURL() {
+  private async changeURL() {
     if (window.location.hash) {
       const path = window.location.hash.slice(1);
 
-      this.navigate(path);
+      await this.navigate(path);
     } else {
       const path = window.location.pathname.slice(1);
 
-      this.navigate(path);
+      await this.navigate(path);
     }
   }
 
@@ -104,13 +106,14 @@ export class Router {
           this.renderAuth();
         },
       },
-      // {
-      //   // main page
-      //   path: Pages.main,
-      //   callback: async (userData: UserData) => {
-      //     await this.renderMain(userData);
-      //   },
-      // },
+      {
+        // main page
+        path: Pages.main,
+        callback: () => {},
+        asynkCallback: async (userData: UserData) => {
+          await this.renderMain(userData);
+        },
+      },
       {
         // error page
         path: Pages.not_found,

@@ -1,7 +1,6 @@
 import { router } from '../controllers/Router';
 import { validateForm } from '../logic/Validation';
-import { userEvent } from '../services/UsersEventEmmiter';
-import { Pages } from '../types.ts/Types';
+import { Pages, UserData } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
@@ -58,7 +57,7 @@ export class Form extends BaseComponent {
 
     this.setInputProps();
 
-    this.addListener('submit', (event: Event) => {
+    this.addListener('submit', async (event: Event) => {
       event.preventDefault();
       const target: HTMLFormElement = event.target as HTMLFormElement;
       const name = target.elements[0] as HTMLInputElement;
@@ -74,10 +73,14 @@ export class Form extends BaseComponent {
       if (errorText !== undefined) {
         this.showError(errorText);
       } else {
-        router.navigate(Pages.main);
-      }
+        const userData: UserData = {
+          name: nameValue,
+          password: passwordValue,
+        };
 
-      userEvent.emit('userLogIn', nameValue);
+        await router.navigate(Pages.main, userData);
+        console.log('UserData was send');
+      }
     });
   }
 
