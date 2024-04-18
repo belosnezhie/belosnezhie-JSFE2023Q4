@@ -54,18 +54,40 @@
 
   :root {
     --page-background-color: #fAf8ee;
+    --fields-background-color: #f7b5b7;
     --headers-color: #5c8a60;
-    --border-color: #505d5f;
+    --border-color: #cb7c47;
     --button-background-color: #baceb8;
-    --button-hover-color: rgba(194, 149, 130, 90%);
-    --button-disabled-color: #f7b5b7;
-    --win-text-color: #EA7619;
+    --button-disabled-color: #5c8a60;
+    --hover-color: #f7b5b7;
+    --unlogined-user-color: #ff693a;
+    --logined-user-color: #baceb8;
+
 
     color: var(--headers-color);
   }
 
 
   body {
-  font-family: "Mulish", sans-serif;
-  font-optical-sizing: auto;
-}
+    font-family: "Mulish", sans-serif;
+    font-optical-sizing: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .button {
+    padding: 10px;
+    background-color: var(--button-background-color);
+    border: var(--hover-color);
+    border-radius: 4px;
+    transition: 0.2s;
+  }
+
+  .button:hover {
+    background-color: var(--hover-color);
+  }
+
+

@@ -4,21 +4,23 @@
 
 import { BaseComponent } from '../components/Component';
 import { AuthenticationPage } from '../pages/AuthenticationPage';
-import { MainPage } from '../pages/MainPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
-import { Pages, Route } from '../types.ts/Types';
+import { Pages, Route, UserData } from '../types.ts/Types';
+
+import { MainController } from './MainController';
 
 export class Router {
   private routes: Route[];
+  private mainController: MainController;
   private pages: BaseComponent[];
   private authenticationPage: AuthenticationPage | undefined = undefined;
-  private mainPage: MainPage | undefined = undefined;
   private notFoundPage: NotFoundPage | undefined = undefined;
   private root: HTMLElement = document.body;
 
   constructor() {
     this.routes = this.createRoutes();
     this.pages = [];
+    this.mainController = new MainController(this.root);
 
     window.addEventListener('popstate', () => {
       this.changeURL();
@@ -29,12 +31,16 @@ export class Router {
     });
   }
 
-  public navigate(url: string) {
+  public navigate(url: string, userData?: UserData) {
     window.history.pushState({}, url, `#${url}`);
 
     const path = this.findRoute(url);
 
-    path.callback();
+    if (userData) {
+      path.callback();
+    } else {
+      path.callback();
+    }
   }
 
   private changeURL() {
@@ -71,10 +77,9 @@ export class Router {
     this.root.append(this.authenticationPage.getElement());
   }
 
-  renderMain() {
-    this.mainPage = new MainPage();
-    this.destroyPage(this.mainPage);
-    this.root.append(this.mainPage.getElement());
+  async renderMain(userData: UserData) {
+    this.destroyPage(this.mainController.getPage());
+    await this.mainController.renderPage(userData);
   }
 
   renderNotFound() {
@@ -93,26 +98,19 @@ export class Router {
   private createRoutes(): Route[] {
     const routes = [
       {
-        // default page
-        path: '',
-        callback: () => {
-          this.renderAuth();
-        },
-      },
-      {
         // auth page
         path: Pages.authorization,
         callback: () => {
           this.renderAuth();
         },
       },
-      {
-        // main page
-        path: Pages.main,
-        callback: () => {
-          this.renderMain();
-        },
-      },
+      // {
+      //   // main page
+      //   path: Pages.main,
+      //   callback: async (userData: UserData) => {
+      //     await this.renderMain(userData);
+      //   },
+      // },
       {
         // error page
         path: Pages.not_found,

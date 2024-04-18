@@ -1,5 +1,6 @@
 import { router } from '../controllers/Router';
 import { validateForm } from '../logic/Validation';
+import { userEvent } from '../services/UsersEventEmmiter';
 import { Pages } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
@@ -75,6 +76,8 @@ export class Form extends BaseComponent {
       } else {
         router.navigate(Pages.main);
       }
+
+      userEvent.emit('userLogIn', nameValue);
     });
   }
 

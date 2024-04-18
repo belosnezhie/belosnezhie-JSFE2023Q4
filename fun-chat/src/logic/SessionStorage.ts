@@ -1,3 +1,5 @@
+import { UserData } from '../types.ts/Types';
+
 class LoginStatus {
   key: string;
 
@@ -19,10 +21,10 @@ class LoginStatus {
     sessionStorage.removeItem(this.key);
   }
 
-  public getName(): string {
-    const name = sessionStorage.getItem(this.key);
+  public getName() {
+    const nameInJSON: string | null = sessionStorage.getItem(this.key);
 
-    if (!name) {
+    if (nameInJSON) {
       throw new Error('Name is not defind');
     }
 
@@ -30,7 +32,7 @@ class LoginStatus {
   }
 
   public setLoginStatus(name: string, password: string): void {
-    const userData = {
+    const userData: UserData = {
       name: name,
       password: password,
     };

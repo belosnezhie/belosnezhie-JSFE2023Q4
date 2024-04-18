@@ -1,13 +1,13 @@
 import './MainPage.css';
 import { BaseComponent } from '../components/Component';
+import { UsersList } from '../components/UsersField';
+import { User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
-  constructor() {
-    const usersField = new BaseComponent({
-      tag: 'div',
-      className: 'users_field',
-      text: 'Users field.',
-    });
+  private usersList: UsersList;
+
+  constructor(authUsers: User[], unAuthUsers: User[]) {
+    const usersList = new UsersList(authUsers, unAuthUsers);
 
     const dialogField = new BaseComponent({
       tag: 'div',
@@ -20,8 +20,10 @@ export class MainPage extends BaseComponent {
         tag: 'main',
         className: 'main_page',
       },
+      usersList,
       dialogField,
-      usersField,
     );
+
+    this.usersList = usersList;
   }
 }

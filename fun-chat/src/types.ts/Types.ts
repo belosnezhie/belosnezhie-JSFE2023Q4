@@ -1,6 +1,6 @@
 export interface Route {
   path: string;
-  callback: () => void;
+  callback: () => void | ((userData?: UserData) => Promise<void>);
 }
 
 export enum Pages {
@@ -8,4 +8,20 @@ export enum Pages {
   info = 'info',
   main = 'main',
   not_found = 'not_found',
+}
+
+export interface ServereResponce {
+  id: string;
+  type: string;
+  payload: User | User[];
+}
+
+export interface User {
+  login: string;
+  isLogined: boolean;
+}
+
+export interface UserData {
+  name: string;
+  password: string;
 }

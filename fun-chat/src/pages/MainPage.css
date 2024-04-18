@@ -1,12 +1,132 @@
 @import '../index.css';
 
+/* Header */
+
+.main_heaader {
+    min-width: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--page-background-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.header_buttons_wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+/* Main  */
+
 .main_page {
     min-width: 100%;
-    min-height: 100vh;
+    height: 100%;
+    flex-grow: 1;
     padding: 10px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-evenly;
+    align-items: stretch;
     gap: 15px;
     background-color: var(--page-background-color);
+}
+
+.users_list {
+    width: 30%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.search_input {
+    height: 5%;
+    padding: 2px;
+    border: inherit;
+    border-radius: inherit;
+    top: 10px;
+}
+
+.search_input::after {
+    display: block;
+    content: '';
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    background-image: url('../../public/find.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.users_container {
+    height: 95%;
+    padding: 0px 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-radius: inherit;
+    overflow-y: scroll;
+}
+
+.user_field {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    border-radius: inherit;
+    cursor: pointer;
+}
+
+.user_field:hover{
+    background-color: var(--hover-color);
+}
+
+.user_name {
+
+}
+
+.user_status {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+}
+
+.user_status.logined {
+    background-color: var(--logined-user-color);
+}
+
+.user_status.un_logined {
+    background-color: var(--unlogined-user-color);
+}
+
+
+/* Footer */
+
+.main_footer {
+    min-width: 100%;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--page-background-color);
+    border-top: 2px solid var(--border-color);
+}
+
+.footer_logo {
+    width: 80px;
+    height: 40px;
+    background-image: url('../../public/logo-rsschool.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.autor_link {
+    transition: 0.2s;
+}
+
+.autor_link:hover {
+    color: var(--hover-color);
 }
