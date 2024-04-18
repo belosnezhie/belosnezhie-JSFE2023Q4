@@ -1,7 +1,7 @@
 import './MainPage.css';
 import { BaseComponent } from '../components/Component';
 import { UsersList } from '../components/UsersField';
-import { User } from '../types.ts/Types';
+import { ParamsToEmmit, User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
   private usersList: UsersList;
@@ -25,5 +25,9 @@ export class MainPage extends BaseComponent {
     );
 
     this.usersList = usersList;
+  }
+
+  public updateAuthUsers(usersParams: ParamsToEmmit) {
+    this.usersList.updateAuthUsers(usersParams);
   }
 }

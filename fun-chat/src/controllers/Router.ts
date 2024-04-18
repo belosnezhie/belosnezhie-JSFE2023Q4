@@ -1,7 +1,7 @@
 import { BaseComponent } from '../components/Component';
 import { AuthenticationPage } from '../pages/AuthenticationPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
-import { Pages, Route, UserData } from '../types.ts/Types';
+import { Pages, Route } from '../types.ts/Types';
 
 import { MainController } from './MainController';
 
@@ -18,38 +18,32 @@ export class Router {
     this.pages = [];
     this.mainController = new MainController(this.root);
 
-    window.addEventListener('popstate', async () => {
-      await this.changeURL();
+    window.addEventListener('popstate', () => {
+      this.changeURL();
     });
 
-    window.addEventListener('hashchange', async () => {
-      await this.changeURL();
+    window.addEventListener('hashchange', () => {
+      this.changeURL();
     });
   }
 
-  public async navigate(url: string, userData?: UserData) {
+  public navigate(url: string) {
     window.history.pushState({}, url, `#${url}`);
 
     const path = this.findRoute(url);
 
-    if (!userData) {
-      path.callback();
-    } else {
-      if (path.asynkCallback) {
-        await path.asynkCallback(userData);
-      }
-    }
+    path.callback();
   }
 
-  private async changeURL() {
+  private changeURL() {
     if (window.location.hash) {
       const path = window.location.hash.slice(1);
 
-      await this.navigate(path);
+      this.navigate(path);
     } else {
       const path = window.location.pathname.slice(1);
 
-      await this.navigate(path);
+      this.navigate(path);
     }
   }
 
@@ -75,9 +69,9 @@ export class Router {
     this.root.append(this.authenticationPage.getElement());
   }
 
-  async renderMain(userData?: UserData) {
+  async renderMain() {
     this.destroyPage(this.mainController.getPage());
-    await this.mainController.renderPage(userData);
+    await this.mainController.renderPage();
   }
 
   renderNotFound() {
@@ -107,9 +101,6 @@ export class Router {
         path: Pages.main,
         callback: async () => {
           await this.renderMain();
-        },
-        asynkCallback: async (userData: UserData) => {
-          await this.renderMain(userData);
         },
       },
       {

@@ -1,4 +1,4 @@
-import { User } from '../types.ts/Types';
+import { ParamsToEmmit, User, UsersParams } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
@@ -32,11 +32,11 @@ export class UsersList extends BaseComponent {
 
     this.searchInput.setAttribute('placeholder', 'Find user...');
 
-    this.createAuthUsersFields(this.authUsers);
-    this.createAuthUsersFields(this.unAuthUsers);
+    this.createUsersFields(this.authUsers);
+    this.createUsersFields(this.unAuthUsers);
   }
 
-  public createAuthUsersFields(users: User[]) {
+  public createUsersFields(users: User[]) {
     users.forEach((user) => {
       const status = new BaseComponent({
         tag: 'div',
@@ -64,5 +64,20 @@ export class UsersList extends BaseComponent {
 
       this.usersContainer.append(userField);
     });
+  }
+
+  public updateAuthUsers(params: ParamsToEmmit) {
+    this.usersContainer.removeChildren();
+
+    const users: User[] = (<UsersParams>params).users.map((user) => {
+      const result: User = {
+        isLogined: user.isLogined,
+        login: user.login,
+      };
+
+      return result;
+    });
+
+    this.createUsersFields(users);
   }
 }

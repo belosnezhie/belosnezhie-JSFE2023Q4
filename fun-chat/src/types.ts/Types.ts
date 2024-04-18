@@ -11,14 +11,32 @@ export enum Pages {
   not_found = 'not_found',
 }
 
+export interface ParamsToEmmit {}
+
+export interface SingleUserParams extends ParamsToEmmit {
+  isLogined: boolean;
+  login: string;
+}
+
+export interface UsersParams extends ParamsToEmmit {
+  users: SingleUserParams[];
+}
+
 export interface ServerResponse {
   id: string;
-  payload: Payload;
   type: string;
 }
 
-export interface Payload {
-  user: User;
+export interface UsersResponse extends ServerResponse {
+  id: string;
+  type: string;
+  payload: {
+    users: User[];
+  };
+}
+
+export interface SingleUserResponse extends ServerResponse {
+  payload: User;
 }
 
 export interface User {

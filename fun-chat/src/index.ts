@@ -10,17 +10,17 @@ class App {
     this.router = router;
   }
 
-  async render() {
+  render() {
     if (!loginStatus.checkLoginStatus()) {
-      await this.router.navigate(Pages.authorization);
+      this.router.navigate(Pages.authorization);
     } else {
-      await this.router.navigate(Pages.main);
+      this.router.navigate(Pages.main);
     }
   }
 }
 
 const app = new App();
 
-document.addEventListener('DOMContentLoaded', async () => {
-  await app.render();
+document.addEventListener('DOMContentLoaded', () => {
+  app.render();
 });

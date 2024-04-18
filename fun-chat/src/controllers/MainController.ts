@@ -2,8 +2,9 @@ import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { loginStatus } from '../logic/SessionStorage';
 import { MainPage } from '../pages/MainPage';
+import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
-import { User, UserData } from '../types.ts/Types';
+import { ParamsToEmmit, User, UserData } from '../types.ts/Types';
 
 const testAuthUsers: User[] = [
   {
@@ -33,7 +34,6 @@ export class MainController {
   private header: Header;
   private footer: Footer;
   private webSocketService: WebSocketService;
-  private userData: UserData | undefined;
 
   constructor(root: HTMLElement) {
     this.root = root;
@@ -41,13 +41,13 @@ export class MainController {
     this.header = new Header();
     this.footer = new Footer();
     this.webSocketService = new WebSocketService();
+
+    userEvent.subscribe('getAllAuthUsers', (usersParams: ParamsToEmmit) => {
+      this.mainPage.updateAuthUsers(usersParams);
+    });
   }
 
-  async renderPage(userData?: UserData) {
-    if (userData) {
-      this.userData = userData;
-    }
-
+  async renderPage() {
     this.root.append(this.header.getElement());
     this.root.append(this.mainPage.getElement());
     this.root.append(this.footer.getElement());
@@ -59,6 +59,7 @@ export class MainController {
 
     this.webSocketService.logInUser(userDataFromSrorage);
     this.header.setUserName(userDataFromSrorage.name);
+    this.webSocketService.getAllAuthUsers();
   }
 
   updateOnlineUsers() {

@@ -1,4 +1,14 @@
-import { ServerResponse, User, UserData } from '../types.ts/Types';
+import {
+  ServerResponse,
+  SingleUserParams,
+  SingleUserResponse,
+  User,
+  UserData,
+  UsersParams,
+  UsersResponse,
+} from '../types.ts/Types';
+
+import { userEvent } from './UsersEventEmmiter';
 
 export class WebSocketService {
   private webSocket: WebSocket | undefined;
@@ -31,9 +41,37 @@ export class WebSocketService {
         const responceType: string = response.type;
 
         if (responceType === 'USER_LOGIN') {
-          const user: User = response.payload.user;
+          const userResponse: SingleUserResponse = <SingleUserResponse>response;
+          const user: User = userResponse.payload;
 
           console.log(`Name of logined user: ${user.login}`);
+        }
+
+        if (responceType === 'USER_EXTERNAL_LOGIN') {
+          const userResponse: SingleUserResponse = <SingleUserResponse>response;
+          const user: User = userResponse.payload;
+
+          console.log(`Urers were notified about new user: ${user.login}`);
+        }
+
+        if (responceType === 'USER_ACTIVE') {
+          const usersResponse: UsersResponse = <UsersResponse>response;
+          const users: SingleUserParams[] = usersResponse.payload.users.map(
+            (user) => {
+              const result: SingleUserParams = {
+                isLogined: user.isLogined,
+                login: user.login,
+              };
+
+              return result;
+            },
+          );
+
+          console.log(users);
+
+          const usersParams: UsersParams = { users: users };
+
+          userEvent.emit('getAllAuthUsers', usersParams);
         }
       },
     );
