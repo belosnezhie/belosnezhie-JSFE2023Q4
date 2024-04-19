@@ -1,5 +1,6 @@
 import './MainPage.css';
 import { BaseComponent } from '../components/Component';
+import { DialogField } from '../components/DialogField';
 import { UsersList } from '../components/UsersField';
 import { User } from '../types.ts/Types';
 
@@ -8,12 +9,7 @@ export class MainPage extends BaseComponent {
 
   constructor() {
     const usersList = new UsersList();
-
-    const dialogField = new BaseComponent({
-      tag: 'div',
-      className: 'dialog_field',
-      text: 'Dialog field.',
-    });
+    const dialogField = new DialogField();
 
     super(
       {

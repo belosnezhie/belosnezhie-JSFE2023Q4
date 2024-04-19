@@ -22,6 +22,7 @@ export class MainController {
     this.footer = new Footer();
     this.webSocketService = new WebSocketService();
 
+    // Server Events
     userEvent.subscribe('getAllAuthUsers', (usersParams: ParamsToEmmit) => {
       this.authUsers = this.setUsers(usersParams);
 

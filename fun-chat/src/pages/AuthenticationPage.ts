@@ -1,11 +1,11 @@
 import '../pages/AuthenticationPage.css';
 
+import { AuthForm } from '../components/AuthForm';
 import { BaseComponent } from '../components/Component';
-import { Form } from '../components/Form';
 
 export class AuthenticationPage extends BaseComponent {
   constructor() {
-    const form = new Form('AuthenticationForm');
+    const form = new AuthForm('AuthenticationForm');
 
     super(
       {

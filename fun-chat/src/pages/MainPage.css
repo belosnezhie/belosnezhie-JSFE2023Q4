@@ -102,6 +102,55 @@
     background-color: var(--unlogined-user-color);
 }
 
+.dialog_field {
+    width: 70%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 5px;
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.users_info_wrapper {
+    height: 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.dialog {
+    flex-grow: 1;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.message_form {
+    height: 10%;
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.message_input {
+    flex-grow: 1;
+    padding-left: 5px;
+    border: inherit;
+    border-radius: inherit;
+}
+
+.submit_input {
+    color: inherit;
+}
+
+.submit_input.disabled {
+    background-color: var(--button-disabled-color);
+    color: var(--button-background-color);
+}
 
 /* Footer */
 
