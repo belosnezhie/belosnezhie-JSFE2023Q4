@@ -105,7 +105,7 @@ export class WebSocketService {
           console.log(messageResponce);
 
           const data: ResponseMessageData = {
-            type: 'send',
+            type: '',
             id: messageResponce.payload.message.id,
             from: messageResponce.payload.message.from,
             to: messageResponce.payload.message.to,

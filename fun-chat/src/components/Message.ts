@@ -11,12 +11,14 @@ export class Message extends BaseComponent {
 
     let messageProps: BaseComponent;
 
-    if (messageData.type === 'send') {
+    if (messageData.type === 'sent') {
       messageProps = this.createSend(messageData);
-      this.addClass('send');
+
+      this.addClass('sent');
     } else {
       messageProps = this.createResived(messageData);
-      this.addClass('recieved');
+
+      this.addClass('received');
     }
 
     this.append(messageProps);
@@ -24,6 +26,14 @@ export class Message extends BaseComponent {
     const text: BaseComponent = this.createText(messageData);
 
     this.append(text);
+  }
+
+  private createText(message: ResponseMessageData): BaseComponent {
+    return new BaseComponent({
+      tag: 'div',
+      className: 'message',
+      text: message.text,
+    });
   }
 
   private createResived(message: ResponseMessageData) {
@@ -92,13 +102,5 @@ export class Message extends BaseComponent {
     });
 
     return time;
-  }
-
-  private createText(message: ResponseMessageData): BaseComponent {
-    return new BaseComponent({
-      tag: 'div',
-      className: 'message',
-      text: message.text,
-    });
   }
 }

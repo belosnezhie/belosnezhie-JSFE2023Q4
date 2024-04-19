@@ -22,6 +22,7 @@ export class MainController {
   private authUsers: User[] | undefined;
   private UNAuthUsers: User[] | undefined;
   private selectedUser: string | undefined;
+  private loggedUser: string = '';
 
   constructor(root: HTMLElement) {
     this.root = root;
@@ -32,7 +33,9 @@ export class MainController {
 
     // Server Events
     userEvent.subscribe('getAllAuthUsers', (usersParams: ParamsToEmmit) => {
-      this.authUsers = this.setUsers(usersParams);
+      this.authUsers = this.setUsers(usersParams).filter(
+        (user) => user.login !== this.loggedUser,
+      );
 
       this.mainPage.updateAuthUsers(this.authUsers);
     });
@@ -46,6 +49,11 @@ export class MainController {
     userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
       const message: ResponseMessageData = this.setMessage(messageData);
 
+      if (message.to === this.loggedUser) {
+        message.type = 'received';
+      } else {
+        message.type = 'sent';
+      }
       this.mainPage.renderMessage(message);
     });
 
@@ -79,12 +87,13 @@ export class MainController {
     this.root.append(this.footer.getElement());
     const webSocket = await this.webSocketService.createConnection();
 
-    const userDataFromSrorage: UserData = loginStatus.getUser();
-
     this.webSocketService.set(webSocket);
 
+    const userDataFromSrorage: UserData = loginStatus.getUser();
+
     this.webSocketService.logInUser(userDataFromSrorage);
-    this.header.setUserName(userDataFromSrorage.name);
+    this.loggedUser = userDataFromSrorage.name;
+    this.header.setUserName(this.loggedUser);
     this.webSocketService.getAllAuthUsers();
     this.webSocketService.getAllUNAuthUsers();
   }
