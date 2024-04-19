@@ -127,8 +127,36 @@
 
 .dialog {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 5px;
     border: inherit;
     border-radius: inherit;
+}
+
+.message_container {
+    max-width: 80%;
+    min-width: 69%;
+    padding: 5px;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    background-color: var(--fields-background-color);
+    border: inherit;
+    border-radius: inherit;
+}
+
+.message_container.send {
+    align-self: flex-end;
+}
+
+.message_container.recieved {
+    align-self: flex-start;
+}
+
+.send_data_wrapper {
+    display: flex;
+    justify-content: space-between;
 }
 
 .message_form {
@@ -139,6 +167,21 @@
     border: inherit;
     border-radius: inherit;
 }
+
+.time,
+.status,
+.receiver,
+.author {
+    font-size: 0.7rem;
+}
+
+.message {
+    padding: 5px;
+    background-color: white;
+    border: inherit;
+    border-radius: inherit;
+}
+
 
 .message_input {
     flex-grow: 1;

@@ -2,7 +2,7 @@ import './MainPage.css';
 import { BaseComponent } from '../components/Component';
 import { DialogField } from '../components/DialogField';
 import { UsersList } from '../components/UsersField';
-import { User } from '../types.ts/Types';
+import { ResponseMessageData, User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
   private usersList: UsersList;
@@ -35,5 +35,9 @@ export class MainPage extends BaseComponent {
 
   public setSelectedUser(usersParams: User) {
     this.dialogField.setUserData(usersParams);
+  }
+
+  public renderMessage(message: ResponseMessageData) {
+    this.dialogField.renderMessage(message);
   }
 }

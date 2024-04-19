@@ -42,11 +42,13 @@ export class MessageForm extends Form {
     this.addListener('submit', (event: Event) => {
       event.preventDefault();
       const target: HTMLFormElement = event.target as HTMLFormElement;
-      const message = target.elements[0] as HTMLInputElement;
+      const input = target.elements[0] as HTMLInputElement;
+      const message: ParamsToEmmit = input.value;
 
-      const messageToSend: ParamsToEmmit = message;
+      userEvent.emit('messageWasSent', message);
 
-      userEvent.emit('messageWasSent', messageToSend);
+      this.messageInput.setTextContent('');
+      input.value = '';
     });
   }
 }

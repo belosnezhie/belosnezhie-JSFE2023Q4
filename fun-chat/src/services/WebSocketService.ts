@@ -1,4 +1,7 @@
 import {
+  MessagePayloads,
+  ResponseMessageData,
+  SendMessageData,
   ServerResponse,
   SingleUserParams,
   SingleUserResponse,
@@ -95,6 +98,28 @@ export class WebSocketService {
 
           userEvent.emit('getAllUNAuthUsers', usersParams);
         }
+
+        if (responceType === 'MSG_SEND') {
+          const messageResponce: MessagePayloads = <MessagePayloads>response;
+
+          console.log(messageResponce);
+
+          const data: ResponseMessageData = {
+            type: 'send',
+            id: messageResponce.payload.message.id,
+            from: messageResponce.payload.message.from,
+            to: messageResponce.payload.message.to,
+            text: messageResponce.payload.message.text,
+            datetime: messageResponce.payload.message.datetime,
+            status: {
+              isDelivered: messageResponce.payload.message.status.isDelivered,
+              isReaded: messageResponce.payload.message.status.isReaded,
+              isEdited: messageResponce.payload.message.status.isReaded,
+            },
+          };
+
+          userEvent.emit('messageStatus', data);
+        }
       },
     );
   }
@@ -123,7 +148,7 @@ export class WebSocketService {
       payload: null,
     };
 
-    return this.webSocket?.send(JSON.stringify(data));
+    this.webSocket?.send(JSON.stringify(data));
   }
 
   public getAllUNAuthUsers() {
@@ -133,7 +158,22 @@ export class WebSocketService {
       payload: null,
     };
 
-    return this.webSocket?.send(JSON.stringify(data));
+    this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public sendMessage(messageData: SendMessageData) {
+    const data = {
+      id: this.createRequestId(),
+      type: 'MSG_SEND',
+      payload: {
+        message: {
+          to: messageData.to,
+          text: messageData.text,
+        },
+      },
+    };
+
+    this.webSocket?.send(JSON.stringify(data));
   }
 
   sayHi() {

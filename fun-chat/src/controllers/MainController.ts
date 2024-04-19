@@ -4,7 +4,14 @@ import { loginStatus } from '../logic/SessionStorage';
 import { MainPage } from '../pages/MainPage';
 import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
-import { ParamsToEmmit, User, UserData, UsersParams } from '../types.ts/Types';
+import {
+  ParamsToEmmit,
+  ResponseMessageData,
+  SendMessageData,
+  User,
+  UserData,
+  UsersParams,
+} from '../types.ts/Types';
 
 export class MainController {
   private root: HTMLElement;
@@ -14,6 +21,7 @@ export class MainController {
   private webSocketService: WebSocketService;
   private authUsers: User[] | undefined;
   private UNAuthUsers: User[] | undefined;
+  private selectedUser: string | undefined;
 
   constructor(root: HTMLElement) {
     this.root = root;
@@ -35,12 +43,33 @@ export class MainController {
       this.mainPage.updateUNAuthUsers(this.UNAuthUsers);
     });
 
-    // User Events
+    userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
+      const message: ResponseMessageData = this.setMessage(messageData);
 
+      this.mainPage.renderMessage(message);
+    });
+
+    // User Events
     userEvent.subscribe('userWasSelected', (userParams: ParamsToEmmit) => {
       const selectedUser = this.setUser(userParams);
 
+      this.selectedUser = selectedUser.login;
+
       this.mainPage.setSelectedUser(selectedUser);
+    });
+
+    userEvent.subscribe('messageWasSent', (message: ParamsToEmmit) => {
+      if (!this.selectedUser) {
+        throw new Error('User is not selected!');
+      }
+
+      const data: SendMessageData = {
+        to: this.selectedUser,
+        text: String(message),
+      };
+
+      this.webSocketService.sendMessage(data);
+      console.log('Message was send');
     });
   }
 
@@ -81,5 +110,11 @@ export class MainController {
     const selectedUser: User = <User>user;
 
     return selectedUser;
+  }
+
+  setMessage(message: ParamsToEmmit) {
+    const messageParams: ResponseMessageData = <ResponseMessageData>message;
+
+    return messageParams;
   }
 }
