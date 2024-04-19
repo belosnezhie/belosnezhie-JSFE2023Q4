@@ -34,6 +34,14 @@ export class MainController {
 
       this.mainPage.updateUNAuthUsers(this.UNAuthUsers);
     });
+
+    // User Events
+
+    userEvent.subscribe('userWasSelected', (userParams: ParamsToEmmit) => {
+      const selectedUser = this.setUser(userParams);
+
+      this.mainPage.setSelectedUser(selectedUser);
+    });
   }
 
   async renderPage() {
@@ -67,5 +75,11 @@ export class MainController {
     });
 
     return users;
+  }
+
+  setUser(user: ParamsToEmmit) {
+    const selectedUser: User = <User>user;
+
+    return selectedUser;
   }
 }

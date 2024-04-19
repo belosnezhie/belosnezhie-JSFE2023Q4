@@ -1,7 +1,12 @@
+import { User } from '../types.ts/Types';
+
 import { BaseComponent } from './Component';
 import { MessageForm } from './MessageForm';
 
 export class DialogField extends BaseComponent {
+  private userName: BaseComponent;
+  private userStatus: BaseComponent;
+
   constructor() {
     const userName = new BaseComponent({
       tag: 'p',
@@ -36,5 +41,17 @@ export class DialogField extends BaseComponent {
       dialog,
       messageForm,
     );
+
+    this.userName = userName;
+    this.userStatus = userStatus;
+  }
+
+  public setUserData(userData: User) {
+    this.userName.setTextContent(userData.login);
+    if (userData.isLogined) {
+      this.userStatus.setTextContent('Online');
+    } else {
+      this.userStatus.setTextContent('Offline');
+    }
   }
 }

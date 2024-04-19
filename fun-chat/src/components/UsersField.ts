@@ -1,4 +1,5 @@
-import { User } from '../types.ts/Types';
+import { userEvent } from '../services/UsersEventEmmiter';
+import { ParamsToEmmit, User } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
@@ -29,6 +30,27 @@ export class UsersList extends BaseComponent {
     this.usersContainer = usersContainer;
 
     this.searchInput.setAttribute('placeholder', 'Find user...');
+
+    this.addListener('click', (event: Event) => {
+      const target: HTMLElement = <HTMLElement>event.target;
+
+      const login: string | null = target.getAttribute('data_login');
+      let isLogined: boolean | string | null =
+        target.getAttribute('data_isLogined');
+
+      if (isLogined === 'true') {
+        isLogined = true;
+      } else {
+        isLogined = false;
+      }
+
+      const data: ParamsToEmmit = {
+        isLogined: isLogined,
+        login: login,
+      };
+
+      userEvent.emit('userWasSelected', data);
+    });
   }
 
   public createUsersFields() {
@@ -59,12 +81,13 @@ export class UsersList extends BaseComponent {
 
       if (user.isLogined) {
         status.addClass('logined');
-        userField.setAttribute('data_status', 'logined');
+        userField.setAttribute('data_isLogined', 'true');
       } else {
         status.addClass('un_logined');
-        userField.setAttribute('data_status', 'un_logined');
+        userField.setAttribute('data_isLogined', 'false');
       }
 
+      userField.setAttribute('data_login', user.login);
       this.usersContainer.append(userField);
     });
   }

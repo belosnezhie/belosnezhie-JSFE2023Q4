@@ -6,6 +6,7 @@ import { User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
   private usersList: UsersList;
+  private dialogField: DialogField;
 
   constructor() {
     const usersList = new UsersList();
@@ -21,6 +22,7 @@ export class MainPage extends BaseComponent {
     );
 
     this.usersList = usersList;
+    this.dialogField = dialogField;
   }
 
   public updateAuthUsers(authUsers: User[]) {
@@ -29,5 +31,9 @@ export class MainPage extends BaseComponent {
 
   public updateUNAuthUsers(UNauthUsers: User[]) {
     this.usersList.updateUNAuthUsers(UNauthUsers);
+  }
+
+  public setSelectedUser(usersParams: User) {
+    this.dialogField.setUserData(usersParams);
   }
 }
