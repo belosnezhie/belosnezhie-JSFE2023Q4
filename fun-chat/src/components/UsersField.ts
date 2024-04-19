@@ -1,15 +1,15 @@
-import { ParamsToEmmit, User, UsersParams } from '../types.ts/Types';
+import { User } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Input } from './Input';
 
 export class UsersList extends BaseComponent {
-  private authUsers: User[];
-  private unAuthUsers: User[];
+  private authUsers: User[] | undefined;
+  private unAuthUsers: User[] | undefined;
   private searchInput: Input;
   private usersContainer: BaseComponent;
 
-  constructor(authUsers: User[], unAuthUsers: User[]) {
+  constructor() {
     const searchInput = new Input('text', 'search_input', 'search_input');
     const usersContainer = new BaseComponent({
       tag: 'div',
@@ -25,18 +25,19 @@ export class UsersList extends BaseComponent {
       usersContainer,
     );
 
-    this.authUsers = authUsers;
-    this.unAuthUsers = unAuthUsers;
     this.searchInput = searchInput;
     this.usersContainer = usersContainer;
 
     this.searchInput.setAttribute('placeholder', 'Find user...');
-
-    this.createUsersFields(this.authUsers);
-    this.createUsersFields(this.unAuthUsers);
   }
 
-  public createUsersFields(users: User[]) {
+  public createUsersFields() {
+    let users: User[] | [] = [];
+
+    if (this.unAuthUsers && this.authUsers) {
+      users = [...this.authUsers, ...this.unAuthUsers];
+    }
+
     users.forEach((user) => {
       const status = new BaseComponent({
         tag: 'div',
@@ -58,26 +59,29 @@ export class UsersList extends BaseComponent {
 
       if (user.isLogined) {
         status.addClass('logined');
+        userField.setAttribute('data_status', 'logined');
       } else {
         status.addClass('un_logined');
+        userField.setAttribute('data_status', 'un_logined');
       }
 
       this.usersContainer.append(userField);
     });
   }
 
-  public updateAuthUsers(params: ParamsToEmmit) {
+  public updateAuthUsers(authUsers: User[]) {
+    this.authUsers = authUsers;
+
     this.usersContainer.removeChildren();
 
-    const users: User[] = (<UsersParams>params).users.map((user) => {
-      const result: User = {
-        isLogined: user.isLogined,
-        login: user.login,
-      };
+    this.createUsersFields();
+  }
 
-      return result;
-    });
+  public updateUNAuthUsers(UNauthUsers: User[]) {
+    this.unAuthUsers = UNauthUsers;
 
-    this.createUsersFields(users);
+    this.usersContainer.removeChildren();
+
+    this.createUsersFields();
   }
 }

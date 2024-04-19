@@ -1,13 +1,13 @@
 import './MainPage.css';
 import { BaseComponent } from '../components/Component';
 import { UsersList } from '../components/UsersField';
-import { ParamsToEmmit, User } from '../types.ts/Types';
+import { User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
   private usersList: UsersList;
 
-  constructor(authUsers: User[], unAuthUsers: User[]) {
-    const usersList = new UsersList(authUsers, unAuthUsers);
+  constructor() {
+    const usersList = new UsersList();
 
     const dialogField = new BaseComponent({
       tag: 'div',
@@ -27,7 +27,11 @@ export class MainPage extends BaseComponent {
     this.usersList = usersList;
   }
 
-  public updateAuthUsers(usersParams: ParamsToEmmit) {
-    this.usersList.updateAuthUsers(usersParams);
+  public updateAuthUsers(authUsers: User[]) {
+    this.usersList.updateAuthUsers(authUsers);
+  }
+
+  public updateUNAuthUsers(UNauthUsers: User[]) {
+    this.usersList.updateUNAuthUsers(UNauthUsers);
   }
 }

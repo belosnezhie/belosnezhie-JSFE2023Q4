@@ -67,11 +67,33 @@ export class WebSocketService {
             },
           );
 
+          console.log('users online');
           console.log(users);
 
           const usersParams: UsersParams = { users: users };
 
           userEvent.emit('getAllAuthUsers', usersParams);
+        }
+
+        if (responceType === 'USER_INACTIVE') {
+          const usersResponse: UsersResponse = <UsersResponse>response;
+          const users: SingleUserParams[] = usersResponse.payload.users.map(
+            (user) => {
+              const result: SingleUserParams = {
+                isLogined: user.isLogined,
+                login: user.login,
+              };
+
+              return result;
+            },
+          );
+
+          console.log('users not online');
+          console.log(users);
+
+          const usersParams: UsersParams = { users: users };
+
+          userEvent.emit('getAllUNAuthUsers', usersParams);
         }
       },
     );
@@ -95,6 +117,16 @@ export class WebSocketService {
   }
 
   public getAllAuthUsers() {
+    const data = {
+      id: this.createRequestId(),
+      type: 'USER_INACTIVE',
+      payload: null,
+    };
+
+    return this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public getAllUNAuthUsers() {
     const data = {
       id: this.createRequestId(),
       type: 'USER_ACTIVE',
