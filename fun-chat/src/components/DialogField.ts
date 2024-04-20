@@ -69,4 +69,12 @@ export class DialogField extends BaseComponent {
 
     this.dialog.append(messageWrapper);
   }
+
+  public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
+    this.dialog.removeChildren();
+
+    dialogHistory.forEach((item) => {
+      this.renderMessage(item);
+    });
+  }
 }

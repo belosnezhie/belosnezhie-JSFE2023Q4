@@ -1,8 +1,10 @@
-import { ResponseMessageData } from '../types.ts/Types';
+import { MessageStatus, ResponseMessageData } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 
 export class Message extends BaseComponent {
+  private status: BaseComponent | undefined;
+
   constructor(messageData: ResponseMessageData) {
     super({
       tag: 'div',
@@ -71,6 +73,10 @@ export class Message extends BaseComponent {
       className: 'status',
     });
 
+    this.status = status;
+
+    this.updateStatus(message.status);
+
     const sendDataWrapper = new BaseComponent(
       {
         tag: 'div',
@@ -78,7 +84,7 @@ export class Message extends BaseComponent {
       },
       time,
       to,
-      status,
+      this.status,
     );
 
     return sendDataWrapper;
@@ -102,5 +108,25 @@ export class Message extends BaseComponent {
     });
 
     return time;
+  }
+
+  public updateStatus(messageStatus: MessageStatus) {
+    let statusValue: string = '';
+
+    if (messageStatus.isDelivered) {
+      statusValue = 'delivered';
+    }
+
+    if (messageStatus.isReaded) {
+      statusValue = 'readed';
+    }
+
+    if (messageStatus.isEdited) {
+      statusValue = 'edited';
+    }
+
+    if (this.status) {
+      this.status.setTextContent(statusValue);
+    }
   }
 }

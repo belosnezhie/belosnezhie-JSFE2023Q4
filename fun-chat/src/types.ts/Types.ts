@@ -1,3 +1,5 @@
+// Routing
+
 export interface Route {
   path: string;
   callback: () => void;
@@ -22,6 +24,8 @@ export interface UsersParams extends ParamsToEmmit {
   users: SingleUserParams[];
 }
 
+// Server Responses
+
 export interface ServerResponse {
   id: string;
   type: string;
@@ -39,22 +43,34 @@ export interface SingleUserResponse extends ServerResponse {
   payload: User;
 }
 
-export interface MessagePayloads extends ServerResponse {
+export interface SingleMessagePayload extends ServerResponse {
   payload: {
-    message: {
-      id: string;
-      from: string;
-      to: string;
-      text: string;
-      datetime: number;
-      status: {
-        isDelivered: boolean;
-        isReaded: boolean;
-        isEdited: boolean;
-      };
-    };
+    message: MessageResponse;
   };
 }
+
+export interface MessagesPayload extends ServerResponse {
+  payload: {
+    messages: MessageResponse[];
+  };
+}
+
+export interface MessageResponse {
+  id: string;
+  from: string;
+  to: string;
+  text: string;
+  datetime: number;
+  status: MessageStatus;
+}
+
+export interface MessageStatus {
+  isDelivered: boolean;
+  isReaded: boolean;
+  isEdited: boolean;
+}
+
+// Types for rendering
 
 export interface User {
   isLogined: boolean;

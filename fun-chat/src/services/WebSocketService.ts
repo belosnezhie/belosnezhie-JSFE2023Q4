@@ -1,8 +1,9 @@
 import {
-  MessagePayloads,
+  MessagesPayload,
   ResponseMessageData,
   SendMessageData,
   ServerResponse,
+  SingleMessagePayload,
   SingleUserParams,
   SingleUserResponse,
   User,
@@ -54,7 +55,13 @@ export class WebSocketService {
           const userResponse: SingleUserResponse = <SingleUserResponse>response;
           const user: User = userResponse.payload;
 
+          const userParams: SingleUserParams = {
+            login: user.login,
+            isLogined: user.isLogined,
+          };
+
           console.log(`Urers were notified about new user: ${user.login}`);
+          userEvent.emit('newUserLoggedIn', userParams);
         }
 
         if (responceType === 'USER_ACTIVE') {
@@ -99,8 +106,38 @@ export class WebSocketService {
           userEvent.emit('getAllUNAuthUsers', usersParams);
         }
 
+        if (responceType === 'MSG_FROM_USER') {
+          const messagesResponce: MessagesPayload = <MessagesPayload>response;
+
+          console.log('message history');
+          console.log(messagesResponce);
+
+          const data: ResponseMessageData[] =
+            messagesResponce.payload.messages.map((item) => {
+              const message: ResponseMessageData = {
+                type: '',
+                id: item.id,
+                from: item.from,
+                to: item.to,
+                text: item.text,
+                datetime: item.datetime,
+                status: {
+                  isDelivered: item.status.isDelivered,
+                  isReaded: item.status.isReaded,
+                  isEdited: item.status.isReaded,
+                },
+              };
+
+              return message;
+            });
+
+          userEvent.emit('dialogHistory', data);
+        }
+
         if (responceType === 'MSG_SEND') {
-          const messageResponce: MessagePayloads = <MessagePayloads>response;
+          const messageResponce: SingleMessagePayload = <SingleMessagePayload>(
+            response
+          );
 
           console.log(messageResponce);
 
@@ -169,6 +206,20 @@ export class WebSocketService {
         message: {
           to: messageData.to,
           text: messageData.text,
+        },
+      },
+    };
+
+    this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public getMessageHistory(login: string) {
+    const data = {
+      id: this.createRequestId(),
+      type: 'MSG_FROM_USER',
+      payload: {
+        user: {
+          login: login,
         },
       },
     };

@@ -60,7 +60,7 @@ export class UsersList extends BaseComponent {
       users = [...this.authUsers, ...this.unAuthUsers];
     }
 
-    users.forEach((user) => {
+    const usersWrappers: BaseComponent[] = users.map((user) => {
       const status = new BaseComponent({
         tag: 'div',
         className: 'user_status',
@@ -88,8 +88,11 @@ export class UsersList extends BaseComponent {
       }
 
       userField.setAttribute('data_login', user.login);
-      this.usersContainer.append(userField);
+
+      return userField;
     });
+
+    this.usersContainer.appendChildren(usersWrappers);
   }
 
   public updateAuthUsers(authUsers: User[]) {
@@ -106,5 +109,11 @@ export class UsersList extends BaseComponent {
     this.usersContainer.removeChildren();
 
     this.createUsersFields();
+  }
+
+  public updateUser(user: User) {
+    const name = user.login;
+
+    console.log(name);
   }
 }

@@ -46,14 +46,32 @@ export class MainController {
       this.mainPage.updateUNAuthUsers(this.UNAuthUsers);
     });
 
-    userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
-      const message: ResponseMessageData = this.setMessage(messageData);
+    userEvent.subscribe(
+      'newUserLoggedIn',
+      (emmitedUserParams: ParamsToEmmit) => {
+        const user: User = this.setUser(emmitedUserParams);
 
-      if (message.to === this.loggedUser) {
-        message.type = 'received';
-      } else {
-        message.type = 'sent';
-      }
+        console.log(`User loged in: ${user.login}`);
+
+        this.webSocketService.getAllAuthUsers();
+        this.webSocketService.getAllUNAuthUsers();
+      },
+    );
+
+    userEvent.subscribe('dialogHistory', (dialogHistoryData: ParamsToEmmit) => {
+      let dialogHistory = this.setDialogHistory(dialogHistoryData);
+
+      dialogHistory = dialogHistory.map((item) => {
+        return this.checkMessageType(item);
+      });
+
+      this.mainPage.renderDialogHistory(dialogHistory);
+    });
+
+    userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
+      let message: ResponseMessageData = this.setMessage(messageData);
+
+      message = this.checkMessageType(message);
       this.mainPage.renderMessage(message);
     });
 
@@ -64,6 +82,8 @@ export class MainController {
       this.selectedUser = selectedUser.login;
 
       this.mainPage.setSelectedUser(selectedUser);
+
+      this.webSocketService.getMessageHistory(this.selectedUser);
     });
 
     userEvent.subscribe('messageWasSent', (message: ParamsToEmmit) => {
@@ -77,7 +97,6 @@ export class MainController {
       };
 
       this.webSocketService.sendMessage(data);
-      console.log('Message was send');
     });
   }
 
@@ -125,5 +144,27 @@ export class MainController {
     const messageParams: ResponseMessageData = <ResponseMessageData>message;
 
     return messageParams;
+  }
+
+  setDialogHistory(dialogHistoryData: ParamsToEmmit) {
+    const dialogHistory = (<ResponseMessageData[]>dialogHistoryData).map(
+      (item) => {
+        const messageParams = item;
+
+        return messageParams;
+      },
+    );
+
+    return dialogHistory;
+  }
+
+  checkMessageType(message: ResponseMessageData) {
+    if (message.to === this.loggedUser) {
+      message.type = 'received';
+    } else {
+      message.type = 'sent';
+    }
+
+    return message;
   }
 }

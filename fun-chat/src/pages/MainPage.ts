@@ -33,11 +33,19 @@ export class MainPage extends BaseComponent {
     this.usersList.updateUNAuthUsers(UNauthUsers);
   }
 
+  public updateUser(user: User) {
+    this.usersList.updateUser(user);
+  }
+
   public setSelectedUser(usersParams: User) {
     this.dialogField.setUserData(usersParams);
   }
 
   public renderMessage(message: ResponseMessageData) {
     this.dialogField.renderMessage(message);
+  }
+
+  public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
+    this.dialogField.renderDialogHistory(dialogHistory);
   }
 }
