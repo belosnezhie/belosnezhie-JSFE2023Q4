@@ -1,22 +1,22 @@
-import { BaseComponent } from '../components/Component';
 import { AuthenticationPage } from '../pages/AuthenticationPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { Pages, Route } from '../types.ts/Types';
 
+import { AuthenticationController } from './AuthenticationController';
 import { MainController } from './MainController';
 
 export class Router {
   private routes: Route[];
   private mainController: MainController;
-  private pages: BaseComponent[];
+  private authenticationController: AuthenticationController;
   private authenticationPage: AuthenticationPage | undefined = undefined;
   private notFoundPage: NotFoundPage | undefined = undefined;
   private root: HTMLElement = document.body;
 
   constructor() {
     this.routes = this.createRoutes();
-    this.pages = [];
     this.mainController = new MainController(this.root);
+    this.authenticationController = new AuthenticationController(this.root);
 
     window.addEventListener('popstate', () => {
       this.changeURL();
@@ -64,27 +64,20 @@ export class Router {
   }
 
   renderAuth() {
-    this.authenticationPage = new AuthenticationPage();
-    this.destroyPage(this.authenticationPage);
-    this.root.append(this.authenticationPage.getElement());
+    this.mainController.destroy();
+    this.authenticationController = new AuthenticationController(this.root);
+    this.authenticationController.renderPage();
   }
 
   async renderMain() {
-    this.destroyPage(this.mainController.getPage());
+    this.authenticationController.destroy();
+    this.mainController = new MainController(this.root);
     await this.mainController.renderPage();
   }
 
   renderNotFound() {
     this.notFoundPage = new NotFoundPage();
-    this.destroyPage(this.notFoundPage);
     this.root.append(this.notFoundPage.getElement());
-  }
-
-  private destroyPage(page: BaseComponent) {
-    this.pages.forEach((item) => item.removeElement());
-    if (!this.pages.includes(page)) {
-      this.pages.push(page);
-    }
   }
 
   private createRoutes(): Route[] {

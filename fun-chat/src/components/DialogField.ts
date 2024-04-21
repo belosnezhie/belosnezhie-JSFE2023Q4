@@ -60,10 +60,6 @@ export class DialogField extends BaseComponent {
     this.dialog.append(this.userPlaceholder);
 
     this.messageForm.addClass('disabled');
-
-    // userEvent.subscribe('userDeletedMessage', (id: ParamsToEmmit) => {
-    //   this.findMessage(String(id));
-    // });
   }
 
   public setUserData(userData: User) {
@@ -113,16 +109,13 @@ export class DialogField extends BaseComponent {
     if (message) {
       this.dialog.removeChild(message);
     }
-
-    console.log(message);
-    console.log(id);
   }
 
-  public editMessage(id: string, text: string) {
+  public editMessage(id: string, text: string, status: boolean = true) {
     const message = this.findMessage(id);
 
     if (message) {
-      message.editMessage(text);
+      message.editMessage(text, status);
     }
   }
 

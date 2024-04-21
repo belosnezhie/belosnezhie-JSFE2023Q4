@@ -12,6 +12,7 @@ import { Input } from './Input';
 
 export class Message extends Form {
   private status: BaseComponent | undefined;
+  private type: string;
   private id: string;
   private messageContainer: Input;
   private widjets: BaseComponent | undefined = undefined;
@@ -20,6 +21,7 @@ export class Message extends Form {
     super(formName);
 
     this.id = messageData.id;
+    this.type = messageData.type;
 
     let messageProps: BaseComponent;
 
@@ -85,14 +87,23 @@ export class Message extends Form {
     }
   }
 
-  public editMessage(text: string) {
-    this.messageContainer.setTextContent(text);
+  public editMessage(text: string, status: boolean = true) {
+    this.messageContainer.setAttribute('value', text);
     this.messageContainer.addClass('disabled');
+
+    if (this.type === 'received') {
+      return;
+    }
+
     if (this.widjets) {
       this.widjets.removeElement();
     }
     this.widjets = this.createWidgets();
     this.append(this.widjets);
+
+    if (status && this.status) {
+      this.status.setTextContent('edited');
+    }
   }
 
   private createText(message: ResponseMessageData): Input {

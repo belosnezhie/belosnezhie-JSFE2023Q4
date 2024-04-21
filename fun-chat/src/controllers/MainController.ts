@@ -1,11 +1,13 @@
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import { router } from '../controllers/Router';
 import { loginStatus } from '../logic/SessionStorage';
 import { MainPage } from '../pages/MainPage';
 import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
 import {
   EditedMessageData,
+  Pages,
   ParamsToEmmit,
   ResponseMessageData,
   SendMessageData,
@@ -96,7 +98,7 @@ export class MainController {
     userEvent.subscribe('messageWasEdited', (messageData: ParamsToEmmit) => {
       const data = this.setEditedMessage(messageData);
 
-      this.mainPage.editMessage(data.id, data.text);
+      this.mainPage.editMessage(data.id, data.text, data.status?.isEdited);
     });
 
     // User Events
@@ -134,6 +136,16 @@ export class MainController {
 
       this.webSocketService.editeMessage(data.id, data.text);
     });
+
+    userEvent.subscribe('logoutUser', (dummy: ParamsToEmmit) => {
+      console.log('Log out user, ' + String(dummy));
+      const loggedInUser = loginStatus.getUser();
+
+      this.webSocketService.logOutUser(loggedInUser);
+
+      loginStatus.clearLoginStatus();
+      router.navigate(Pages.authorization);
+    });
   }
 
   async renderPage() {
@@ -153,8 +165,22 @@ export class MainController {
     this.webSocketService.getAllUNAuthUsers();
   }
 
-  getPage() {
-    return this.mainPage;
+  destroy() {
+    userEvent.unsubscribeAll('getAllAuthUsers');
+    userEvent.unsubscribeAll('getAllUNAuthUsers');
+    userEvent.unsubscribeAll('newUserLoggedIn');
+    userEvent.unsubscribeAll('dialogHistory');
+    userEvent.unsubscribeAll('messageStatus');
+    userEvent.unsubscribeAll('messageWasDeleted');
+    userEvent.unsubscribeAll('messageWasEdited');
+    userEvent.unsubscribeAll('userWasSelected');
+    userEvent.unsubscribeAll('messageWasSent');
+    userEvent.unsubscribeAll('userDeletedMessage');
+    userEvent.unsubscribeAll('userEditedMessage');
+    userEvent.unsubscribeAll('logoutUser');
+    this.header.removeElement();
+    this.mainPage.removeElement();
+    this.footer.removeElement();
   }
 
   setUsers(usersParams: ParamsToEmmit) {

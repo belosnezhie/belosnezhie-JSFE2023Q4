@@ -1,3 +1,6 @@
+import { userEvent } from '../services/UsersEventEmmiter';
+import { ParamsToEmmit } from '../types.ts/Types';
+
 import { Button } from './Button';
 import { BaseComponent } from './Component';
 
@@ -18,7 +21,12 @@ export class Header extends BaseComponent {
       tag: 'div',
       className: 'header_buttons_wrapper',
     });
-    const logOutButton = new Button('Log out', 'log_out_button', () => {});
+    const logOutButton = new Button('Log out', 'log_out_button', () => {
+      const dummy: ParamsToEmmit = {};
+
+      console.log('lets logout');
+      userEvent.emit('logoutUser', dummy);
+    });
     const infoButton = new Button('Info', 'info_button', () => {});
 
     buttonsContainer.append(infoButton);

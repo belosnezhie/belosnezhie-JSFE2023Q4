@@ -40,7 +40,9 @@ export interface UsersResponse extends ServerResponse {
 }
 
 export interface SingleUserResponse extends ServerResponse {
-  payload: User;
+  payload: {
+    user: User;
+  };
 }
 
 export interface SingleMessagePayload extends ServerResponse {
@@ -129,4 +131,7 @@ export interface SendMessageData {
 export interface EditedMessageData {
   id: string;
   text: string;
+  status?: {
+    isEdited: boolean;
+  };
 }

@@ -49,14 +49,14 @@ export class WebSocketService {
 
         if (responceType === 'USER_LOGIN') {
           const userResponse: SingleUserResponse = <SingleUserResponse>response;
-          const user: User = userResponse.payload;
+          const user: User = userResponse.payload.user;
 
           console.log(`Name of logined user: ${user.login}`);
         }
 
         if (responceType === 'USER_EXTERNAL_LOGIN') {
           const userResponse: SingleUserResponse = <SingleUserResponse>response;
-          const user: User = userResponse.payload;
+          const user: User = userResponse.payload.user;
 
           const userParams: SingleUserParams = {
             login: user.login,
@@ -184,6 +184,22 @@ export class WebSocketService {
     const data = {
       id: id,
       type: 'USER_LOGIN',
+      payload: {
+        user: {
+          login: userData.name,
+          password: userData.password,
+        },
+      },
+    };
+
+    this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public logOutUser(userData: UserData) {
+    const id: string = this.createRequestId();
+    const data = {
+      id: id,
+      type: 'USER_LOGOUT',
       payload: {
         user: {
           login: userData.name,
