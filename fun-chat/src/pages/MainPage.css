@@ -136,6 +136,7 @@
     padding: 5px;
     border: inherit;
     border-radius: inherit;
+    transition: 0.2s;
 }
 
 .message_container {
@@ -158,9 +159,22 @@
     align-self: flex-start;
 }
 
-.send_data_wrapper {
+.send_data_wrapper, 
+.message_widjet_wrapper {
     display: flex;
     justify-content: space-between;
+}
+
+.detete_message_button,
+.edit_message_button {
+    background-color: var(--hover-color);
+    padding: 0;
+    font-size: 0.8rem;
+}
+
+.detete_message_button:hover,
+.edit_message_button:hover {
+    background-color: var(--button-background-color);
 }
 
 .message_form {

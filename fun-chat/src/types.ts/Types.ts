@@ -55,6 +55,17 @@ export interface MessagesPayload extends ServerResponse {
   };
 }
 
+export interface DeletedMessagesPayload extends ServerResponse {
+  payload: {
+    message: {
+      id: string;
+      status: {
+        isDeleted: boolean;
+      };
+    };
+  };
+}
+
 export interface MessageResponse {
   id: string;
   from: string;

@@ -9,6 +9,7 @@ export class DialogField extends BaseComponent {
   private userStatus: BaseComponent;
   private messageForm: MessageForm;
   private dialog: BaseComponent;
+  private userPlaceholder: BaseComponent;
 
   constructor() {
     const userName = new BaseComponent({
@@ -35,6 +36,12 @@ export class DialogField extends BaseComponent {
     });
     const messageForm = new MessageForm('messageForm');
 
+    const userPlaceholder = new BaseComponent({
+      tag: 'div',
+      className: 'dialog_placeholder',
+      text: 'Select a user to send a message.',
+    });
+
     super(
       {
         tag: 'div',
@@ -49,12 +56,19 @@ export class DialogField extends BaseComponent {
     this.userStatus = userStatus;
     this.messageForm = messageForm;
     this.dialog = dialog;
+    this.userPlaceholder = userPlaceholder;
+    this.dialog.append(this.userPlaceholder);
 
     this.messageForm.addClass('disabled');
+
+    // userEvent.subscribe('userDeletedMessage', (id: ParamsToEmmit) => {
+    //   this.findMessage(String(id));
+    // });
   }
 
   public setUserData(userData: User) {
     this.messageForm.removeClass('disabled');
+    this.removeUserPlaceholder();
 
     this.userName.setTextContent(userData.login);
     if (userData.isLogined) {
@@ -68,13 +82,62 @@ export class DialogField extends BaseComponent {
     const messageWrapper = new Message(message);
 
     this.dialog.append(messageWrapper);
+
+    if (message.type === 'received') {
+      this.scrollDialog();
+    }
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
     this.dialog.removeChildren();
 
+    if (dialogHistory.length === 0) {
+      this.dialog.append(this.showHistoryPlaceholder());
+    }
+
     dialogHistory.forEach((item) => {
       this.renderMessage(item);
+    });
+  }
+
+  public scrollDialog() {
+    this.dialog.getElement().scrollTo({
+      top: this.dialog.getElement().scrollHeight,
+      behavior: 'smooth',
+    });
+  }
+
+  public deleteMessage(id: string) {
+    const messageHistoty = this.dialog.getChildren();
+    const message = messageHistoty.find(
+      (item) => item.getAttribute('data-id') === id,
+    );
+
+    if (message) {
+      this.dialog.removeChild(message);
+    }
+
+    console.log(message);
+    console.log(id);
+  }
+
+  private showHistoryPlaceholder(): BaseComponent {
+    return new BaseComponent({
+      tag: 'div',
+      className: 'dialog_placeholder',
+      text: 'You have no message history with this user...',
+    });
+  }
+
+  private removeUserPlaceholder() {
+    this.userPlaceholder.removeElement();
+  }
+
+  private showDevider(): BaseComponent {
+    return new BaseComponent({
+      tag: 'div',
+      className: 'dialog_devider',
+      text: 'New messages',
     });
   }
 }

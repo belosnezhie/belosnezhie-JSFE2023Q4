@@ -1,9 +1,16 @@
-import { MessageStatus, ResponseMessageData } from '../types.ts/Types';
+import { userEvent } from '../services/UsersEventEmmiter';
+import {
+  MessageStatus,
+  ParamsToEmmit,
+  ResponseMessageData,
+} from '../types.ts/Types';
 
+import { Button } from './Button';
 import { BaseComponent } from './Component';
 
 export class Message extends BaseComponent {
   private status: BaseComponent | undefined;
+  private id: string;
 
   constructor(messageData: ResponseMessageData) {
     super({
@@ -11,10 +18,15 @@ export class Message extends BaseComponent {
       className: 'message_container',
     });
 
+    this.id = messageData.id;
+
     let messageProps: BaseComponent;
+
+    let widjets: BaseComponent | undefined = undefined;
 
     if (messageData.type === 'sent') {
       messageProps = this.createSend(messageData);
+      widjets = this.createWidgets();
 
       this.addClass('sent');
     } else {
@@ -28,6 +40,31 @@ export class Message extends BaseComponent {
     const text: BaseComponent = this.createText(messageData);
 
     this.append(text);
+    if (widjets) {
+      this.append(widjets);
+    }
+
+    this.setAttribute('data-id', this.id);
+  }
+
+  public updateStatus(messageStatus: MessageStatus) {
+    let statusValue: string = '';
+
+    if (messageStatus.isDelivered) {
+      statusValue = 'delivered';
+    }
+
+    if (messageStatus.isReaded) {
+      statusValue = 'readed';
+    }
+
+    if (messageStatus.isEdited) {
+      statusValue = 'edited';
+    }
+
+    if (this.status) {
+      this.status.setTextContent(statusValue);
+    }
   }
 
   private createText(message: ResponseMessageData): BaseComponent {
@@ -90,13 +127,28 @@ export class Message extends BaseComponent {
     return sendDataWrapper;
   }
 
+  private createWidgets(): BaseComponent {
+    const deleteButton = new Button('Delete', 'detete_message_button', () =>
+      this.deleteMessage(),
+    );
+    const editButton = new Button('Edit', 'edit_message_button', () => {});
+
+    const widgetsWrapper = new BaseComponent(
+      { tag: 'div', className: 'message_widjet_wrapper' },
+      deleteButton,
+      editButton,
+    );
+
+    return widgetsWrapper;
+  }
+
   private createTime(message: ResponseMessageData): BaseComponent {
     const receivedtime = new Date(message.datetime);
     const hours = receivedtime.getHours();
     const minutes = receivedtime.getMinutes();
     const seconds = receivedtime.getSeconds();
     const year = receivedtime.getFullYear();
-    const month = receivedtime.getMonth();
+    const month = 1 + receivedtime.getMonth();
     const day = receivedtime.getDate();
 
     const timeToRender = `${day}.${month}.${year}, ${hours}:${minutes}:${seconds}`;
@@ -110,23 +162,9 @@ export class Message extends BaseComponent {
     return time;
   }
 
-  public updateStatus(messageStatus: MessageStatus) {
-    let statusValue: string = '';
+  private deleteMessage() {
+    const id: ParamsToEmmit = this.id;
 
-    if (messageStatus.isDelivered) {
-      statusValue = 'delivered';
-    }
-
-    if (messageStatus.isReaded) {
-      statusValue = 'readed';
-    }
-
-    if (messageStatus.isEdited) {
-      statusValue = 'edited';
-    }
-
-    if (this.status) {
-      this.status.setTextContent(statusValue);
-    }
+    userEvent.emit('userDeletedMessage', id);
   }
 }

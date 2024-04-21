@@ -71,8 +71,18 @@ export class MainController {
     userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
       let message: ResponseMessageData = this.setMessage(messageData);
 
+      if (message.to !== this.selectedUser) {
+        // this.mainPage.showUnreadMessage();
+
+        return;
+      }
       message = this.checkMessageType(message);
       this.mainPage.renderMessage(message);
+    });
+
+    userEvent.subscribe('messageWasDeleted', (messageId: ParamsToEmmit) => {
+      this.mainPage.deleteMessage(String(messageId));
+      console.log(`id from controller ${String(messageId)}`);
     });
 
     // User Events
@@ -91,12 +101,18 @@ export class MainController {
         throw new Error('User is not selected!');
       }
 
+      this.mainPage.scrollDialog();
+
       const data: SendMessageData = {
         to: this.selectedUser,
         text: String(message),
       };
 
       this.webSocketService.sendMessage(data);
+    });
+
+    userEvent.subscribe('userDeletedMessage', (id: ParamsToEmmit) => {
+      this.webSocketService.deleteMessage(String(id));
     });
   }
 

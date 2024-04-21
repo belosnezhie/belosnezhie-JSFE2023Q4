@@ -75,6 +75,16 @@ export class BaseComponent {
     this.element.removeAttribute(attribute);
   }
 
+  removeChild(child: BaseComponent) {
+    const index: number | undefined = this.children?.indexOf(child);
+
+    if (index !== undefined) {
+      this.children?.splice(index, 1);
+    }
+
+    child.removeElement();
+  }
+
   removeChildren() {
     this.children.forEach((child) => {
       child.removeElement();

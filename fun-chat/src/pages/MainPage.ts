@@ -48,4 +48,12 @@ export class MainPage extends BaseComponent {
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
     this.dialogField.renderDialogHistory(dialogHistory);
   }
+
+  public scrollDialog() {
+    this.dialogField.scrollDialog();
+  }
+
+  public deleteMessage(id: string) {
+    this.dialogField.deleteMessage(id);
+  }
 }

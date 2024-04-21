@@ -1,5 +1,7 @@
 import {
+  DeletedMessagesPayload,
   MessagesPayload,
+  ParamsToEmmit,
   ResponseMessageData,
   SendMessageData,
   ServerResponse,
@@ -60,7 +62,6 @@ export class WebSocketService {
             isLogined: user.isLogined,
           };
 
-          console.log(`Urers were notified about new user: ${user.login}`);
           userEvent.emit('newUserLoggedIn', userParams);
         }
 
@@ -76,9 +77,6 @@ export class WebSocketService {
               return result;
             },
           );
-
-          console.log('users online');
-          console.log(users);
 
           const usersParams: UsersParams = { users: users };
 
@@ -98,9 +96,6 @@ export class WebSocketService {
             },
           );
 
-          console.log('users not online');
-          console.log(users);
-
           const usersParams: UsersParams = { users: users };
 
           userEvent.emit('getAllUNAuthUsers', usersParams);
@@ -108,9 +103,6 @@ export class WebSocketService {
 
         if (responceType === 'MSG_FROM_USER') {
           const messagesResponce: MessagesPayload = <MessagesPayload>response;
-
-          console.log('message history');
-          console.log(messagesResponce);
 
           const data: ResponseMessageData[] =
             messagesResponce.payload.messages.map((item) => {
@@ -139,8 +131,6 @@ export class WebSocketService {
             response
           );
 
-          console.log(messageResponce);
-
           const data: ResponseMessageData = {
             type: '',
             id: messageResponce.payload.message.id,
@@ -156,6 +146,18 @@ export class WebSocketService {
           };
 
           userEvent.emit('messageStatus', data);
+        }
+
+        if (responceType === 'MSG_DELETE') {
+          const messagesResponce: DeletedMessagesPayload = <
+            DeletedMessagesPayload
+          >response;
+
+          const messageId: ParamsToEmmit = messagesResponce.payload.message.id;
+
+          console.log(messageId);
+
+          userEvent.emit('messageWasDeleted', messageId);
         }
       },
     );
@@ -220,6 +222,20 @@ export class WebSocketService {
       payload: {
         user: {
           login: login,
+        },
+      },
+    };
+
+    this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public deleteMessage(id: string) {
+    const data = {
+      id: this.createRequestId(),
+      type: 'MSG_DELETE',
+      payload: {
+        message: {
+          id: id,
         },
       },
     };
