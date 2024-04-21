@@ -56,4 +56,8 @@ export class MainPage extends BaseComponent {
   public deleteMessage(id: string) {
     this.dialogField.deleteMessage(id);
   }
+
+  public editMessage(id: string, text: string) {
+    this.dialogField.editMessage(id, text);
+  }
 }

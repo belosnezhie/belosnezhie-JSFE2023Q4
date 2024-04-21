@@ -5,6 +5,7 @@ import { MainPage } from '../pages/MainPage';
 import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
 import {
+  EditedMessageData,
   ParamsToEmmit,
   ResponseMessageData,
   SendMessageData,
@@ -71,19 +72,6 @@ export class MainController {
     userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
       let message: ResponseMessageData = this.setMessage(messageData);
 
-      // if (message.to !== this.loggedUser) {
-      //   // this.mainPage.showUnreadMessage();
-
-      //   return;
-      // }
-      // message = this.checkMessageType(message);
-      // this.mainPage.renderMessage(message);
-
-      // if (message.from === this.selectedUser) {
-      //   message = this.checkMessageType(message);
-      //   this.mainPage.renderMessage(message);
-      // }
-
       if (message.from === this.loggedUser) {
         if (message.to === this.selectedUser) {
           message = this.checkMessageType(message);
@@ -103,6 +91,12 @@ export class MainController {
     userEvent.subscribe('messageWasDeleted', (messageId: ParamsToEmmit) => {
       this.mainPage.deleteMessage(String(messageId));
       console.log(`id from controller ${String(messageId)}`);
+    });
+
+    userEvent.subscribe('messageWasEdited', (messageData: ParamsToEmmit) => {
+      const data = this.setEditedMessage(messageData);
+
+      this.mainPage.editMessage(data.id, data.text);
     });
 
     // User Events
@@ -133,6 +127,12 @@ export class MainController {
 
     userEvent.subscribe('userDeletedMessage', (id: ParamsToEmmit) => {
       this.webSocketService.deleteMessage(String(id));
+    });
+
+    userEvent.subscribe('userEditedMessage', (messageData: ParamsToEmmit) => {
+      const data: EditedMessageData = <EditedMessageData>messageData;
+
+      this.webSocketService.editeMessage(data.id, data.text);
     });
   }
 
@@ -192,6 +192,12 @@ export class MainController {
     );
 
     return dialogHistory;
+  }
+
+  setEditedMessage(messageData: ParamsToEmmit) {
+    const data: EditedMessageData = <EditedMessageData>messageData;
+
+    return data;
   }
 
   checkMessageType(message: ResponseMessageData) {

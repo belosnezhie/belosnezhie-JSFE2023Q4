@@ -1,5 +1,6 @@
 import {
   DeletedMessagesPayload,
+  EditedMessagesPayload,
   MessagesPayload,
   ParamsToEmmit,
   ResponseMessageData,
@@ -149,15 +150,29 @@ export class WebSocketService {
         }
 
         if (responceType === 'MSG_DELETE') {
-          const messagesResponce: DeletedMessagesPayload = <
+          const messageResponce: DeletedMessagesPayload = <
             DeletedMessagesPayload
           >response;
 
-          const messageId: ParamsToEmmit = messagesResponce.payload.message.id;
+          const messageId: ParamsToEmmit = messageResponce.payload.message.id;
 
           console.log(`id from server: ${String(messageId)}`);
 
           userEvent.emit('messageWasDeleted', messageId);
+        }
+
+        if (responceType === 'MSG_EDIT') {
+          const messageResponce: EditedMessagesPayload = <
+            EditedMessagesPayload
+          >response;
+
+          const data: ParamsToEmmit = {
+            id: messageResponce.payload.message.id,
+            text: messageResponce.payload.message.text,
+            status: messageResponce.payload.message.status.isEdited,
+          };
+
+          userEvent.emit('messageWasEdited', data);
         }
       },
     );
@@ -236,6 +251,21 @@ export class WebSocketService {
       payload: {
         message: {
           id: id,
+        },
+      },
+    };
+
+    this.webSocket?.send(JSON.stringify(data));
+  }
+
+  public editeMessage(id: string, text: string) {
+    const data = {
+      id: this.createRequestId(),
+      type: 'MSG_EDIT',
+      payload: {
+        message: {
+          id: id,
+          text: text,
         },
       },
     };

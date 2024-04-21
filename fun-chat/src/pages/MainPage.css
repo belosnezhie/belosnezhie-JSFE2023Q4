@@ -166,14 +166,18 @@
 }
 
 .detete_message_button,
-.edit_message_button {
+.edit_message_button,
+.input.save_button {
     background-color: var(--hover-color);
     padding: 0;
     font-size: 0.8rem;
+    border: none;
+    color: inherit;
 }
 
 .detete_message_button:hover,
-.edit_message_button:hover {
+.edit_message_button:hover,
+.input.save_button:hover {
     background-color: var(--button-background-color);
 }
 

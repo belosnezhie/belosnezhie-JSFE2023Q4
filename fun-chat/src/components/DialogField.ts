@@ -79,7 +79,7 @@ export class DialogField extends BaseComponent {
   }
 
   public renderMessage(message: ResponseMessageData) {
-    const messageWrapper = new Message(message);
+    const messageWrapper = new Message('message', message);
 
     this.dialog.append(messageWrapper);
 
@@ -108,10 +108,7 @@ export class DialogField extends BaseComponent {
   }
 
   public deleteMessage(id: string) {
-    const messageHistoty = this.dialog.getChildren();
-    const message = messageHistoty.find(
-      (item) => item.getAttribute('data-id') === id,
-    );
+    const message = this.findMessage(id);
 
     if (message) {
       this.dialog.removeChild(message);
@@ -119,6 +116,23 @@ export class DialogField extends BaseComponent {
 
     console.log(message);
     console.log(id);
+  }
+
+  public editMessage(id: string, text: string) {
+    const message = this.findMessage(id);
+
+    if (message) {
+      message.editMessage(text);
+    }
+  }
+
+  private findMessage(id: string) {
+    const messageHistoty = this.dialog.getChildren();
+    const message: Message = <Message>(
+      messageHistoty.find((item) => item.getAttribute('data-id') === id)
+    );
+
+    return message;
   }
 
   private showHistoryPlaceholder(): BaseComponent {

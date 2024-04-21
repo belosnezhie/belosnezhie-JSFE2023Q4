@@ -66,6 +66,18 @@ export interface DeletedMessagesPayload extends ServerResponse {
   };
 }
 
+export interface EditedMessagesPayload extends ServerResponse {
+  payload: {
+    message: {
+      id: string;
+      text: string;
+      status: {
+        isEdited: boolean;
+      };
+    };
+  };
+}
+
 export interface MessageResponse {
   id: string;
   from: string;
@@ -88,16 +100,6 @@ export interface User {
   login: string;
 }
 
-export interface UserData {
-  name: string;
-  password: string;
-}
-
-export interface SendMessageData {
-  to: string;
-  text: string;
-}
-
 export interface ResponseMessageData {
   type: string;
   id: string;
@@ -110,4 +112,21 @@ export interface ResponseMessageData {
     isReaded: boolean;
     isEdited: boolean;
   };
+}
+
+// Types to create request
+
+export interface UserData {
+  name: string;
+  password: string;
+}
+
+export interface SendMessageData {
+  to: string;
+  text: string;
+}
+
+export interface EditedMessageData {
+  id: string;
+  text: string;
 }

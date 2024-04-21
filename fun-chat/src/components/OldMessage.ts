@@ -7,17 +7,18 @@ import {
 
 import { Button } from './Button';
 import { BaseComponent } from './Component';
-import { Form } from './Form';
-import { Input } from './Input';
 
-export class Message extends Form {
+export class OLDMessage extends BaseComponent {
   private status: BaseComponent | undefined;
   private id: string;
-  private messageContainer: Input;
+  private messageContainer: BaseComponent;
   private widjets: BaseComponent | undefined = undefined;
 
-  constructor(formName: string, messageData: ResponseMessageData) {
-    super(formName);
+  constructor(messageData: ResponseMessageData) {
+    super({
+      tag: 'div',
+      className: 'message_container',
+    });
 
     this.id = messageData.id;
 
@@ -36,11 +37,9 @@ export class Message extends Form {
 
     this.append(messageProps);
 
-    const text: Input = this.createText(messageData);
+    const text: BaseComponent = this.createText(messageData);
 
     this.messageContainer = text;
-    this.messageContainer.addClass('disabled');
-    this.messageContainer.setAttribute('required', '');
 
     this.append(this.messageContainer);
     if (this.widjets) {
@@ -48,21 +47,6 @@ export class Message extends Form {
     }
 
     this.setAttribute('data-id', this.id);
-    this.addClass('message_container');
-
-    this.addListener('submit', (event: Event) => {
-      event.preventDefault();
-      const target: HTMLFormElement = event.target as HTMLFormElement;
-      const name = target.elements[0] as HTMLInputElement;
-      const nameValue: string = name.value;
-
-      const data: ParamsToEmmit = {
-        id: this.id,
-        text: nameValue,
-      };
-
-      userEvent.emit('userEditedMessage', data);
-    });
   }
 
   public updateStatus(messageStatus: MessageStatus) {
@@ -85,18 +69,12 @@ export class Message extends Form {
     }
   }
 
-  public editMessage(text: string) {
-    this.messageContainer.setTextContent(text);
-    this.messageContainer.addClass('disabled');
-    if (this.widjets) {
-      this.widjets.removeElement();
-    }
-    this.widjets = this.createWidgets();
-    this.append(this.widjets);
-  }
-
-  private createText(message: ResponseMessageData): Input {
-    return new Input('text', 'message-text', 'message', message.text);
+  private createText(message: ResponseMessageData): BaseComponent {
+    return new BaseComponent({
+      tag: 'div',
+      className: 'message',
+      text: message.text,
+    });
   }
 
   private createResived(message: ResponseMessageData) {
@@ -156,8 +134,6 @@ export class Message extends Form {
       this.deleteMessage(),
     );
     const editButton = new Button('Edit', 'edit_message_button', () => {
-      this.messageContainer.removeClass('disabled');
-      this.messageContainer.getElement().focus();
       const saveButton = this.createSaveButton();
 
       if (this.widjets) {
@@ -166,8 +142,6 @@ export class Message extends Form {
         this.widjets.removeChild(editButton);
       }
     });
-
-    deleteButton.setAttribute('type', 'button');
 
     const widgetsWrapper = new BaseComponent(
       { tag: 'div', className: 'message_widjet_wrapper' },
@@ -204,7 +178,7 @@ export class Message extends Form {
     userEvent.emit('userDeletedMessage', id);
   }
 
-  private createSaveButton(): Input {
-    return new Input('submit', 'submit_editing', 'save_button', 'Save');
+  private createSaveButton(): Button {
+    return new Button('Save', 'save_button', () => {});
   }
 }
