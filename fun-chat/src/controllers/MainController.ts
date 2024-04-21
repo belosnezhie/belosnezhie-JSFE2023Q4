@@ -71,13 +71,33 @@ export class MainController {
     userEvent.subscribe('messageStatus', (messageData: ParamsToEmmit) => {
       let message: ResponseMessageData = this.setMessage(messageData);
 
-      if (message.to !== this.selectedUser) {
-        // this.mainPage.showUnreadMessage();
+      // if (message.to !== this.loggedUser) {
+      //   // this.mainPage.showUnreadMessage();
 
-        return;
+      //   return;
+      // }
+      // message = this.checkMessageType(message);
+      // this.mainPage.renderMessage(message);
+
+      // if (message.from === this.selectedUser) {
+      //   message = this.checkMessageType(message);
+      //   this.mainPage.renderMessage(message);
+      // }
+
+      if (message.from === this.loggedUser) {
+        if (message.to === this.selectedUser) {
+          message = this.checkMessageType(message);
+          this.mainPage.renderMessage(message);
+        }
+      } else {
+        if (
+          message.to === this.loggedUser &&
+          message.from === this.selectedUser
+        ) {
+          message = this.checkMessageType(message);
+          this.mainPage.renderMessage(message);
+        }
       }
-      message = this.checkMessageType(message);
-      this.mainPage.renderMessage(message);
     });
 
     userEvent.subscribe('messageWasDeleted', (messageId: ParamsToEmmit) => {
