@@ -70,7 +70,7 @@
 
   body {
     font-family: "Mulish", sans-serif;
-    font-optical-sizing: auto;
+    /* font-optical-sizing: auto; */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -88,6 +88,13 @@
 
   .button:hover {
     background-color: var(--hover-color);
+  }
+
+
+  @media (max-width: 580px) {
+    body {
+      font-size: smaller;
+    }
   }
 
 
