@@ -40,12 +40,6 @@ export class Router {
     if (window.location.hash) {
       const path = window.location.hash.slice(1);
 
-      if (loginStatus.checkLoginStatus()) {
-        this.navigate(Pages.main);
-
-        return;
-      }
-
       this.navigate(path);
     } else {
       const path = window.location.pathname.slice(1);
@@ -97,6 +91,11 @@ export class Router {
         // auth page
         path: Pages.authorization,
         callback: () => {
+          if (loginStatus.checkLoginStatus()) {
+            this.navigate(Pages.main);
+
+            return;
+          }
           this.renderAuth();
         },
       },
@@ -104,6 +103,11 @@ export class Router {
         // main page
         path: Pages.main,
         callback: async () => {
+          if (!loginStatus.checkLoginStatus()) {
+            this.navigate(Pages.authorization);
+
+            return;
+          }
           await this.renderMain();
         },
       },
