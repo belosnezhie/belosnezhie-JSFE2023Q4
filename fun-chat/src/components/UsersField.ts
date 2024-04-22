@@ -11,7 +11,27 @@ export class UsersList extends BaseComponent {
   private usersContainer: BaseComponent;
 
   constructor() {
-    const searchInput = new Input('text', 'search_input', 'search_input');
+    const searchInput = new Input(
+      'text',
+      'search_input',
+      'search_input',
+      '',
+      (event: Event) => {
+        const target: HTMLInputElement = <HTMLInputElement>event.target;
+        const value: string = target.value;
+
+        this.usersContainer.getChildren().forEach((child) => {
+          child.addClass('hidden');
+        });
+
+        const users = this.findUserName(value);
+
+        users.forEach((user) => {
+          user.getElement().parentElement?.classList.remove('hidden');
+        });
+      },
+    );
+
     const usersContainer = new BaseComponent({
       tag: 'div',
       className: 'users_container',
@@ -115,5 +135,20 @@ export class UsersList extends BaseComponent {
     const name = user.login;
 
     console.log(name);
+  }
+
+  private findUserName(value: string) {
+    const users: BaseComponent[] = this.usersContainer.getChildren();
+    const userNames = users.map((user) => {
+      const children: BaseComponent[] = user.getChildren();
+
+      return children[1];
+    });
+
+    const filteredUsers = userNames.filter((user) => {
+      return user.getElement().innerHTML.includes(value);
+    });
+
+    return filteredUsers;
   }
 }

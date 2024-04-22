@@ -57,6 +57,10 @@ export class BaseComponent {
     return this.element;
   }
 
+  getParent() {
+    return this.getElement().parentElement;
+  }
+
   reRenderComponent() {
     const prevElement = this.getElement();
 
