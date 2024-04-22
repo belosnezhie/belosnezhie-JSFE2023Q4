@@ -66,6 +66,25 @@ export class WebSocketService {
           userEvent.emit('newUserLoggedIn', userParams);
         }
 
+        if (responceType === 'USER_LOGOUT') {
+          const userResponse: SingleUserResponse = <SingleUserResponse>response;
+          const user: User = userResponse.payload.user;
+
+          console.log(`Name of logOut user: ${user.login}`);
+        }
+
+        if (responceType === 'USER_EXTERNAL_LOGOUT') {
+          const userResponse: SingleUserResponse = <SingleUserResponse>response;
+          const user: User = userResponse.payload.user;
+
+          const userParams: SingleUserParams = {
+            login: user.login,
+            isLogined: user.isLogined,
+          };
+
+          userEvent.emit('userLoggedOut', userParams);
+        }
+
         if (responceType === 'USER_ACTIVE') {
           const usersResponse: UsersResponse = <UsersResponse>response;
           const users: SingleUserParams[] = usersResponse.payload.users.map(
@@ -209,6 +228,7 @@ export class WebSocketService {
     };
 
     this.webSocket?.send(JSON.stringify(data));
+    // this.webSocket?.close();
   }
 
   public getAllAuthUsers() {

@@ -22,10 +22,9 @@ export class Header extends BaseComponent {
       className: 'header_buttons_wrapper',
     });
     const logOutButton = new Button('Log out', 'log_out_button', () => {
-      const dummy: ParamsToEmmit = {};
+      const data: ParamsToEmmit = {};
 
-      console.log('lets logout');
-      userEvent.emit('logoutUser', dummy);
+      userEvent.emit('logoutUser', data);
     });
     const infoButton = new Button('Info', 'info_button', () => {});
 

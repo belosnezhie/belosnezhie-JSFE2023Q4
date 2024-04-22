@@ -61,6 +61,15 @@ export class MainController {
       },
     );
 
+    userEvent.subscribe('userLoggedOut', (emmitedUserParams: ParamsToEmmit) => {
+      const user: User = this.setUser(emmitedUserParams);
+
+      console.log(`User loged out: ${user.login}`);
+
+      this.webSocketService.getAllAuthUsers();
+      this.webSocketService.getAllUNAuthUsers();
+    });
+
     userEvent.subscribe('dialogHistory', (dialogHistoryData: ParamsToEmmit) => {
       let dialogHistory = this.setDialogHistory(dialogHistoryData);
 
@@ -102,6 +111,20 @@ export class MainController {
     });
 
     // User Events
+    userEvent.subscribe('logoutUser', (userData: ParamsToEmmit) => {
+      if (userData) {
+        console.log(`Log out user: ${String(userData)}`);
+      }
+      const loggedInUser = loginStatus.getUser();
+
+      console.log(`Log out user: ${String(loggedInUser.name)}`);
+
+      this.webSocketService.logOutUser(loggedInUser);
+
+      loginStatus.clearLoginStatus();
+      router.navigate(Pages.authorization);
+    });
+
     userEvent.subscribe('userWasSelected', (userParams: ParamsToEmmit) => {
       const selectedUser = this.setUser(userParams);
 
@@ -135,16 +158,6 @@ export class MainController {
       const data: EditedMessageData = <EditedMessageData>messageData;
 
       this.webSocketService.editeMessage(data.id, data.text);
-    });
-
-    userEvent.subscribe('logoutUser', (dummy: ParamsToEmmit) => {
-      console.log('Log out user, ' + String(dummy));
-      const loggedInUser = loginStatus.getUser();
-
-      this.webSocketService.logOutUser(loggedInUser);
-
-      loginStatus.clearLoginStatus();
-      router.navigate(Pages.authorization);
     });
   }
 
