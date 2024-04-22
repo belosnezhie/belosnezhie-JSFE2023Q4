@@ -9,13 +9,12 @@ import { Button } from './Button';
 import { BaseComponent } from './Component';
 import { Form } from './Form';
 import { Input } from './Input';
-import { Textarea } from './Textarea';
 
-export class Message extends Form {
+export class MessageInput extends Form {
   private status: BaseComponent | undefined;
   private type: string;
   private id: string;
-  private messageContainer: Textarea;
+  private messageContainer: Input;
   private widjets: BaseComponent | undefined = undefined;
 
   constructor(formName: string, messageData: ResponseMessageData) {
@@ -39,9 +38,7 @@ export class Message extends Form {
 
     this.append(messageProps);
 
-    const text: Textarea = this.createText();
-
-    this.setText(text, messageData.text);
+    const text: Input = this.createText(messageData);
 
     this.messageContainer = text;
     this.messageContainer.addClass('disabled');
@@ -58,10 +55,8 @@ export class Message extends Form {
     this.addListener('submit', (event: Event) => {
       event.preventDefault();
       const target: HTMLFormElement = event.target as HTMLFormElement;
-      const name = target.elements[0] as HTMLTextAreaElement;
+      const name = target.elements[0] as HTMLInputElement;
       const nameValue: string = name.value;
-
-      console.log(nameValue);
 
       const data: ParamsToEmmit = {
         id: this.id,
@@ -93,8 +88,7 @@ export class Message extends Form {
   }
 
   public editMessage(text: string, status: boolean = true) {
-    // this.messageContainer.setAttribute('value', text);
-    this.messageContainer.setTextContent(text);
+    this.messageContainer.setAttribute('value', text);
     this.messageContainer.addClass('disabled');
 
     if (this.type === 'received') {
@@ -112,23 +106,8 @@ export class Message extends Form {
     }
   }
 
-  // private createText(message: ResponseMessageData): Textarea {
-  //   return new Textarea('text', 'message-text', 'message', message.text);
-  // }
-
-  private createText(): Textarea {
-    return new Textarea('text', 'message-text', 'message');
-  }
-
-  private setText(textArea: Textarea, test: string) {
-    textArea.setTextContent(test);
-  }
-
-  public setHeight() {
-    this.messageContainer.setAttribute(
-      'style',
-      `height: ${this.messageContainer.getElement().scrollHeight}px`,
-    );
+  private createText(message: ResponseMessageData): Input {
+    return new Input('text', 'message-text', 'message', message.text);
   }
 
   private createResived(message: ResponseMessageData) {

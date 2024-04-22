@@ -1,15 +1,7 @@
 import { BaseComponent } from './Component';
 
-export class Input extends BaseComponent {
-  private onChange?: (event: Event) => void;
-
-  constructor(
-    type: string,
-    id: string,
-    exstraClass: string,
-    value?: string,
-    onChange?: (event: Event) => void,
-  ) {
+export class Textarea extends BaseComponent {
+  constructor(type: string, id: string, exstraClass: string, value?: string) {
     super({
       tag: 'textarea',
       className: 'textarea',
@@ -18,12 +10,13 @@ export class Input extends BaseComponent {
     this.setAttribute('id', id);
     this.addClass(exstraClass);
     if (value) {
-      this.setAttribute('value', value);
+      this.setTextContent(value);
     }
+    this.setAttribute('wrap', 'soft');
+    this.setAttribute('rows', '3');
 
-    if (onChange) {
-      this.onChange = onChange;
-      this.addListener('input', this.onChange);
-    }
+    this.addListener('input', () => {
+      this.setAttribute('style', `height: ${this.getElement().scrollHeight}px`);
+    });
   }
 }
