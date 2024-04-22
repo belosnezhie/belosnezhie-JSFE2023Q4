@@ -1,8 +1,8 @@
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { router } from '../controllers/Router';
-import { loginStatus } from '../logic/SessionStorage';
 import { MainPage } from '../pages/MainPage';
+import { loginStatus } from '../services/SessionStorage';
 import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
 import {

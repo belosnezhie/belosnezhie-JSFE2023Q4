@@ -2,7 +2,7 @@ import { loginStatus } from './SessionStorage';
 
 const nameRegexp = new RegExp('^[A-Z][\\-a-zA-z]+$');
 const passwordRegexp = new RegExp(
-  '^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z].*[a-z]).{6}$',
+  '^(?=.*[A-Z])(?=(.*[!@#$%^&*()-__+.]))(?=.*[0-9])(?=.*[a-z].*[a-z]).{6}$',
 );
 
 export function validateForm(
@@ -19,7 +19,7 @@ export function validateForm(
     return 'Password should contain at least 6 symbols.';
   }
   if (!passwordRegexp.test(passwordValue)) {
-    return 'Password should contain only English alphabet letters, at least one uppercase letter, one lowercase letter, one number and one special character.';
+    return 'Password should contain only English alphabet letters, one uppercase letter, one lowercase letter, one number and one special character.';
   }
 
   loginStatus.setLoginStatus(nameValue, passwordValue);

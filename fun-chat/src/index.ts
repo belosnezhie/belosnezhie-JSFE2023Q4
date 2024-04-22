@@ -1,6 +1,6 @@
 import { Router, router } from './controllers/Router';
 import './index.css';
-import { loginStatus } from './logic/SessionStorage';
+import { loginStatus } from './services/SessionStorage';
 import { Pages } from './types.ts/Types';
 
 class App {

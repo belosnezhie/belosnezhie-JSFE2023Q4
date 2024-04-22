@@ -1,5 +1,5 @@
 import { router } from '../controllers/Router';
-import { validateForm } from '../logic/Validation';
+import { validateForm } from '../services/Validation';
 import { Pages } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';

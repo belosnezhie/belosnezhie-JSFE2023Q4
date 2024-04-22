@@ -131,7 +131,6 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    /* justify-content: flex-end; */
     gap: 5px;
     padding: 5px;
     border: inherit;

@@ -10,6 +10,7 @@ export class DialogField extends BaseComponent {
   private messageForm: MessageForm;
   private dialog: BaseComponent;
   private userPlaceholder: BaseComponent;
+  private historyPlaceholder: BaseComponent | undefined;
 
   constructor() {
     const userName = new BaseComponent({
@@ -77,6 +78,10 @@ export class DialogField extends BaseComponent {
   public renderMessage(message: ResponseMessageData) {
     const messageWrapper = new Message('message', message);
 
+    if (this.historyPlaceholder) {
+      this.dialog.removeChild(this.historyPlaceholder);
+    }
+
     this.dialog.append(messageWrapper);
 
     if (message.type === 'received') {
@@ -129,11 +134,15 @@ export class DialogField extends BaseComponent {
   }
 
   private showHistoryPlaceholder(): BaseComponent {
-    return new BaseComponent({
+    const historyPlaceholder = new BaseComponent({
       tag: 'div',
       className: 'dialog_placeholder',
       text: 'You have no message history with this user...',
     });
+
+    this.historyPlaceholder = historyPlaceholder;
+
+    return historyPlaceholder;
   }
 
   private removeUserPlaceholder() {
