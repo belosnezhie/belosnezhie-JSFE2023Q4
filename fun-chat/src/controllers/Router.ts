@@ -1,5 +1,6 @@
 import { AuthenticationPage } from '../pages/AuthenticationPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
+import { loginStatus } from '../services/SessionStorage';
 import { Pages, Route } from '../types.ts/Types';
 
 import { AuthenticationController } from './AuthenticationController';
@@ -39,6 +40,12 @@ export class Router {
     if (window.location.hash) {
       const path = window.location.hash.slice(1);
 
+      if (loginStatus.checkLoginStatus()) {
+        this.navigate(Pages.main);
+
+        return;
+      }
+
       this.navigate(path);
     } else {
       const path = window.location.pathname.slice(1);
@@ -65,17 +72,21 @@ export class Router {
 
   renderAuth() {
     this.mainController.destroy();
+    this.authenticationController.destroy();
     this.authenticationController = new AuthenticationController(this.root);
     this.authenticationController.renderPage();
   }
 
   async renderMain() {
+    this.mainController.destroy();
     this.authenticationController.destroy();
     this.mainController = new MainController(this.root);
     await this.mainController.renderPage();
   }
 
   renderNotFound() {
+    this.mainController.destroy();
+    this.authenticationController.destroy();
     this.notFoundPage = new NotFoundPage();
     this.root.append(this.notFoundPage.getElement());
   }
