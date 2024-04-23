@@ -204,6 +204,12 @@ export class WebSocketService {
         }
       },
     );
+
+    this.webSocket.addEventListener('close', () => {
+      const data: ParamsToEmmit = {};
+
+      userEvent.emit('SocketWasClosed', data);
+    });
   }
 
   public logInUser(userData: UserData) {

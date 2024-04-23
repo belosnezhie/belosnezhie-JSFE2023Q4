@@ -24,6 +24,12 @@ export class AboutController {
         router.navigate(Pages.main);
       }
     });
+
+    userEvent.subscribe('SocketWasClosed', (data: ParamsToEmmit) => {
+      console.log(data);
+
+      this.aboutPage.showLoadModal();
+    });
   }
 
   renderPage() {

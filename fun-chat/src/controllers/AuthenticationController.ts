@@ -1,4 +1,6 @@
 import { AuthenticationPage } from '../pages/AuthenticationPage';
+import { userEvent } from '../services/UsersEventEmmiter';
+import { ParamsToEmmit } from '../types.ts/Types';
 
 export class AuthenticationController {
   private root: HTMLElement;
@@ -6,6 +8,12 @@ export class AuthenticationController {
   constructor(root: HTMLElement) {
     this.root = root;
     this.authenticationPage = new AuthenticationPage();
+
+    userEvent.subscribe('SocketWasClosed', (data: ParamsToEmmit) => {
+      console.log(data);
+
+      this.authenticationPage.showLoadModal();
+    });
   }
 
   renderPage() {

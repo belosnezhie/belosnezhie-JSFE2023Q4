@@ -72,7 +72,6 @@ export class AuthForm extends Form {
         this.showError(errorText);
       } else {
         router.navigate(Pages.main);
-        console.log('UserData was send');
       }
     });
   }

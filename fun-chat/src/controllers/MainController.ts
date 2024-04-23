@@ -27,6 +27,7 @@ export class MainController {
   private UNAuthUsers: User[] | undefined;
   private selectedUser: string | undefined;
   private loggedUser: string = '';
+  private isConnected = false;
 
   constructor(root: HTMLElement) {
     this.root = root;
@@ -34,7 +35,58 @@ export class MainController {
     this.header = new Header();
     this.footer = new Footer();
     this.webSocketService = new WebSocketService();
+    this.subscribeToEvents();
+  }
 
+  async renderPage() {
+    this.root.append(this.header.getElement());
+    this.root.append(this.mainPage.getElement());
+    this.root.append(this.footer.getElement());
+    if (this.isConnected === false) {
+      const webSocket = await this.webSocketService.createConnection();
+
+      this.webSocketService.set(webSocket);
+    }
+    this.loginCurrentUser();
+    this.isConnected = true;
+  }
+
+  loginCurrentUser() {
+    const userDataFromSrorage: UserData | undefined = loginStatus.getUser();
+
+    if (userDataFromSrorage) {
+      this.webSocketService.logInUser(userDataFromSrorage);
+      this.loggedUser = userDataFromSrorage.name;
+    }
+
+    this.header.setUserName(this.loggedUser);
+    this.webSocketService.getAllAuthUsers();
+    this.webSocketService.getAllUNAuthUsers();
+  }
+
+  destroy() {
+    this.unSubcribeFromEvents();
+    this.header.removeElement();
+    this.mainPage.removeElement();
+    this.footer.removeElement();
+  }
+
+  unSubcribeFromEvents() {
+    userEvent.unsubscribeAll('getAllAuthUsers');
+    userEvent.unsubscribeAll('getAllUNAuthUsers');
+    userEvent.unsubscribeAll('newUserLoggedIn');
+    userEvent.unsubscribeAll('dialogHistory');
+    userEvent.unsubscribeAll('messageStatus');
+    userEvent.unsubscribeAll('messageWasDeleted');
+    userEvent.unsubscribeAll('messageWasEdited');
+    userEvent.unsubscribeAll('userWasSelected');
+    userEvent.unsubscribeAll('messageWasSent');
+    userEvent.unsubscribeAll('userDeletedMessage');
+    userEvent.unsubscribeAll('userEditedMessage');
+    userEvent.unsubscribeAll('logoutUser');
+  }
+
+  subscribeToEvents() {
     // Server Events
     userEvent.subscribe('getAllAuthUsers', (usersParams: ParamsToEmmit) => {
       this.authUsers = this.setUsers(usersParams).filter(
@@ -114,6 +166,12 @@ export class MainController {
       this.mainPage.updateReadedMessage(String(messageId));
     });
 
+    userEvent.subscribe('SocketWasClosed', (data: ParamsToEmmit) => {
+      console.log(data);
+
+      this.mainPage.showLoadModal();
+    });
+
     // User Events
     userEvent.subscribe('logoutUser', (userData: ParamsToEmmit) => {
       if (userData) {
@@ -167,44 +225,6 @@ export class MainController {
 
       this.webSocketService.readMessage(data.idArr);
     });
-  }
-
-  async renderPage() {
-    this.root.append(this.header.getElement());
-    this.root.append(this.mainPage.getElement());
-    this.root.append(this.footer.getElement());
-    const webSocket = await this.webSocketService.createConnection();
-
-    this.webSocketService.set(webSocket);
-
-    const userDataFromSrorage: UserData | undefined = loginStatus.getUser();
-
-    if (userDataFromSrorage) {
-      this.webSocketService.logInUser(userDataFromSrorage);
-      this.loggedUser = userDataFromSrorage.name;
-    }
-
-    this.header.setUserName(this.loggedUser);
-    this.webSocketService.getAllAuthUsers();
-    this.webSocketService.getAllUNAuthUsers();
-  }
-
-  destroy() {
-    userEvent.unsubscribeAll('getAllAuthUsers');
-    userEvent.unsubscribeAll('getAllUNAuthUsers');
-    userEvent.unsubscribeAll('newUserLoggedIn');
-    userEvent.unsubscribeAll('dialogHistory');
-    userEvent.unsubscribeAll('messageStatus');
-    userEvent.unsubscribeAll('messageWasDeleted');
-    userEvent.unsubscribeAll('messageWasEdited');
-    userEvent.unsubscribeAll('userWasSelected');
-    userEvent.unsubscribeAll('messageWasSent');
-    userEvent.unsubscribeAll('userDeletedMessage');
-    userEvent.unsubscribeAll('userEditedMessage');
-    userEvent.unsubscribeAll('logoutUser');
-    this.header.removeElement();
-    this.mainPage.removeElement();
-    this.footer.removeElement();
   }
 
   setUsers(usersParams: ParamsToEmmit) {

@@ -1,12 +1,14 @@
 import './MainPage.css';
 import { BaseComponent } from '../components/Component';
 import { DialogField } from '../components/DialogField';
+import { ModalWindow } from '../components/Modal';
 import { UsersList } from '../components/UsersField';
 import { ResponseMessageData, User } from '../types.ts/Types';
 
 export class MainPage extends BaseComponent {
   private usersList: UsersList;
   private dialogField: DialogField;
+  private modal: ModalWindow | undefined = undefined;
 
   constructor() {
     const usersList = new UsersList();
@@ -63,5 +65,20 @@ export class MainPage extends BaseComponent {
 
   public updateReadedMessage(id: string) {
     this.dialogField.updateReadedMessage(id);
+  }
+
+  public showLoadModal() {
+    const modal = new ModalWindow(
+      'Oops! Server went down. We are trying to reconnect..',
+    );
+
+    this.modal = modal;
+    this.append(this.modal);
+  }
+
+  public removeModal() {
+    if (this.modal) {
+      this.modal.removeElement();
+    }
   }
 }

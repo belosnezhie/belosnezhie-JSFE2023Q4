@@ -1,6 +1,7 @@
 import './AboutPage.css';
 import { Button } from '../components/Button';
 import { BaseComponent } from '../components/Component';
+import { ModalWindow } from '../components/Modal';
 import { userEvent } from '../services/UsersEventEmmiter';
 import { ParamsToEmmit } from '../types.ts/Types';
 
@@ -47,5 +48,13 @@ export class AboutPage extends BaseComponent {
       textWrapper,
       returnButton,
     );
+  }
+
+  public showLoadModal() {
+    const modal = new ModalWindow(
+      'Oops! Server went down. We are trying to reconnect..',
+    );
+
+    this.append(modal);
   }
 }
