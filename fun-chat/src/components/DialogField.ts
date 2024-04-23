@@ -84,9 +84,7 @@ export class DialogField extends BaseComponent {
 
     this.dialog.append(messageWrapper);
 
-    if (message.type === 'received') {
-      this.scrollDialog();
-    }
+    this.scrollDialog();
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
