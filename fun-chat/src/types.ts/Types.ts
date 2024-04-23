@@ -80,6 +80,17 @@ export interface EditedMessagesPayload extends ServerResponse {
   };
 }
 
+export interface ReadedMessagesPayload extends ServerResponse {
+  payload: {
+    message: {
+      id: string;
+      status: {
+        isReaded: boolean;
+      };
+    };
+  };
+}
+
 export interface MessageResponse {
   id: string;
   from: string;
@@ -134,4 +145,8 @@ export interface EditedMessageData {
   status?: {
     isEdited: boolean;
   };
+}
+
+export interface IdData {
+  idArr: string[];
 }

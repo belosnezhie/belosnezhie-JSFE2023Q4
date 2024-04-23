@@ -1,4 +1,5 @@
-import { ResponseMessageData, User } from '../types.ts/Types';
+import { userEvent } from '../services/UsersEventEmmiter';
+import { ParamsToEmmit, ResponseMessageData, User } from '../types.ts/Types';
 
 import { BaseComponent } from './Component';
 import { Message } from './Message';
@@ -61,6 +62,17 @@ export class DialogField extends BaseComponent {
     this.dialog.append(this.userPlaceholder);
 
     this.messageForm.addClass('disabled');
+
+    this.dialog.addListener('click', () => {
+      console.log('messageWasRead click');
+
+      this.collectReadedMessages();
+    });
+    this.dialog.addListener('wheel', () => {
+      console.log('messageWasRead wheel');
+
+      this.collectReadedMessages();
+    });
   }
 
   public setUserData(userData: User) {
@@ -122,6 +134,14 @@ export class DialogField extends BaseComponent {
     }
   }
 
+  public updateReadedMessage(id: string) {
+    const message = this.findMessage(id);
+
+    if (message) {
+      message.updateReadedStatus();
+    }
+  }
+
   private findMessage(id: string) {
     const messageHistoty = this.dialog.getChildren();
     const message: Message = <Message>(
@@ -145,6 +165,56 @@ export class DialogField extends BaseComponent {
 
   private removeUserPlaceholder() {
     this.userPlaceholder.removeElement();
+  }
+
+  private collectAllIDs(): string[] {
+    const children = this.dialog.getChildren();
+    const idArr: string[] = [];
+
+    children.forEach((item) => {
+      if (item.getElement().classList.contains('sent')) {
+        const status = item.getElement().getAttribute('data-status');
+
+        if (status) {
+          const id = item.getAttribute('data-id');
+
+          if (id) {
+            idArr.push(id);
+          }
+        }
+      }
+    });
+
+    return idArr;
+  }
+
+  private collectAllRecievedIDs(): string[] {
+    const children = this.dialog.getChildren();
+    const idArr: string[] = [];
+
+    children.forEach((item) => {
+      if (item.getElement().classList.contains('received')) {
+        const id = item.getAttribute('data-id');
+
+        if (id) {
+          idArr.push(id);
+        }
+      }
+    });
+
+    return idArr;
+  }
+
+  private collectReadedMessages() {
+    const idArr = this.collectAllRecievedIDs();
+
+    const data: ParamsToEmmit = { idArr };
+
+    if (idArr.length !== 0) {
+      userEvent.emit('userReadMessage', data);
+
+      console.log(idArr[1]);
+    }
   }
 
   private showDevider(): BaseComponent {

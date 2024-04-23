@@ -3,6 +3,7 @@ import {
   EditedMessagesPayload,
   MessagesPayload,
   ParamsToEmmit,
+  ReadedMessagesPayload,
   ResponseMessageData,
   SendMessageData,
   ServerResponse,
@@ -193,6 +194,16 @@ export class WebSocketService {
 
           userEvent.emit('messageWasEdited', data);
         }
+
+        if (responceType === 'MSG_READ') {
+          const messageResponce: ReadedMessagesPayload = <
+            ReadedMessagesPayload
+          >response;
+
+          const messageId: ParamsToEmmit = messageResponce.payload.message.id;
+
+          userEvent.emit('messageWasRead', messageId);
+        }
       },
     );
   }
@@ -309,21 +320,20 @@ export class WebSocketService {
     this.webSocket?.send(JSON.stringify(data));
   }
 
-  sayHi() {
-    const id: string = this.createRequestId();
-
-    const data = {
-      id: id,
-      type: 'MSG_SEND',
-      payload: {
-        message: {
-          to: 'test1',
-          text: 'hohoho',
+  public readMessage(idArr: string[]) {
+    idArr.forEach((id) => {
+      const data = {
+        id: this.createRequestId(),
+        type: 'MSG_READ',
+        payload: {
+          message: {
+            id: id,
+          },
         },
-      },
-    };
+      };
 
-    this.webSocket?.send(JSON.stringify(data));
+      this.webSocket?.send(JSON.stringify(data));
+    });
   }
 
   private createRequestId(): string {

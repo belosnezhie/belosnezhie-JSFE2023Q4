@@ -13,6 +13,7 @@ import { Textarea } from './Textarea';
 
 export class Message extends Form {
   private status: BaseComponent | undefined;
+  private statusValue: string | null = null;
   private type: string;
   private id: string;
   private messageContainer: Textarea;
@@ -55,6 +56,10 @@ export class Message extends Form {
     this.setAttribute('data-id', this.id);
     this.addClass('message_container');
 
+    if (this.statusValue) {
+      this.setAttribute('data-status', this.statusValue);
+    }
+
     this.addListener('submit', (event: Event) => {
       event.preventDefault();
       const target: HTMLFormElement = event.target as HTMLFormElement;
@@ -90,10 +95,10 @@ export class Message extends Form {
     if (this.status) {
       this.status.setTextContent(statusValue);
     }
+    this.statusValue = statusValue;
   }
 
   public editMessage(text: string, status: boolean = true) {
-    // this.messageContainer.setAttribute('value', text);
     this.messageContainer.setTextContent(text);
     this.messageContainer.addClass('disabled');
 
@@ -129,6 +134,14 @@ export class Message extends Form {
       'style',
       `height: ${this.messageContainer.getElement().scrollHeight}px`,
     );
+  }
+
+  public updateReadedStatus() {
+    this.statusValue = 'readed';
+
+    if (this.status) {
+      this.status.setTextContent('readed');
+    }
   }
 
   private createResived(message: ResponseMessageData) {

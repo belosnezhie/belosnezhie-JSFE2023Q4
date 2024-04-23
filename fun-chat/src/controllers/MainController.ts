@@ -7,6 +7,7 @@ import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
 import {
   EditedMessageData,
+  IdData,
   Pages,
   ParamsToEmmit,
   ResponseMessageData,
@@ -101,13 +102,16 @@ export class MainController {
 
     userEvent.subscribe('messageWasDeleted', (messageId: ParamsToEmmit) => {
       this.mainPage.deleteMessage(String(messageId));
-      console.log(`id from controller ${String(messageId)}`);
     });
 
     userEvent.subscribe('messageWasEdited', (messageData: ParamsToEmmit) => {
       const data = this.setEditedMessage(messageData);
 
       this.mainPage.editMessage(data.id, data.text, data.status?.isEdited);
+    });
+
+    userEvent.subscribe('messageWasRead', (messageId: ParamsToEmmit) => {
+      this.mainPage.updateReadedMessage(String(messageId));
     });
 
     // User Events
@@ -142,8 +146,6 @@ export class MainController {
         throw new Error('User is not selected!');
       }
 
-      this.mainPage.scrollDialog();
-
       const data: SendMessageData = {
         to: this.selectedUser,
         text: String(message),
@@ -160,6 +162,12 @@ export class MainController {
       const data: EditedMessageData = <EditedMessageData>messageData;
 
       this.webSocketService.editeMessage(data.id, data.text);
+    });
+
+    userEvent.subscribe('userReadMessage', (idData: ParamsToEmmit) => {
+      const data: IdData = <IdData>idData;
+
+      this.webSocketService.readMessage(data.idArr);
     });
   }
 

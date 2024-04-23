@@ -60,4 +60,8 @@ export class MainPage extends BaseComponent {
   public editMessage(id: string, text: string, status: boolean = true) {
     this.dialogField.editMessage(id, text, status);
   }
+
+  public updateReadedMessage(id: string) {
+    this.dialogField.updateReadedMessage(id);
+  }
 }
