@@ -66,8 +66,6 @@ export class Message extends Form {
       const name = target.elements[0] as HTMLTextAreaElement;
       const nameValue: string = name.value;
 
-      console.log(nameValue);
-
       const data: ParamsToEmmit = {
         id: this.id,
         text: nameValue,

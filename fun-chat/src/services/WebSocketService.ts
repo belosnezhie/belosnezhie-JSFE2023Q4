@@ -176,8 +176,6 @@ export class WebSocketService {
 
           const messageId: ParamsToEmmit = messageResponce.payload.message.id;
 
-          console.log(`id from server: ${String(messageId)}`);
-
           userEvent.emit('messageWasDeleted', messageId);
         }
 

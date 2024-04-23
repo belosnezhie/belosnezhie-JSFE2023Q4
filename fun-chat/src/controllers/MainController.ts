@@ -122,8 +122,6 @@ export class MainController {
       const loggedInUser = loginStatus.getUser();
 
       if (loggedInUser) {
-        console.log(`Log out user: ${String(loggedInUser.name)}`);
-
         this.webSocketService.logOutUser(loggedInUser);
       }
 

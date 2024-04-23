@@ -64,13 +64,9 @@ export class DialogField extends BaseComponent {
     this.messageForm.addClass('disabled');
 
     this.dialog.addListener('click', () => {
-      console.log('messageWasRead click');
-
       this.collectReadedMessages();
     });
     this.dialog.addListener('wheel', () => {
-      console.log('messageWasRead wheel');
-
       this.collectReadedMessages();
     });
   }
@@ -97,6 +93,10 @@ export class DialogField extends BaseComponent {
     this.dialog.append(messageWrapper);
 
     this.scrollDialog();
+
+    if (message.type === 'sent') {
+      this.collectReadedMessages();
+    }
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
@@ -167,27 +167,6 @@ export class DialogField extends BaseComponent {
     this.userPlaceholder.removeElement();
   }
 
-  private collectAllIDs(): string[] {
-    const children = this.dialog.getChildren();
-    const idArr: string[] = [];
-
-    children.forEach((item) => {
-      if (item.getElement().classList.contains('sent')) {
-        const status = item.getElement().getAttribute('data-status');
-
-        if (status) {
-          const id = item.getAttribute('data-id');
-
-          if (id) {
-            idArr.push(id);
-          }
-        }
-      }
-    });
-
-    return idArr;
-  }
-
   private collectAllRecievedIDs(): string[] {
     const children = this.dialog.getChildren();
     const idArr: string[] = [];
@@ -212,8 +191,6 @@ export class DialogField extends BaseComponent {
 
     if (idArr.length !== 0) {
       userEvent.emit('userReadMessage', data);
-
-      console.log(idArr[1]);
     }
   }
 

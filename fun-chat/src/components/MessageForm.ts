@@ -49,38 +49,6 @@ export class MessageForm extends Form {
 
       this.messageInput.setTextContent('');
       input.value = '';
-      console.log('message was swend by form');
     });
-
-    // this.addListener('keyup', (event: Event) => {
-    //   this.getMessageDataByEnter(event);
-    // });
-  }
-
-  private getMessageDataByClick(event: Event) {
-    event.preventDefault();
-    const target: HTMLFormElement = event.target as HTMLFormElement;
-
-    const input = target.elements[0] as HTMLInputElement;
-    const message: ParamsToEmmit = input.value;
-
-    userEvent.emit('messageWasSent', message);
-
-    this.messageInput.setTextContent('');
-    input.value = '';
-  }
-
-  private getMessageDataByEnter(event: Event) {
-    event.preventDefault();
-    const keyEvent: KeyboardEvent = <KeyboardEvent>event;
-
-    if (keyEvent.key === 'Enter') {
-      const target: HTMLInputElement = event.target as HTMLInputElement;
-      const message: ParamsToEmmit = target.value;
-
-      userEvent.emit('messageWasSent', message);
-
-      this.messageInput.setTextContent('');
-    }
   }
 }
