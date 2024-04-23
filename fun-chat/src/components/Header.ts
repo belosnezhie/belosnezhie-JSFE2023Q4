@@ -1,5 +1,6 @@
+import { router } from '../controllers/Router';
 import { userEvent } from '../services/UsersEventEmmiter';
-import { ParamsToEmmit } from '../types.ts/Types';
+import { Pages, ParamsToEmmit } from '../types.ts/Types';
 
 import { Button } from './Button';
 import { BaseComponent } from './Component';
@@ -26,7 +27,9 @@ export class Header extends BaseComponent {
 
       userEvent.emit('logoutUser', data);
     });
-    const infoButton = new Button('Info', 'info_button', () => {});
+    const infoButton = new Button('Info', 'info_button', () => {
+      router.navigate(Pages.about);
+    });
 
     buttonsContainer.append(infoButton);
     buttonsContainer.append(logOutButton);

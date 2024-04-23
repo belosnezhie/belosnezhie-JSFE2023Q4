@@ -7,8 +7,8 @@ export interface Route {
 }
 
 export enum Pages {
+  about = 'about',
   authorization = 'authorization',
-  info = 'info',
   main = 'main',
   not_found = 'not_found',
 }

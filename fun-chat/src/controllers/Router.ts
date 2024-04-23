@@ -1,8 +1,8 @@
-import { AuthenticationPage } from '../pages/AuthenticationPage';
 import { NotFoundPage } from '../pages/NotFoundPage';
 import { loginStatus } from '../services/SessionStorage';
 import { Pages, Route } from '../types.ts/Types';
 
+import { AboutController } from './AboutController';
 import { AuthenticationController } from './AuthenticationController';
 import { MainController } from './MainController';
 
@@ -10,7 +10,7 @@ export class Router {
   private routes: Route[];
   private mainController: MainController;
   private authenticationController: AuthenticationController;
-  private authenticationPage: AuthenticationPage | undefined = undefined;
+  private aboutController: AboutController;
   private notFoundPage: NotFoundPage | undefined = undefined;
   private root: HTMLElement = document.body;
 
@@ -18,6 +18,7 @@ export class Router {
     this.routes = this.createRoutes();
     this.mainController = new MainController(this.root);
     this.authenticationController = new AuthenticationController(this.root);
+    this.aboutController = new AboutController(this.root);
 
     window.addEventListener('popstate', () => {
       this.changeURL();
@@ -67,6 +68,7 @@ export class Router {
   renderAuth() {
     this.mainController.destroy();
     this.authenticationController.destroy();
+    this.aboutController.destroy();
     this.authenticationController = new AuthenticationController(this.root);
     this.authenticationController.renderPage();
   }
@@ -74,8 +76,17 @@ export class Router {
   async renderMain() {
     this.mainController.destroy();
     this.authenticationController.destroy();
+    this.aboutController.destroy();
     this.mainController = new MainController(this.root);
     await this.mainController.renderPage();
+  }
+
+  renderAbout() {
+    this.mainController.destroy();
+    this.authenticationController.destroy();
+    this.aboutController.destroy();
+    this.aboutController = new AboutController(this.root);
+    this.aboutController.renderPage();
   }
 
   renderNotFound() {
@@ -109,6 +120,13 @@ export class Router {
             return;
           }
           await this.renderMain();
+        },
+      },
+      {
+        // about page
+        path: Pages.about,
+        callback: () => {
+          this.renderAbout();
         },
       },
       {

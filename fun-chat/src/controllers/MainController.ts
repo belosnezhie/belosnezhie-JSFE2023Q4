@@ -117,9 +117,11 @@ export class MainController {
       }
       const loggedInUser = loginStatus.getUser();
 
-      console.log(`Log out user: ${String(loggedInUser.name)}`);
+      if (loggedInUser) {
+        console.log(`Log out user: ${String(loggedInUser.name)}`);
 
-      this.webSocketService.logOutUser(loggedInUser);
+        this.webSocketService.logOutUser(loggedInUser);
+      }
 
       loginStatus.clearLoginStatus();
       router.navigate(Pages.authorization);
@@ -169,10 +171,13 @@ export class MainController {
 
     this.webSocketService.set(webSocket);
 
-    const userDataFromSrorage: UserData = loginStatus.getUser();
+    const userDataFromSrorage: UserData | undefined = loginStatus.getUser();
 
-    this.webSocketService.logInUser(userDataFromSrorage);
-    this.loggedUser = userDataFromSrorage.name;
+    if (userDataFromSrorage) {
+      this.webSocketService.logInUser(userDataFromSrorage);
+      this.loggedUser = userDataFromSrorage.name;
+    }
+
     this.header.setUserName(this.loggedUser);
     this.webSocketService.getAllAuthUsers();
     this.webSocketService.getAllUNAuthUsers();

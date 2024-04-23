@@ -1,12 +1,28 @@
 @import '../index.css';
 
-.not_found_page {
+.about_page {
     min-width: 100%;
     min-height: 100vh;
-    padding: 10px;
+    padding: 20%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    background-color: var(--page-background-color);
+}
+
+.about_description {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 15px;
-    background-color: var(--page-background-color);
+    border: 2px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.about_text {
+    text-align: center;
 }

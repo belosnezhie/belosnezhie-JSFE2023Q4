@@ -15,16 +15,16 @@ class LoginStatus {
     sessionStorage.removeItem(this.key);
   }
 
-  public getUser(): UserData {
+  public getUser(): UserData | undefined {
     const nameInString: string | null = sessionStorage.getItem(this.key);
 
-    if (!nameInString) {
-      throw new Error('Used data is not defined');
+    if (nameInString) {
+      const name: UserData = <UserData>JSON.parse(nameInString);
+
+      return name;
+    } else {
+      return undefined;
     }
-
-    const name: UserData = <UserData>JSON.parse(nameInString);
-
-    return name;
   }
 
   public setLoginStatus(name: string, password: string): void {

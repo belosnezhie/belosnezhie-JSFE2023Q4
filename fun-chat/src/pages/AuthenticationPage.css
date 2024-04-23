@@ -5,20 +5,22 @@
     min-height: 100vh;
     padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
     background-color: var(--page-background-color);
 }
 
 .authentication_form {
-    width: 600px;
-    height: 400px;
+    max-width: 600px;
+    width: 80%;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: 15px;
 }
 
 .name_input, 
@@ -41,6 +43,10 @@
     background-color: var(--button-background-color);
     border: none;
     border-radius: 4px;
+}
+
+.submit_input:hover {
+    background-color: var(--hover-color);
 }
 
 .error_message {
