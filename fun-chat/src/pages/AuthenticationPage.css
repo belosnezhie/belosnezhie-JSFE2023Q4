@@ -53,3 +53,7 @@
     width: 60%;
     text-align: center;
 }
+
+.shadow_wrapper.auth_modal {
+    cursor: pointer;
+}

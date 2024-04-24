@@ -41,6 +41,8 @@ export class AuthenticationPage extends BaseComponent {
 
     this.modal = modal;
 
+    this.modal.addClass('auth_modal');
+
     this.modal.addListener('click', () => {
       if (this.modal) {
         this.removeChild(this.modal);

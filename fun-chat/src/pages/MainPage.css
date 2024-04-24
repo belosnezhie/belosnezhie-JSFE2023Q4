@@ -191,7 +191,8 @@
 .time,
 .status,
 .receiver,
-.author {
+.author,
+.edited_status {
     font-size: 0.7rem;
 }
 
