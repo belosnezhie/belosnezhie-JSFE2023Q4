@@ -81,4 +81,8 @@ export class MainPage extends BaseComponent {
       this.modal.removeElement();
     }
   }
+
+  public clearDialogHistory() {
+    this.dialogField.clearHistory();
+  }
 }

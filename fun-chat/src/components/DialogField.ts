@@ -72,6 +72,7 @@ export class DialogField extends BaseComponent {
   }
 
   public setUserData(userData: User) {
+    this.clearHistory();
     this.messageForm.removeClass('disabled');
     this.removeUserPlaceholder();
 
@@ -100,7 +101,8 @@ export class DialogField extends BaseComponent {
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
-    this.dialog.removeChildren();
+    // this.dialog.removeChildren();
+    this.clearHistory();
 
     if (dialogHistory.length === 0) {
       this.dialog.append(this.showHistoryPlaceholder());
@@ -142,6 +144,10 @@ export class DialogField extends BaseComponent {
     }
   }
 
+  public clearHistory() {
+    this.dialog.removeChildren();
+  }
+
   private findMessage(id: string) {
     const messageHistoty = this.dialog.getChildren();
     const message: Message = <Message>(
@@ -152,6 +158,8 @@ export class DialogField extends BaseComponent {
   }
 
   private showHistoryPlaceholder(): BaseComponent {
+    this.clearHistory();
+
     const historyPlaceholder = new BaseComponent({
       tag: 'div',
       className: 'dialog_placeholder',

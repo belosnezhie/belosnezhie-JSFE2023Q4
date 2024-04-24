@@ -126,6 +126,8 @@ export class MainController {
     userEvent.subscribe('dialogHistory', (dialogHistoryData: ParamsToEmmit) => {
       let dialogHistory = this.setDialogHistory(dialogHistoryData);
 
+      this.mainPage.clearDialogHistory();
+
       dialogHistory = dialogHistory.map((item) => {
         return this.checkMessageType(item);
       });
@@ -163,6 +165,8 @@ export class MainController {
     });
 
     userEvent.subscribe('messageWasRead', (messageId: ParamsToEmmit) => {
+      console.log('read triggered');
+
       this.mainPage.updateReadedMessage(String(messageId));
     });
 
