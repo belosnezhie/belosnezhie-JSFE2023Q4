@@ -135,7 +135,7 @@ export class MainController {
       router.navigate(Pages.authorization);
     });
 
-    userEvent.subscribe('wrongPssword', (errorData: ParamsToEmmit) => {
+    userEvent.subscribe('wrongPassword', (errorData: ParamsToEmmit) => {
       const errorText: ErrorText = <ErrorText>errorData;
 
       loginStatus.clearLoginStatus();
@@ -173,6 +173,10 @@ export class MainController {
           this.mainPage.renderMessage(message);
         }
       }
+    });
+
+    userEvent.subscribe('messageWasDelivered', (messageId: ParamsToEmmit) => {
+      this.mainPage.delivereMessage(String(messageId));
     });
 
     userEvent.subscribe('messageWasDeleted', (messageId: ParamsToEmmit) => {

@@ -1,5 +1,6 @@
 import {
   DeletedMessagesPayload,
+  DeliveredMessagesPayload,
   EditedMessagesPayload,
   ErrorResponse,
   MessagesPayload,
@@ -170,6 +171,16 @@ export class WebSocketService {
           userEvent.emit('messageStatus', data);
         }
 
+        if (responceType === 'MSG_DELIVER') {
+          const messageResponce: DeliveredMessagesPayload = <
+            DeliveredMessagesPayload
+          >response;
+
+          const messageId: ParamsToEmmit = messageResponce.payload.message.id;
+
+          userEvent.emit('messageWasDelivered', messageId);
+        }
+
         if (responceType === 'MSG_DELETE') {
           const messageResponce: DeletedMessagesPayload = <
             DeletedMessagesPayload
@@ -222,7 +233,7 @@ export class WebSocketService {
               text: 'Incorrect password, try another one.',
             };
 
-            userEvent.emit('wrongPssword', errorText);
+            userEvent.emit('wrongPassword', errorText);
           }
         }
       },

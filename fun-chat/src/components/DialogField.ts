@@ -111,6 +111,14 @@ export class DialogField extends BaseComponent {
     });
   }
 
+  public delivereMessage(id: string) {
+    const message = this.findMessage(id);
+
+    if (message) {
+      message.setDeliveredStatus();
+    }
+  }
+
   public deleteMessage(id: string) {
     const message = this.findMessage(id);
 

@@ -86,14 +86,16 @@ export class Message extends Form {
       statusValue = 'readed';
     }
 
-    // if (messageStatus.isEdited) {
-    //   this.setEditedStatus();
-    // }
-
     if (this.status) {
       this.status.setTextContent(statusValue);
     }
     this.statusValue = statusValue;
+  }
+
+  public setDeliveredStatus() {
+    if (this.status) {
+      this.status?.setTextContent('delivered');
+    }
   }
 
   public editMessage(text: string) {

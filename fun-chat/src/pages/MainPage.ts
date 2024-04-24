@@ -60,6 +60,10 @@ export class MainPage extends BaseComponent {
     this.dialogField.scrollDialog();
   }
 
+  public delivereMessage(id: string) {
+    this.dialogField.delivereMessage(id);
+  }
+
   public deleteMessage(id: string) {
     this.dialogField.deleteMessage(id);
   }
