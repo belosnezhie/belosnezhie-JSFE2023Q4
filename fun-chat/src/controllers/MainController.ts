@@ -130,6 +130,8 @@ export class MainController {
       loginStatus.clearLoginStatus();
       loginStatus.setLogInError(errorText.text);
 
+      this.webSocketService.closeConnection();
+
       router.navigate(Pages.authorization);
     });
 

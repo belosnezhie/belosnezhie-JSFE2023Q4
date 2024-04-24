@@ -272,6 +272,10 @@ export class WebSocketService {
     this.webSocket?.close(1000);
   }
 
+  public closeConnection() {
+    this.webSocket?.close(1000);
+  }
+
   public getAllAuthUsers() {
     const data = {
       id: this.createRequestId(),

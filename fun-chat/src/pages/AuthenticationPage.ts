@@ -5,6 +5,7 @@ import { Button } from '../components/Button';
 import { BaseComponent } from '../components/Component';
 import { ModalWindow } from '../components/Modal';
 import { router } from '../controllers/Router';
+import { loginStatus } from '../services/SessionStorage';
 import { Pages } from '../types.ts/Types';
 
 export class AuthenticationPage extends BaseComponent {
@@ -43,6 +44,7 @@ export class AuthenticationPage extends BaseComponent {
     this.modal.addListener('click', () => {
       if (this.modal) {
         this.removeChild(this.modal);
+        loginStatus.clearErrorStatus();
       }
     });
 
