@@ -48,7 +48,15 @@ export class MainPage extends BaseComponent {
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
-    this.dialogField.renderDialogHistory(dialogHistory);
+    // this.dialogField.renderDialogHistory(dialogHistory);
+    if (dialogHistory.length === 0) {
+      this.dialogField.showHistoryPlaceholder();
+
+      return;
+    }
+    dialogHistory.forEach((message) => {
+      this.renderMessage(message);
+    });
   }
 
   public scrollDialog() {

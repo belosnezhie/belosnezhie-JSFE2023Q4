@@ -72,7 +72,6 @@ export class DialogField extends BaseComponent {
   }
 
   public setUserData(userData: User) {
-    this.clearHistory();
     this.messageForm.removeClass('disabled');
     this.removeUserPlaceholder();
 
@@ -100,18 +99,17 @@ export class DialogField extends BaseComponent {
     }
   }
 
-  public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
-    // this.dialog.removeChildren();
-    this.clearHistory();
+  // public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
+  //   this.clearHistory();
 
-    if (dialogHistory.length === 0) {
-      this.dialog.append(this.showHistoryPlaceholder());
-    }
+  //   if (dialogHistory.length === 0) {
+  //     this.dialog.append(this.showHistoryPlaceholder());
+  //   }
 
-    dialogHistory.forEach((item) => {
-      this.renderMessage(item);
-    });
-  }
+  //   dialogHistory.forEach((item) => {
+  //     this.renderMessage(item);
+  //   });
+  // }
 
   public scrollDialog() {
     this.dialog.getElement().scrollTo({
@@ -157,8 +155,8 @@ export class DialogField extends BaseComponent {
     return message;
   }
 
-  private showHistoryPlaceholder(): BaseComponent {
-    this.clearHistory();
+  public showHistoryPlaceholder() {
+    // this.clearHistory();
 
     const historyPlaceholder = new BaseComponent({
       tag: 'div',
@@ -168,7 +166,9 @@ export class DialogField extends BaseComponent {
 
     this.historyPlaceholder = historyPlaceholder;
 
-    return historyPlaceholder;
+    this.dialog.append(this.historyPlaceholder);
+
+    // return historyPlaceholder;
   }
 
   private removeUserPlaceholder() {
