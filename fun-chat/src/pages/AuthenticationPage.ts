@@ -8,6 +8,8 @@ import { router } from '../controllers/Router';
 import { Pages } from '../types.ts/Types';
 
 export class AuthenticationPage extends BaseComponent {
+  private modal: ModalWindow | undefined;
+
   constructor() {
     const form = new AuthForm('AuthenticationForm');
 
@@ -31,5 +33,19 @@ export class AuthenticationPage extends BaseComponent {
     );
 
     this.append(modal);
+  }
+
+  public showErrorModal(errorText: string) {
+    const modal = new ModalWindow(errorText);
+
+    this.modal = modal;
+
+    this.modal.addListener('click', () => {
+      if (this.modal) {
+        this.removeChild(this.modal);
+      }
+    });
+
+    this.append(this.modal);
   }
 }

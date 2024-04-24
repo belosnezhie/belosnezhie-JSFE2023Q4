@@ -1,6 +1,7 @@
 import {
   DeletedMessagesPayload,
   EditedMessagesPayload,
+  ErrorResponse,
   MessagesPayload,
   ParamsToEmmit,
   ReadedMessagesPayload,
@@ -137,7 +138,7 @@ export class WebSocketService {
                 status: {
                   isDelivered: item.status.isDelivered,
                   isReaded: item.status.isReaded,
-                  isEdited: item.status.isReaded,
+                  isEdited: item.status.isEdited,
                 },
               };
 
@@ -202,10 +203,35 @@ export class WebSocketService {
 
           userEvent.emit('messageWasRead', messageId);
         }
+
+        if (responceType === 'ERROR') {
+          const errorResponce: ErrorResponse = <ErrorResponse>response;
+
+          const errorType: string = errorResponce.payload.error;
+
+          if (errorType === 'a user with this login is already authorized') {
+            const errorText: ParamsToEmmit = {
+              text: 'A user with this login is already authorized, try another one.',
+            };
+
+            userEvent.emit('userIsAlreadyLogIn', errorText);
+          }
+
+          if (errorType === 'incorrect password') {
+            const errorText: ParamsToEmmit = {
+              text: 'Incorrect password, try another one.',
+            };
+
+            userEvent.emit('wrongPssword', errorText);
+          }
+        }
       },
     );
 
-    this.webSocket.addEventListener('close', () => {
+    this.webSocket.addEventListener('close', (event: CloseEvent) => {
+      if (event.code === 1000) {
+        return;
+      }
       const data: ParamsToEmmit = {};
 
       userEvent.emit('SocketWasClosed', data);
@@ -243,7 +269,7 @@ export class WebSocketService {
     };
 
     this.webSocket?.send(JSON.stringify(data));
-    // this.webSocket?.close();
+    this.webSocket?.close(1000);
   }
 
   public getAllAuthUsers() {

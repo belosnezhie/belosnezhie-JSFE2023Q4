@@ -29,7 +29,7 @@ export class Message extends Form {
 
     if (messageData.type === 'sent') {
       messageProps = this.createSend(messageData);
-      this.widjets = this.createWidgets();
+      this.widjets = this.createWidgets(messageData.status.isEdited);
 
       this.addClass('sent');
     } else {
@@ -86,9 +86,9 @@ export class Message extends Form {
       statusValue = 'readed';
     }
 
-    if (messageStatus.isEdited) {
-      statusValue = 'edited';
-    }
+    // if (messageStatus.isEdited) {
+    //   this.setEditedStatus();
+    // }
 
     if (this.status) {
       this.status.setTextContent(statusValue);
@@ -96,7 +96,7 @@ export class Message extends Form {
     this.statusValue = statusValue;
   }
 
-  public editMessage(text: string, status: boolean = true) {
+  public editMessage(text: string) {
     this.messageContainer.setTextContent(text);
     this.messageContainer.addClass('disabled');
 
@@ -107,17 +107,17 @@ export class Message extends Form {
     if (this.widjets) {
       this.widjets.removeElement();
     }
-    this.widjets = this.createWidgets();
+    this.widjets = this.createWidgets(true);
     this.append(this.widjets);
-
-    if (status && this.status) {
-      this.status.setTextContent('edited');
-    }
   }
 
-  // private createText(message: ResponseMessageData): Textarea {
-  //   return new Textarea('text', 'message-text', 'message', message.text);
-  // }
+  private setEditedStatus(): BaseComponent {
+    return new BaseComponent({
+      tag: 'p',
+      className: 'edited_status',
+      text: 'edited',
+    });
+  }
 
   private createText(): Textarea {
     return new Textarea('text', 'message-text', 'message');
@@ -169,7 +169,7 @@ export class Message extends Form {
     const to = new BaseComponent({
       tag: 'div',
       className: 'receiver',
-      text: message.to,
+      text: 'You',
     });
 
     const status = new BaseComponent({
@@ -194,7 +194,7 @@ export class Message extends Form {
     return sendDataWrapper;
   }
 
-  private createWidgets(): BaseComponent {
+  private createWidgets(isEdited: boolean): BaseComponent {
     const deleteButton = new Button('Delete', 'detete_message_button', () =>
       this.deleteMessage(),
     );
@@ -217,6 +217,12 @@ export class Message extends Form {
       deleteButton,
       editButton,
     );
+
+    if (isEdited) {
+      const editStatus = this.setEditedStatus();
+
+      widgetsWrapper.append(editStatus);
+    }
 
     return widgetsWrapper;
   }

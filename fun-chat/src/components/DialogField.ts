@@ -11,7 +11,7 @@ export class DialogField extends BaseComponent {
   private messageForm: MessageForm;
   private dialog: BaseComponent;
   private userPlaceholder: BaseComponent;
-  private historyPlaceholder: BaseComponent | undefined;
+  private historyPlaceholder: BaseComponent;
 
   constructor() {
     const userName = new BaseComponent({
@@ -53,6 +53,11 @@ export class DialogField extends BaseComponent {
       dialog,
       messageForm,
     );
+    this.historyPlaceholder = new BaseComponent({
+      tag: 'div',
+      className: 'dialog_placeholder',
+      text: 'You have no message history with this user...',
+    });
 
     this.userName = userName;
     this.userStatus = userStatus;
@@ -99,18 +104,6 @@ export class DialogField extends BaseComponent {
     }
   }
 
-  // public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
-  //   this.clearHistory();
-
-  //   if (dialogHistory.length === 0) {
-  //     this.dialog.append(this.showHistoryPlaceholder());
-  //   }
-
-  //   dialogHistory.forEach((item) => {
-  //     this.renderMessage(item);
-  //   });
-  // }
-
   public scrollDialog() {
     this.dialog.getElement().scrollTo({
       top: this.dialog.getElement().scrollHeight,
@@ -126,11 +119,11 @@ export class DialogField extends BaseComponent {
     }
   }
 
-  public editMessage(id: string, text: string, status: boolean = true) {
+  public editMessage(id: string, text: string) {
     const message = this.findMessage(id);
 
     if (message) {
-      message.editMessage(text, status);
+      message.editMessage(text);
     }
   }
 
@@ -143,6 +136,7 @@ export class DialogField extends BaseComponent {
   }
 
   public clearHistory() {
+    this.dialog.getElement().innerHTML = '';
     this.dialog.removeChildren();
   }
 
@@ -156,19 +150,7 @@ export class DialogField extends BaseComponent {
   }
 
   public showHistoryPlaceholder() {
-    // this.clearHistory();
-
-    const historyPlaceholder = new BaseComponent({
-      tag: 'div',
-      className: 'dialog_placeholder',
-      text: 'You have no message history with this user...',
-    });
-
-    this.historyPlaceholder = historyPlaceholder;
-
     this.dialog.append(this.historyPlaceholder);
-
-    // return historyPlaceholder;
   }
 
   private removeUserPlaceholder() {

@@ -106,6 +106,18 @@ export interface MessageStatus {
   isEdited: boolean;
 }
 
+export interface ErrorResponse {
+  id: string;
+  type: string;
+  payload: {
+    error: string;
+  };
+}
+
+export interface ErrorText {
+  text: string;
+}
+
 // Types for rendering
 
 export interface User {

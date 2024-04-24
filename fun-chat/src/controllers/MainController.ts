@@ -7,6 +7,7 @@ import { userEvent } from '../services/UsersEventEmmiter';
 import { WebSocketService } from '../services/WebSocketService';
 import {
   EditedMessageData,
+  ErrorText,
   IdData,
   Pages,
   ParamsToEmmit,
@@ -123,6 +124,24 @@ export class MainController {
       this.webSocketService.getAllUNAuthUsers();
     });
 
+    userEvent.subscribe('userIsAlreadyLogIn', (errorData: ParamsToEmmit) => {
+      const errorText: ErrorText = <ErrorText>errorData;
+
+      loginStatus.clearLoginStatus();
+      loginStatus.setLogInError(errorText.text);
+
+      router.navigate(Pages.authorization);
+    });
+
+    userEvent.subscribe('wrongPssword', (errorData: ParamsToEmmit) => {
+      const errorText: ErrorText = <ErrorText>errorData;
+
+      loginStatus.clearLoginStatus();
+      loginStatus.setLogInError(errorText.text);
+
+      router.navigate(Pages.authorization);
+    });
+
     userEvent.subscribe('dialogHistory', (dialogHistoryData: ParamsToEmmit) => {
       let dialogHistory = this.setDialogHistory(dialogHistoryData);
 
@@ -161,12 +180,10 @@ export class MainController {
     userEvent.subscribe('messageWasEdited', (messageData: ParamsToEmmit) => {
       const data = this.setEditedMessage(messageData);
 
-      this.mainPage.editMessage(data.id, data.text, data.status?.isEdited);
+      this.mainPage.editMessage(data.id, data.text);
     });
 
     userEvent.subscribe('messageWasRead', (messageId: ParamsToEmmit) => {
-      console.log('read triggered');
-
       this.mainPage.updateReadedMessage(String(messageId));
     });
 

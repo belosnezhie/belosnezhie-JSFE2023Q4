@@ -93,7 +93,7 @@ export class BaseComponent {
     this.children.forEach((child) => {
       child.removeElement();
     });
-    this.children.length = 0;
+    this.children = [];
   }
 
   removeClass(className: string) {

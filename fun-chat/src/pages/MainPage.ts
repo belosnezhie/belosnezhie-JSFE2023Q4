@@ -48,11 +48,8 @@ export class MainPage extends BaseComponent {
   }
 
   public renderDialogHistory(dialogHistory: ResponseMessageData[]) {
-    // this.dialogField.renderDialogHistory(dialogHistory);
     if (dialogHistory.length === 0) {
       this.dialogField.showHistoryPlaceholder();
-
-      return;
     }
     dialogHistory.forEach((message) => {
       this.renderMessage(message);
@@ -67,8 +64,8 @@ export class MainPage extends BaseComponent {
     this.dialogField.deleteMessage(id);
   }
 
-  public editMessage(id: string, text: string, status: boolean = true) {
-    this.dialogField.editMessage(id, text, status);
+  public editMessage(id: string, text: string) {
+    this.dialogField.editMessage(id, text);
   }
 
   public updateReadedMessage(id: string) {
