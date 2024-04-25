@@ -37,6 +37,12 @@ export class AboutController {
   }
 
   destroy() {
+    this.unSubcribeFromEvents();
     this.aboutPage.removeElement();
+  }
+
+  unSubcribeFromEvents() {
+    userEvent.unsubscribeAll('userReturned');
+    userEvent.unsubscribeAll('SocketWasClosed');
   }
 }

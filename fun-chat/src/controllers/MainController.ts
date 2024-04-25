@@ -85,6 +85,9 @@ export class MainController {
     userEvent.unsubscribeAll('userDeletedMessage');
     userEvent.unsubscribeAll('userEditedMessage');
     userEvent.unsubscribeAll('logoutUser');
+    userEvent.unsubscribeAll('userLoggedOut');
+    userEvent.unsubscribeAll('userIsAlreadyLogIn');
+    userEvent.unsubscribeAll('messageWasDelivered');
   }
 
   subscribeToEvents() {
@@ -204,14 +207,19 @@ export class MainController {
       if (userData) {
         console.log(`Log out user: ${String(userData)}`);
       }
-      const loggedInUser = loginStatus.getUser();
 
-      if (loggedInUser) {
-        this.webSocketService.logOutUser(loggedInUser);
-      }
+      this.logOutUser();
 
       loginStatus.clearLoginStatus();
       router.navigate(Pages.authorization);
+    });
+
+    userEvent.subscribe('logoutUserToAbout', (userData: ParamsToEmmit) => {
+      if (userData) {
+        console.log(`Log out user: ${String(userData)}`);
+      }
+
+      this.logOutUser();
     });
 
     userEvent.subscribe('userWasSelected', (userParams: ParamsToEmmit) => {
@@ -252,6 +260,14 @@ export class MainController {
 
       this.webSocketService.readMessage(data.idArr);
     });
+  }
+
+  logOutUser() {
+    const loggedInUser = loginStatus.getUser();
+
+    if (loggedInUser) {
+      this.webSocketService.logOutUser(loggedInUser);
+    }
   }
 
   setUsers(usersParams: ParamsToEmmit) {

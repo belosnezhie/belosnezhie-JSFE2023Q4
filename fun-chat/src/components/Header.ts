@@ -28,6 +28,10 @@ export class Header extends BaseComponent {
       userEvent.emit('logoutUser', data);
     });
     const infoButton = new Button('Info', 'info_button', () => {
+      const data: ParamsToEmmit = {};
+
+      userEvent.emit('logoutUserToAbout', data);
+
       router.navigate(Pages.about);
     });
 
