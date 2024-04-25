@@ -20,11 +20,12 @@ export class MainPage extends BaseComponent {
         className: 'main_page',
       },
       usersList,
-      dialogField,
     );
 
     this.usersList = usersList;
     this.dialogField = dialogField;
+
+    this.append(this.dialogField);
   }
 
   public updateAuthUsers(authUsers: User[]) {
@@ -51,9 +52,9 @@ export class MainPage extends BaseComponent {
     if (dialogHistory.length === 0) {
       this.dialogField.showHistoryPlaceholder();
     }
-    dialogHistory.forEach((message) => {
-      this.renderMessage(message);
-    });
+    for (const messsage of dialogHistory) {
+      this.renderMessage(messsage);
+    }
   }
 
   public scrollDialog() {

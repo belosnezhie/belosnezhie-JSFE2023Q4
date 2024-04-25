@@ -32,11 +32,6 @@ export class DialogField extends BaseComponent {
       userName,
       userStatus,
     );
-    const dialog = new BaseComponent({
-      tag: 'div',
-      className: 'dialog',
-    });
-    const messageForm = new MessageForm('messageForm');
 
     const userPlaceholder = new BaseComponent({
       tag: 'div',
@@ -50,8 +45,6 @@ export class DialogField extends BaseComponent {
         className: 'dialog_field',
       },
       usersInfoWrapper,
-      dialog,
-      messageForm,
     );
     this.historyPlaceholder = new BaseComponent({
       tag: 'div',
@@ -61,14 +54,24 @@ export class DialogField extends BaseComponent {
 
     this.userName = userName;
     this.userStatus = userStatus;
-    this.messageForm = messageForm;
-    this.dialog = dialog;
+    this.dialog = new BaseComponent({
+      tag: 'div',
+      className: 'dialog',
+    });
+    this.append(this.dialog);
+    this.messageForm = new MessageForm('messageForm');
+    this.append(this.messageForm);
     this.userPlaceholder = userPlaceholder;
     this.dialog.append(this.userPlaceholder);
 
     this.messageForm.addClass('disabled');
 
-    this.dialog.addListener('click', () => {
+    this.dialog.addListener('click', (event: Event) => {
+      const taget: HTMLElement = <HTMLElement>event.target;
+
+      if (taget.classList.contains('detete_message_button')) {
+        return;
+      }
       this.collectReadedMessages();
     });
     this.dialog.addListener('wheel', () => {
@@ -90,10 +93,6 @@ export class DialogField extends BaseComponent {
 
   public renderMessage(message: ResponseMessageData) {
     const messageWrapper = new Message('message', message);
-
-    if (this.historyPlaceholder) {
-      this.dialog.removeChild(this.historyPlaceholder);
-    }
 
     this.dialog.append(messageWrapper);
 
@@ -144,8 +143,8 @@ export class DialogField extends BaseComponent {
   }
 
   public clearHistory() {
-    this.dialog.getElement().innerHTML = '';
     this.dialog.removeChildren();
+    this.dialog.getElement().innerHTML = '';
   }
 
   private findMessage(id: string) {
@@ -155,6 +154,19 @@ export class DialogField extends BaseComponent {
     );
 
     return message;
+
+    // const messageHistoty = Array.from(this.dialog.getElement().children);
+    // const message: Message = <Message>(
+    //   messageHistoty.find((item) => item.getAttribute('data-id') === id)
+    // );
+    // const message: Message = <Message>(
+    //   messageHistoty.find((item) => {
+    //     itemHTML: HTMLElement = <HTMLElement>item;
+    //     return itemHTML.getAttribute('data-id') === id;
+    //   }
+    // );
+
+    // return message;
   }
 
   public showHistoryPlaceholder() {
@@ -169,7 +181,7 @@ export class DialogField extends BaseComponent {
     const children = this.dialog.getChildren();
     const idArr: string[] = [];
 
-    children.forEach((item) => {
+    for (const item of children) {
       if (item.getElement().classList.contains('received')) {
         const id = item.getAttribute('data-id');
 
@@ -177,7 +189,7 @@ export class DialogField extends BaseComponent {
           idArr.push(id);
         }
       }
-    });
+    }
 
     return idArr;
   }

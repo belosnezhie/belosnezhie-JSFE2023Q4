@@ -40,9 +40,9 @@ export class BaseComponent {
   }
 
   appendChildren(children: BaseComponent[]) {
-    children.forEach((child) => {
+    for (const child of children) {
       this.append(child);
-    });
+    }
   }
 
   getAttribute(attribute: string): string | null {
@@ -90,10 +90,10 @@ export class BaseComponent {
   }
 
   removeChildren() {
-    this.children.forEach((child) => {
+    for (const child of this.children) {
       child.removeElement();
-    });
-    this.children = [];
+    }
+    this.children.length = 0;
   }
 
   removeClass(className: string) {

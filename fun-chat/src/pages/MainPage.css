@@ -158,7 +158,8 @@
 }
 
 .send_data_wrapper, 
-.message_widjet_wrapper {
+.message_widjet_wrapper,
+.recieved_data_wrapper {
     display: flex;
     justify-content: space-between;
 }

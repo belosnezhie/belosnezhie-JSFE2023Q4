@@ -13,6 +13,7 @@ import { Textarea } from './Textarea';
 
 export class Message extends Form {
   private status: BaseComponent | undefined;
+  private editedStatus: BaseComponent | undefined;
   private statusValue: string | null = null;
   private type: string;
   private id: string;
@@ -103,6 +104,8 @@ export class Message extends Form {
     this.messageContainer.addClass('disabled');
 
     if (this.type === 'received') {
+      this.updateEditedStatus();
+
       return;
     }
 
@@ -117,8 +120,13 @@ export class Message extends Form {
     return new BaseComponent({
       tag: 'p',
       className: 'edited_status',
-      text: 'edited',
     });
+  }
+
+  private updateEditedStatus() {
+    if (this.editedStatus) {
+      this.editedStatus.setTextContent('edited');
+    }
   }
 
   private createText(): Textarea {
@@ -144,6 +152,10 @@ export class Message extends Form {
     }
   }
 
+  public destroyMessage() {
+    this.getElement().innerHTML = '';
+  }
+
   private createResived(message: ResponseMessageData) {
     const time = this.createTime(message);
 
@@ -153,6 +165,10 @@ export class Message extends Form {
       text: message.from,
     });
 
+    const status = this.setEditedStatus();
+
+    this.editedStatus = status;
+
     const recievedDataWrapper = new BaseComponent(
       {
         tag: 'div',
@@ -160,7 +176,12 @@ export class Message extends Form {
       },
       time,
       from,
+      status,
     );
+
+    if (message.status.isEdited && this.editedStatus) {
+      this.editedStatus.setTextContent('edited');
+    }
 
     return recievedDataWrapper;
   }
