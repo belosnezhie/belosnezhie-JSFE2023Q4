@@ -15,16 +15,13 @@ let viewHorisontalClues = undefined;
 let viewGame = undefined;
 let viewShadowWrapper = undefined;
 
-// Переменные игрового поля
 let viewField = undefined;
 
-// Переменные селекторов
 let viewLevel = undefined;
 let viewImageIndex = undefined;
 let viewLevelSelector = undefined;
 let viewImageSelector = undefined;
 
-// Переменные кнопок
 let viewSaveButton = undefined;
 
 export function renderApp() {
@@ -125,7 +122,6 @@ export function renderApp() {
 
   const levelsArr = findLevels();
 
-  // Level selector
   const selectLevel = renderElement('select', 'level', levelControlsConteiner);
   levelsArr.forEach((level) => {
     const option = renderElement('option', '', selectLevel);
@@ -142,7 +138,6 @@ export function renderApp() {
   });
   checkLevel(levelControlsConteiner);
 
-  // Timer
   const gameField = renderElement('div', 'game-field', gameFieldContainer);
   const counterContainer = renderElement('div', 'counter-container', gameField);
   const time = renderElement('span', 'time', counterContainer);
@@ -150,7 +145,6 @@ export function renderApp() {
   viewTime = time;
   setInterval(countTime, 1000);
 
-  //Game field
   const field = renderElement('div', 'field', gameField);
   viewField = field;
 
@@ -159,7 +153,6 @@ export function renderApp() {
   solutionButton.addEventListener('click', showSolution);
 }
 
-// ФУНКЦИЯ РЕНДЕРА ИГРОВОГО ПОЛЯ
 export function renderGameField() {
   console.clear();
   if (viewField.childNodes.length > 0) {
@@ -226,7 +219,6 @@ function createVerticalHints(parent) {
   });
 }
 
-// Рендер второго селектора
 function checkLevel(parent, event) {
   let level = 'Easy';
   if (event) {
@@ -276,12 +268,10 @@ function checkLevel(parent, event) {
   });
 }
 
-// Рендер кнопок
 function renderButton(parent, type) {
   return renderElement('button', 'button', parent, type);
 }
 
-//Рендер модалки
 function renderModal(event) {
   isPaused = true;
   const shadowWrapper = renderElement('div', 'shadow-wrapper', document.body);
@@ -354,7 +344,6 @@ document.body.addEventListener('click', (event) => {
   }
 });
 
-// Функция таймера
 function countTime() {
   if (isPaused) {
     return;
@@ -367,7 +356,6 @@ function countTime() {
   seconds++;
 }
 
-// Общая функция создания элемента
 function renderElement(elTag, elClass, elParent, addElClass) {
   const el = document.createElement(elTag);
   if (elClass) {
@@ -380,10 +368,8 @@ function renderElement(elTag, elClass, elParent, addElClass) {
   return el;
 }
 
-//// ЛОГИКА КЛИКОВ ПО ЯЧЕЙКАМ
 let chosenTrueCells = [];
 let chosenFalseCells = [];
-// Массивы для сохранения игры и ее рендера после загрузки
 let crossedCellsCoordinates = [];
 let darkedCellsCoordinates = [];
 
@@ -408,7 +394,6 @@ function checkAndRerenderMatrix(event) {
   checkMatrix();
 }
 
-// Импорт звуков
 import { darkSound } from './model.js';
 import { crossSound } from './model.js';
 import { clearSound } from './model.js';
@@ -474,7 +459,6 @@ function checkMatrix(event) {
       winSound.play();
       localStorage.setItem('JSFE2023Q4time', currentTime);
       renderModal(event);
-      //Сохранение результатов в ЛС
       rememberResults();
     }
   }

@@ -1,11 +1,10 @@
-import data from './data.json' assert { type: 'json' };
+import data from './data.json' with { type: 'json' };
 
 export let randomMatrixObj = undefined;
 export let horisontalHints = undefined;
 export let verticalHints = undefined;
 export let trueСellsArray = undefined;
 
-// При загрузке
 export function generateDefault() {
   randomMatrixObj = data[level][imageIndex];
   horisontalHints = formHorisontalHints();
@@ -125,12 +124,6 @@ function formTrueCellsArray() {
   return trueСellsArray;
 }
 
-// export const randomMatrixObj = data[level][0];
-// export const horisontalHints = formHorisontalHints();
-// export const verticalHints = formVerticalHints();
-// export const trueСellsArray = formTrueCellsArray();
-
-// Available levels
 export function findLevels() {
   let levelsArr = [];
   for (const [key] of Object.entries(data)) {
@@ -143,7 +136,6 @@ export function findImageNames(level) {
   return data[level].map((item) => item.name);
 }
 
-// Sounds
 export const soundsArr = [];
 
 export const darkSound = new Audio();
